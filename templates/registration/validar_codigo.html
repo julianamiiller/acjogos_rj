@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Segurança | ACJOGOS-RJ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cadastro_style.css' %}">
+    <style>
+        .code-input-wrapper {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        
+        .input-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 2rem;
+            letter-spacing: 12px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-subtle);
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-glow);
+            width: 100%;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .input-code:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.02);
+        }
+
+        .input-code::placeholder {
+            color: rgba(255, 255, 255, 0.1);
+            letter-spacing: 4px;
+            font-size: 1.5rem;
+        }
+
+        .status-icon {
+            font-size: 3rem;
+            display: block;
+            margin: 0 auto 20px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(0,255,196,0); }
+            50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 20px rgba(0,255,196,0.5); }
+            100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(0,255,196,0); }
+        }
+
+        .resend-text {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main class="cadastro-container" style="max-width: 500px;"> <header class="logo-area">
+            <span class="status-icon">🛡️</span>
+            <h1 class="logo-text" style="font-size: 1.5rem;">Verificação de Identidade</h1>
+        </header>
+        
+        <section class="form-header" style="text-align: center;">
+            <p class="subtitle">Enviamos um código de segurança para o seu e-mail.</p>
+        </section>
+        
+        <form method="post" class="cadastro-form">
+            {% csrf_token %}
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="error-message" style="justify-content: center; margin-bottom: 20px;">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="code-input-wrapper">
+                <input type="text" 
+                       name="codigo" 
+                       class="input-code" 
+                       maxlength="5" 
+                       placeholder="_ _ _ _ _" 
+                       autofocus
+                       required
+                       autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <span>VALIDAR ACESSO</span>
+            </button>
+            
+            <p class="resend-text">
+                Não recebeu? <a href="#" style="color: var(--accent-primary);">Reenviar código</a>
+            </p>
+        </form>
+    </main>
+</body>
+</html>
