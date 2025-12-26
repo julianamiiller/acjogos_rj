@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Intranet ACJOGOS-RJ</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        
+        <div class="logo-area">
+            <span class="logo-text">ACJOGOS-RJ</span>
+        </div>
+
+        <p class="subtitle">Mapa de Empresas e Profissionais de Jogos do Rio de Janeiro</p>
+        
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <p class="error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn-login">ENTRAR</button>
+            
+            <p class="reset-link">
+                <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+            </p>
+        </form>
+    </div>
+</body>
+</html>
