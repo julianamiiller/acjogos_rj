@@ -3,16 +3,18 @@ import os
 from dotenv import load_dotenv # Importação para carregar variáveis de ambiente
 
 # Carrega as configurações do arquivo .env
-load_dotenv()
-
+# É boa prática passar o caminho completo para garantir que o arquivo seja encontrado
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 # CHAVE DE SEGURANÇA DEIXE EM SEGREDO
-SECRET_KEY = os.getenv('SECRET_KEY', 'c%h$_jav!s(z@c-jc7m-#prktoc3%qe-^s@%es84!dbnu5fl4o')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
 
-DEBUG = True
+# DEBUG convertido para booleano (True se a string for 'True')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS convertido de string separada por vírgula para lista
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,5 +113,5 @@ EMAIL_HOST = 'smtp.resend.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'resend' 
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '#####') # Protegido via variável de ambiente
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # Protegido via variável de ambiente
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'onboarding@resend.dev')
