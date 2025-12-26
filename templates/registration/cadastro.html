@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+<main class="auth-wrapper">
+    <div class="auth-card">
+        <aside class="auth-sidebar">
+            <div class="sidebar-content">
+                <div class="logo-brand">ACJOGOS<span>-RJ</span></div>
+                <div class="welcome-message">
+                    <h2>Bem-vindo!</h2>
+                    <p>Mantenha-se conectado conosco. Se já possui conta, basta entrar.</p>
+                </div>
+                <a href="{% url 'login' %}" class="btn-ghost">ENTRAR</a>
+            </div>
+        </aside>
+
+        <section class="auth-form-container">
+            <div class="form-inner">
+                <header class="form-header">
+                    <h1>Crie sua conta</h1>
+                    <p>Preencha os dados abaixo para se registrar</p>
+                </header>
+
+                {% if form.errors %}
+                <div class="error-summary" style="background: rgba(255, 71, 71, 0.1); border-left: 4px solid #ff4747; padding: 15px; border-radius: 12px; margin-bottom: 25px;">
+                    <ul style="list-style: none; color: #ff6b6b; font-size: 0.85rem; padding: 0; margin: 0;">
+                        {% for field_name, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>
+                                    <strong>
+                                        {% if field_name == 'password1' %}Senha
+                                        {% elif field_name == 'password2' %}Confirmar Senha
+                                        {% elif field_name == 'first_name' %}Nome
+                                        {% elif field_name == 'last_name' %}Sobrenome
+                                        {% else %}{{ field_name|title }}{% endif %}:
+                                    </strong> 
+                                    {{ error|striptags }}
+                                </li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <form method="POST" id="formCadastro" class="professional-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first_name">Nome</label>
+                            <input type="text" name="first_name" id="first_name" placeholder="Ex: João" 
+                                   value="{{ form.first_name.value|default:'' }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Sobrenome</label>
+                            <input type="text" name="last_name" id="last_name" placeholder="Ex: Silva" 
+                                   value="{{ form.last_name.value|default:'' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" placeholder="nome@email.com" 
+                               value="{{ form.email.value|default:'' }}" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pass1">Senha</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="password1" id="pass1" placeholder="••••••••" required>
+                                <button type="button" class="toggle-password" onclick="togglePass('pass1')">Ver</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass2">Confirmar Senha</label>
+                            <div class="input-wrapper">
+                                <input type="password" name="password2" id="pass2" placeholder="••••••••" required>
+                                <button type="button" class="toggle-password" onclick="togglePass('pass2')">Ver</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo_usuario">Categoria de Membro</label>
+                        <select name="tipo_usuario" id="tipo_usuario" required>
+                            <option value="" disabled {% if not form.tipo_usuario.value %}selected{% endif %}>Selecione seu perfil...</option>
+                            <option value="ASSOCIADO" {% if form.tipo_usuario.value == "ASSOCIADO" %}selected{% endif %}>Empresa ou Estúdio</option>
+                            <option value="AFILIADO" {% if form.tipo_usuario.value == "AFILIADO" %}selected{% endif %}>Profissional Independente</option>
+                            <option value="COLETIVO" {% if form.tipo_usuario.value == "COLETIVO" %}selected{% endif %}>Coletivo / Instituição</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary-action">CADASTRAR</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    function togglePass(id) {
+        const input = document.getElementById(id);
+        const btn = input.nextElementSibling;
+        if (input.type === 'password') {
+            input.type = 'text';
+            btn.textContent = 'Ocultar';
+        } else {
+            input.type = 'password';
+            btn.textContent = 'Ver';
+        }
+    }
+</script>
+{% endblock %}
