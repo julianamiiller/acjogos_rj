@@ -1,3 +1,5 @@
+.env
+
 # Ambientes Virtuais
 venv/
 env/
@@ -18,3 +20,6 @@ Thumbs.db
 # Configurações de IDE
 .vscode/
 .idea/
+
+
+staticfiles/

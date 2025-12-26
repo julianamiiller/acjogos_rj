@@ -1,19 +1,13 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv # Importação para carregar variáveis de ambiente
-
-# Carrega as configurações do arquivo .env
-# É boa prática passar o caminho completo para garantir que o arquivo seja encontrado
+from dotenv import load_dotenv 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-# CHAVE DE SEGURANÇA DEIXE EM SEGREDO
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
 
-# DEBUG convertido para booleano (True se a string for 'True')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-# ALLOWED_HOSTS convertido de string separada por vírgula para lista
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 INSTALLED_APPS = [
