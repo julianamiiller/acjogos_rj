@@ -1,0 +1,7 @@
+<h1>Sucesso!</h1>
+<p>Olá, {{ user.username }}. Você está logado.</p>
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sair</button>
+</form>
