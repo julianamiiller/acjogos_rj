@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css %}
+    {# Aqui você coloca o caminho real do CSS que você usa no cadastro #}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}"> 
+{% endblock %}
+
 {% block content %}
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 
