@@ -19,6 +19,12 @@ urlpatterns = [
     
     # Home protegida (só acessa se estiver logado)
     path('', login_required(TemplateView.as_view(template_name='home.html')), name='home'),
+
+    path('test-reset-form/', TemplateView.as_view(template_name='registration/password_reset_form.html')),
+    path('test-reset-done/', TemplateView.as_view(template_name='registration/password_reset_done.html')),
+    path('test-reset-confirm/', TemplateView.as_view(template_name='registration/password_reset_confirm.html')),
+    path('test-reset-complete/', TemplateView.as_view(template_name='registration/password_reset_complete.html')),
+# nao suba essas rotas de teste para o github
 ]
 
 # Configuração para arquivos estáticos (CSS, JS, Imagens) em modo de desenvolvimento
