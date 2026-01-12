@@ -6,10 +6,24 @@ from .models import Perfil
 class PerfilInline(admin.StackedInline):
     model = Perfil
     can_delete = False
-    verbose_name_plural = 'Perfil Adicional'
+    verbose_name_plural = 'Informações do Responsável (ACJOGOS-RJ)'
+    
+    # Organiza os novos campos em grupos visuais no Admin
+    fieldsets = (
+        ('Vínculo e Contato', {
+            'fields': ('tipo_usuario', 'telefone_contato', 'discord_nick')
+        }),
+        ('Dados Pessoais', {
+            'fields': ('nome_social', 'cpf')
+        }),
+        ('Endereço Residencial', {
+            'fields': ('cep', 'endereco', 'numero', 'complemento')
+        }),
+    )
 
 class CustomUserAdmin(UserAdmin):
     inlines = (PerfilInline,)
+    # Mantive o list_display conforme sua base original
     list_display = ('username', 'email', 'first_name', 'last_name', 'get_tipo_vinculo', 'is_staff')
     
     def get_tipo_vinculo(self, obj):
@@ -17,7 +31,9 @@ class CustomUserAdmin(UserAdmin):
             return obj.perfil.get_tipo_usuario_display()
         except Perfil.DoesNotExist:
             return "Sem Perfil"
+    
     get_tipo_vinculo.short_description = 'Tipo de Vínculo'
 
+# Re-registra o UserAdmin customizado
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
