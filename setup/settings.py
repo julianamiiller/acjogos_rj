@@ -99,7 +99,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configurações de Login/Logout
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/pos-login/' #depois do login, nao vá direto para a home, vá primeiro para a minha logica
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Configurações de E-mail (Resend)
