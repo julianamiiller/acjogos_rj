@@ -93,7 +93,7 @@
                         <label for="tipo_usuario">Categoria de Membro</label>
                         <select name="tipo_usuario" id="tipo_usuario" required>
                             <option value="" disabled {% if not form.tipo_usuario.value %}selected{% endif %}>Selecione seu perfil...</option>
-                            <option value="ASSOCIADO" {% if form.tipo_usuario.value == "ASSOCIADO" %}selected{% endif %}>Empresa ou Estúdio</option>
+                            <option value="ASSOCIADO" {% if form.tipo_usuario.value == "ASSOCIADO" %}selected{% endif %}>Empresa</option>
                             <option value="AFILIADO" {% if form.tipo_usuario.value == "AFILIADO" %}selected{% endif %}>Profissional Independente</option>
                             <option value="COLETIVO" {% if form.tipo_usuario.value == "COLETIVO" %}selected{% endif %}>Coletivo / Instituição</option>
                         </select>
