@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Perfil(models.Model):
-    # --- SUA BASE ORIGINAL ---
+    # --- OPÇÕES DE ESCOLHA (CHOICES) ---
     TIPOS_USUARIO = [
         ('DIRETOR', 'Diretoria'),
         ('ASSOCIADO', 'Associado'),
@@ -10,6 +10,13 @@ class Perfil(models.Model):
         ('COLETIVO', 'Coletivo/Institucional'),
     ]
 
+    STATUS = [
+        ('PENDENTE', 'Pendente de Aprovação'),
+        ('APROVADO', 'Aprovado'),
+        ('REJEITADO', 'Rejeitado'),
+    ]
+
+    # --- SUA BASE ORIGINAL ---
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     tipo_usuario = models.CharField(
@@ -20,22 +27,23 @@ class Perfil(models.Model):
     
     telefone_contato = models.CharField(max_length=15, blank=True, null=True)
 
-    # --- NOVAS ATUALIZAÇÕES  ---
-    
-    # Nome social é listado como opcional no documento 
+    # --- NOVAS ATUALIZAÇÕES ---
     nome_social = models.CharField(max_length=150, blank=True, null=True) 
-    
-    # CPF é obrigatório para o responsável 
     cpf = models.CharField(max_length=14, unique=True, null=True, blank=True)
-    
-    # Nick no Discord
     discord_nick = models.CharField(max_length=50, blank=True, null=True, verbose_name="Nick no Discord")
     
-    # Campos de Endereço exigidos 
+    # Campos de Endereço
     cep = models.CharField(max_length=9, blank=True, null=True)
     endereco = models.CharField(max_length=255, blank=True, null=True, verbose_name="Endereço")
     numero = models.CharField(max_length=10, blank=True, null=True, verbose_name="Número")
     complemento = models.CharField(max_length=100, blank=True, null=True)
+
+    # --- NOVO CAMPO ADICIONADO ---
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS,
+        default='PENDENTE'
+    )
 
     def __str__(self):
         return self.user.username + " (" + self.get_tipo_usuario_display() + ")"
