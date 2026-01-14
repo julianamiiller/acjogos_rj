@@ -3,9 +3,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.contrib.auth.decorators import login_required 
-from perfis.views import cadastro_view
 from django.conf import settings
 from django.conf.urls.static import static
+
+# ADICIONADO: cadastro_pendente_view na lista de imports
+from perfis.views import cadastro_view, pos_login_view, cadastro_pendente_view
+from empresas.views import empresa_cadastrar_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,20 +17,24 @@ urlpatterns = [
     # Rota personalizada de cadastro
     path('accounts/cadastro/', cadastro_view, name='cadastro'), 
     
-    # Esta linha abaixo já inclui TODAS as rotas de login, logout e reset de senha
-    # As rotas de reset serão: accounts/password_reset/, accounts/password_reset/done/, etc.
+    # --- NOVA ROTA ADICIONADA AQUI ---
+    path('accounts/pendente/', cadastro_pendente_view, name='cadastro_pendente'),
+    
     path('accounts/', include('django.contrib.auth.urls')),
     
-    # Home protegida (só acessa se estiver logado)
+    # Home protegida
     path('', login_required(TemplateView.as_view(template_name='home.html')), name='home'),
 
+    path('pos-login/', pos_login_view, name='pos_login'),
+
+    # Rotas de teste (remova antes do deploy)
     path('test-reset-form/', TemplateView.as_view(template_name='registration/password_reset_form.html')),
     path('test-reset-done/', TemplateView.as_view(template_name='registration/password_reset_done.html')),
     path('test-reset-confirm/', TemplateView.as_view(template_name='registration/password_reset_confirm.html')),
     path('test-reset-complete/', TemplateView.as_view(template_name='registration/password_reset_complete.html')),
-# nao suba essas rotas de teste para o github
+    path('empresas/cadastrar/', empresa_cadastrar_view, name='empresa_cadastrar'),
+
 ]
 
-# Configuração para arquivos estáticos (CSS, JS, Imagens) em modo de desenvolvimento
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
