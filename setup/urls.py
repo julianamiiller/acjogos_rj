@@ -6,10 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
-# ADICIONADO: cadastro_pendente_view na lista de imports
+# Organizando os imports das views
 from perfis.views import cadastro_view, pos_login_view, cadastro_pendente_view
-from empresas.views import empresa_cadastrar_view
-
+from empresas.views import empresa_cadastrar_view, minha_empresa_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,7 +16,7 @@ urlpatterns = [
     # Rota personalizada de cadastro
     path('accounts/cadastro/', cadastro_view, name='cadastro'), 
     
-    # --- NOVA ROTA ADICIONADA AQUI ---
+    # Rota de cadastro pendente
     path('accounts/pendente/', cadastro_pendente_view, name='cadastro_pendente'),
     
     path('accounts/', include('django.contrib.auth.urls')),
@@ -32,7 +31,14 @@ urlpatterns = [
     path('test-reset-done/', TemplateView.as_view(template_name='registration/password_reset_done.html')),
     path('test-reset-confirm/', TemplateView.as_view(template_name='registration/password_reset_confirm.html')),
     path('test-reset-complete/', TemplateView.as_view(template_name='registration/password_reset_complete.html')),
+    
+    # --- ROTAS DE EMPRESA ---
     path('empresas/cadastrar/', empresa_cadastrar_view, name='empresa_cadastrar'),
+    path('empresas/minha/', minha_empresa_view, name='minha_empresa'),
+    
+    # Adicionando a rota de edição para resolver o erro NoReverseMatch
+    # Por enquanto, ela usa a mesma view de cadastro apenas para o link funcionar
+    path('empresas/editar/', empresa_cadastrar_view, name='empresa_editar'),
 
 ]
 
