@@ -8,9 +8,11 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     {# Bloco de CSS: O login_style.css fica como padrão #}
     {% block css %}
-    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
 </head>
 <body>
@@ -18,9 +20,14 @@
     {% block content %}
     {% endblock %}
 
-    {# Bloco de JS: O auth.js fica como padrão, mas pode ser alterado se necessário #}
+    <script src="https://unpkg.com/imask"></script>
+
+    {# Bloco de JS: O auth.js fica como padrão #}
     {% block js %}
     <script src="{% static 'js/auth.js' %}"></script>
+    {% endblock %}
+
+    {% block extra_js %}
     {% endblock %}
 </body>
 </html>
