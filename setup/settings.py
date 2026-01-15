@@ -100,7 +100,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configurações de Login/Logout
 LOGIN_REDIRECT_URL = '/pos-login/' #depois do login, nao vá direto para a home, vá primeiro para a minha logica
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Configurações de E-mail (Resend)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
