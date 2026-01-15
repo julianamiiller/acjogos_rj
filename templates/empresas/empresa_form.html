@@ -5,3 +5,32 @@
     {{ form.as_p }}
     <button type="submit">Salvar Empresa</button>
 </form>
+
+<script>
+function pesquisacep(valor) {
+    var cep = valor.replace(/\D/g, '');
+    if (cep != "") {
+        var validacep = /^[0-8]{8}$/; // Correção básica para regex de CEP
+        
+        // Avisa o usuário que está buscando
+        document.getElementById('id_logradouro').value = "Buscando...";
+        document.getElementById('id_bairro').value = "Buscando...";
+        document.getElementById('id_cidade').value = "Buscando...";
+        document.getElementById('id_estado').value = "...";
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(dados => {
+                if (!("erro" in dados)) {
+                    document.getElementById('id_logradouro').value = dados.logradouro;
+                    document.getElementById('id_bairro').value = dados.bairro;
+                    document.getElementById('id_cidade').value = dados.localidade;
+                    document.getElementById('id_estado').value = dados.uf;
+                    document.getElementById('id_numero').focus(); // Foca no número após preencher
+                } else {
+                    alert("CEP não encontrado.");
+                }
+            });
+    }
+}
+</script>
