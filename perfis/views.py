@@ -21,7 +21,8 @@ def cadastro_view(request):
 # 2. VIEW POS-LOGIN (A "Central de Inteligência" do seu redirecionamento)
 @login_required
 def pos_login_view(request):
-    # Tenta pegar o perfil. Se não existir, você pode redirecionar para criar um
+    # Tenta pegar o perfil. Se não existir, você pode redirecionar para criar um       #AFILIADO → meu_perfil
+
     try:
         perfil = request.user.perfil
     except AttributeError:
@@ -64,3 +65,9 @@ def cadastro_pendente_view(request):
     return render(request, 'perfis/cadastro_pendente.html', {
         'nome_usuario': request.user.username
     })
+
+#meu_perfil_view
+
+#perfil_editar_view
+
+#ESSAS VIEWS PRECISAM EXISTIR PARA O AFILIADO
