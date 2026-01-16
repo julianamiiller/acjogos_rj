@@ -6,9 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
 
-# Organizando os imports das views
+# Organizando os imports das views de forma limpa
 from perfis.views import cadastro_view, pos_login_view, cadastro_pendente_view
-from empresas.views import empresa_cadastrar_view, minha_empresa_view
+from empresas.views import (
+    empresa_cadastrar_view, 
+    minha_empresa_view, 
+    empresa_editar_view
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,10 +40,8 @@ urlpatterns = [
     path('empresas/cadastrar/', empresa_cadastrar_view, name='empresa_cadastrar'),
     path('empresas/minha/', minha_empresa_view, name='minha_empresa'),
     
-    # Adicionando a rota de edição para resolver o erro NoReverseMatch
-    # Por enquanto, ela usa a mesma view de cadastro apenas para o link funcionar
-    path('empresas/editar/', empresa_cadastrar_view, name='empresa_editar'),
-
+    # Rota de edição (Agora única e apontando para a view correta)
+    path('empresas/editar/', empresa_editar_view, name='empresa_editar'),
 ]
 
 if settings.DEBUG:
