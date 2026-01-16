@@ -1,11 +1,21 @@
-<h2>Cadastro em análise</h2>
+{% extends 'base.html' %}
+{% load static %}
 
-<p>
-    Seu cadastro foi recebido e está em análise pela diretoria da ACJOGOS-RJ.
-</p>
+{% block content %}
+<div class="login-container">
+    <div class="logo-area">
+        <h1 class="logo-text" style="color: #f1c40f;">Aguarde</h1>
+    </div>
+    
+    <div class="info-section" style="margin: 20px 0; border-color: rgba(255, 165, 0, 0.2);">
+        <p class="subtitle">Seu cadastro está em <strong>Análise Pendente</strong>.</p>
+        <p style="font-size: 0.85em; color: var(--text-secondary);">
+            Nossa equipe está revisando suas informações. Você receberá um e-mail assim que o acesso for liberado.
+        </p>
+    </div>
 
-<p>
-    Você será notificado quando seu acesso for liberado.
-</p>
-
-<a href="{% url 'logout' %}">Sair</a>
+    <div class="reset-link">
+        <a href="{% url 'logout' %}">Sair do Sistema</a>
+    </div>
+</div>
+{% endblock %}
