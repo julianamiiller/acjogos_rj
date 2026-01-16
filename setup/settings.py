@@ -19,6 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'perfis',
     'empresas',
+    'core_dashboard',
+    'afiliados',
 ]
 
 MIDDLEWARE = [
