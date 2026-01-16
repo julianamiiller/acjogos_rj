@@ -42,6 +42,7 @@ urlpatterns = [
     
     # Rota de edição (Agora única e apontando para a view correta)
     path('empresas/editar/', empresa_editar_view, name='empresa_editar'),
+
 ]
 
 if settings.DEBUG:
