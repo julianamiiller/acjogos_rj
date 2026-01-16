@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/empresa_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-header">
+        <h1>Editar Empresa</h1>
+    </div>
+
+    <form method="POST" class="form-grid">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                
+                {# Adicionando o gatilho onblur se o campo for o CEP #}
+                {% if field.name == 'cep' %}
+                    <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" 
+                           value="{{ field.value|default:'' }}" class="form-control"
+                           onblur="pesquisacep(this.value)">
+                {% else %}
+                    {{ field }}
+                {% endif %}
+
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <span style="color: var(--error-red); font-size: 0.7em; margin-top: 5px;">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="btn-submit-container">
+            <button type="submit" class="btn-pill">
+                Salvar Alterações
+            </button>
+        </div>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'minha_empresa' %}" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8em; text-transform: uppercase;">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+    </div>
+</div>
+
+<script>
+function pesquisacep(valor) {
+    var cep = valor.replace(/\D/g, '');
+    if (cep != "") {
+        var validacep = /^[0-9]{8}$/; 
+        if(validacep.test(cep)) {
+            // Tentamos capturar tanto id_uf quanto id_estado para não ter erro
+            const campoLogradouro = document.getElementById('id_logradouro');
+            const campoBairro = document.getElementById('id_bairro');
+            const campoCidade = document.getElementById('id_cidade');
+            const campoUF = document.getElementById('id_uf') || document.getElementById('id_estado');
+
+            if(campoLogradouro) campoLogradouro.value = "Buscando...";
+            if(campoBairro) campoBairro.value = "Buscando...";
+            if(campoCidade) campoCidade.value = "Buscando...";
+
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(dados => {
+                    if (!("erro" in dados)) {
+                        if(campoLogradouro) campoLogradouro.value = dados.logradouro;
+                        if(campoBairro) campoBairro.value = dados.bairro;
+                        if(campoCidade) campoCidade.value = dados.localidade;
+                        
+                        // Lógica especial para o Select de UF
+                        if(campoUF) {
+                            campoUF.value = dados.uf; // Tenta setar pelo valor (ex: 'RJ')
+                            
+                            // Se for um Select e não mudou, tentamos forçar a seleção
+                            if (campoUF.tagName === 'SELECT' && campoUF.value !== dados.uf) {
+                                for (let i = 0; i < campoUF.options.length; i++) {
+                                    if (campoUF.options[i].text === dados.uf || campoUF.options[i].value === dados.uf) {
+                                        campoUF.selectedIndex = i;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        document.getElementById('id_numero').focus();
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                })
+                .catch(err => {
+                    console.error("Erro na API ViaCEP:", err);
+                    alert("Erro ao buscar CEP.");
+                });
+        }
+    }
+}
+</script>
+{% endblock %}
