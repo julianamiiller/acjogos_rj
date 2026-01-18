@@ -299,3 +299,30 @@ body {
         transform: translateY(0);
     }
 }
+
+/* Container principal do erro */
+.error-summary {
+    background: rgba(255, 71, 71, 0.1);
+    border-left: 4px solid #ff4747;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+/* Lista de mensagens de erro dentro do container */
+.error-summary ul {
+    list-style: none;
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    padding: 0;
+    margin: 0;
+}
+
+/* Caso queira que cada item da lista tenha um pequeno espaçamento */
+.error-summary ul li {
+    margin-bottom: 5px;
+}
+
+.error-summary ul li:last-child {
+    margin-bottom: 0;
+}
