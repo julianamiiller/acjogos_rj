@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Login Intranet ACJOGOS-RJ</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration/login_style.css' %}">
 </head>
 <body>
     <div class="login-container">
@@ -20,7 +20,21 @@
             {% for field in form %}
                 <div class="form-group">
                     {{ field.label_tag }}
-                    {{ field }}
+                    
+                    <div class="input-wrapper">
+                        {{ field }}
+                        
+                        {# Lógica para detectar se o campo atual é de senha #}
+                        {% if field.field.widget.input_type == "password" or "password" in field.name or "senha" in field.label|lower %}
+                            <button type="button" class="eye-button" id="togglePassword">
+                                <svg class="eye-icon" viewBox="0 0 24 24">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        {% endif %}
+                    </div>
+
                     {% for error in field.errors %}
                         <p class="error-text">{{ error }}</p>
                     {% endfor %}
@@ -34,5 +48,28 @@
             </p>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.querySelector('#togglePassword');
+            // Busca o input que está dentro do mesmo wrapper do botão
+            const passwordInput = document.querySelector('input[type="password"]');
+
+            if (toggleBtn && passwordInput) {
+                toggleBtn.addEventListener('click', function() {
+                    const isPassword = passwordInput.getAttribute('type') === 'password';
+                    
+                    // Alterna o tipo do input
+                    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                    
+                    // Alterna a classe visual do botão (para mudar a cor via CSS)
+                    this.classList.toggle('active');
+                    
+                    // Mantém o foco no input para não interromper a digitação
+                    passwordInput.focus();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
