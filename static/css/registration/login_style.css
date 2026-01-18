@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
-    --bg-void: #050507;        
+    --bg-void: #050507;         
     --bg-card: rgba(22, 27, 34, 0.95);
     --input-bg-deep: #0d1117; 
     --accent-neon: #2962ff;    
@@ -82,12 +82,19 @@ body {
     font-weight: 400;
 }
 
+/* --- Estrutura do Formulário --- */
+
 .login-form {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 15px; /* Atualizado para comportar o layout do CSS  ms ainda estou na duvida*/
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
@@ -101,9 +108,23 @@ body {
     opacity: 0.9;
 }
 
-.form-group input {
+/* --- Container e Inputs com Suporte a Ícone de Senha --- */
+
+.input-wrapper {
+    position: relative;
     width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.form-group input,
+.login-form input[type="email"], 
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    width: 100% !important;
+    display: block;
     padding: 16px 18px;
+    padding-right: 45px !important; /* Espaço para o ícone do olho */
     border: 2px solid transparent;
     border-radius: 12px;
     box-sizing: border-box;
@@ -114,7 +135,9 @@ body {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.form-group input:focus {
+
+.form-group input:focus,
+.login-form input:focus {
     outline: none;
     background-color: #131720;
     border-color: var(--accent-neon);
@@ -127,6 +150,48 @@ body {
     opacity: 1;
     font-weight: 400;
 }
+
+/* --- Estilos do Botão de Olho (Password Toggle) --- */
+
+.eye-button {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.1s ease;
+    z-index: 10;
+}
+
+.eye-button:hover {
+    color: var(--text-pure);
+}
+
+.eye-button:active {
+    transform: scale(0.9);
+}
+
+.eye-button.active {
+    color: var(--accent-neon);
+}
+
+.eye-icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* --- Botões e Links --- */
 
 .btn-login {
     width: 100%;
@@ -145,7 +210,13 @@ body {
     overflow: hidden;
     box-shadow: 0 5px 25px rgba(41, 98, 255, 0.4);
     transition: all 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-sizing: border-box;
 }
+
 .btn-login:hover {
     box-shadow: 0 10px 40px rgba(41, 98, 255, 0.6);
     transform: translateY(-3px) scale(1.02);
@@ -187,9 +258,10 @@ body {
     margin-right: 5px;
     font-size: 1.2em;
 }
+
 .reset-link {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .reset-link a {
@@ -200,6 +272,7 @@ body {
     transition: all 0.3s;
     position: relative;
 }
+
 .reset-link a::after {
     content: '';
     position: absolute;
@@ -225,49 +298,4 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Aplica o estilo de input do seu login aos campos do Django */
-.login-form input[type="email"], 
-.login-form input[type="password"],
-.login-form input[type="text"] {
-    width: 100%;
-    padding: 16px 18px;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    box-sizing: border-box;
-    background-color: var(--input-bg-deep);
-    color: var(--text-pure);
-    font-size: 1em;
-    font-weight: 500;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease;
-    margin-bottom: 5px;
-}
-
-.login-form input:focus {
-    outline: none;
-    border-color: var(--accent-neon);
-    box-shadow: 0 0 20px rgba(41, 98, 255, 0.3);
-}
-/* Garante que links <a> que usam a classe do botão se comportem como botões reais */
-a.btn-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-/* Ajuste para o formulário não "colar" no botão */
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Cria um espaçamento uniforme entre os elementos */
-}
-
-/* Força os inputs do Django a seguirem o design do seu card */
-.login-form input {
-    width: 100% !important;
-    display: block;
 }
