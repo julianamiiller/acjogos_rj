@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACJOGOS-RJ | The Game Hub</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        #neural-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="home-body">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <nav class="glass-nav">
+        <div class="logo-area">
+            <div class="logo-text">ACJOGOS<span>RJ</span></div>
+        </div>
+        <div class="nav-links">
+            <a href="#inicio" class="active">Início</a>
+            <a href="#sobre">Associação</a>
+            <a href="#fomento">Afiliado</a>
+            <a href="#empresas">Empresas</a>
+        </div>
+        <a href="#associe-se" class="btn-associe">ASSOCIE-SE</a>
+    </nav>
+
+    <main>
+        <section id="inicio" class="hero-section">
+            <div class="hero-content">
+                <p class="established-tag reveal-tagline">ESTABELECIDA EM 2015</p>
+                <h1 class="main-title reveal-text">
+                    <span>ACJOGOS - RJ</span>
+                </h1>
+                <p class="hero-sub">A maior rede de desenvolvedores e mentes criativas do Brasil. Transformando pixels
+                    em indústria.</p>
+
+                <div class="hero-actions">
+                    <a href="#projetos" class="btn-main">CONHECER PROJETOS</a>
+                    <a href="#discord" class="btn-discord">
+                        <i data-lucide="message-square"
+                            style="width: 16px; vertical-align: middle; margin-right: 8px;"></i> DISCORD
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-container">
+            <div class="glass-card">
+                <span class="stat-value" data-target="60">0</span>
+                <span class="stat-label">EMPRESAS & GRUPOS</span>
+                <p class="card-desc">Estúdios de todos os tamanhos unidos pelo crescimento do setor.</p>
+            </div>
+            <div class="glass-card">
+                <span class="stat-value" data-target="600">0</span>
+                <span class="stat-label">PROFISSIONAIS</span>
+                <p class="card-desc">Desenvolvedores, artistas e produtores formando o ecossistema.</p>
+            </div>
+            <div class="glass-card">
+                <span class="stat-value" data-target="20">0</span>
+                <span class="stat-label">ATORES EXTERNOS</span>
+                <p class="card-desc">Parceiros governamentais e investidores focados em inovação.</p>
+            </div>
+        </section>
+
+        <section id="sobre" class="stats-container" style="margin-top: 0;">
+            <div class="glass-card">
+                <i data-lucide="zap" class="icon-blue"></i>
+                <h3 class="card-title">Troca de Experiências</h3>
+                <p class="card-desc">Encontros mensais focados no desenvolvimento técnico e artístico de alto nível.</p>
+            </div>
+            <div class="glass-card">
+                <i data-lucide="trending-up" class="icon-blue"></i>
+                <h3 class="card-title">Fomento & Incentivo</h3>
+                <p class="card-desc">Ponte direta entre desenvolvedores, investidores e entidades governamentais.</p>
+            </div>
+            <div class="glass-card">
+                <i data-lucide="users" class="icon-blue"></i>
+                <h3 class="card-title">Elo com a Audiência</h3>
+                <p class="card-desc">Aproximamos quem cria de quem joga, criando comunidades sólidas.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="{% static 'js/home_effects.js' %}"></script>
+</body>
+
+</html>

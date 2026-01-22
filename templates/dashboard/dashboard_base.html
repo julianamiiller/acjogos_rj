@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <span class="navbar-brand">Painel</span>
+
+        <span class="text-white">
+            {{ perfil.user.get_full_name|default:perfil.user.username }}
+        </span>
+    </nav>
+
+    <div class="container mt-4">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="list-group mb-4">
+                    <a href="{% url 'core_dashboard:dashboard' %}" class="list-group-item list-group-item-action">
+                        Dashboard
+                    </a>
+                    <a href="{% url 'core_dashboard:notificacoes' %}" class="list-group-item list-group-item-action">
+                        Notificações
+                    </a>
+                    <a href="{% url 'core_dashboard:atividades' %}" class="list-group-item list-group-item-action">
+                        Atividades
+                    </a>
+                    <a href="{% url 'core_dashboard:configuracoes' %}" class="list-group-item list-group-item-action">
+                        Configurações
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                {% block conteudo %}
+
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

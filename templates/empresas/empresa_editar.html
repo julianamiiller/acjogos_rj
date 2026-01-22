@@ -55,7 +55,7 @@ function pesquisacep(valor) {
     if (cep != "") {
         var validacep = /^[0-9]{8}$/; 
         if(validacep.test(cep)) {
-            // Tentamos capturar tanto id_uf quanto id_estado para não ter erro
+         
             const campoLogradouro = document.getElementById('id_logradouro');
             const campoBairro = document.getElementById('id_bairro');
             const campoCidade = document.getElementById('id_cidade');
@@ -73,11 +73,9 @@ function pesquisacep(valor) {
                         if(campoBairro) campoBairro.value = dados.bairro;
                         if(campoCidade) campoCidade.value = dados.localidade;
                         
-                        // Lógica especial para o Select de UF
                         if(campoUF) {
-                            campoUF.value = dados.uf; // Tenta setar pelo valor (ex: 'RJ')
+                            campoUF.value = dados.uf;
                             
-                            // Se for um Select e não mudou, tentamos forçar a seleção
                             if (campoUF.tagName === 'SELECT' && campoUF.value !== dados.uf) {
                                 for (let i = 0; i < campoUF.options.length; i++) {
                                     if (campoUF.options[i].text === dados.uf || campoUF.options[i].value === dados.uf) {

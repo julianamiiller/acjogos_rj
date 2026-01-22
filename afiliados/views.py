@@ -36,7 +36,7 @@ def cadastro_afiliado(request):
         'form': form,
         'titulo': 'Completar Cadastro de Afiliado'
     }
-    return render(request, 'afiliado/cadastro_afiliado.html', context)
+    return render(request, 'afiliados/cadastro_afiliado.html', context)
 
 
 @login_required
@@ -60,7 +60,7 @@ def meu_perfil_afiliado(request):
         'contratos': contratos,
         'contrato_ativo': contrato_ativo,
     }
-    return render(request, 'afiliado/meu_perfil.html', context)
+    return render(request, 'afiliados/meu_perfil.html', context)
 
 
 @login_required
@@ -87,7 +87,7 @@ def editar_afiliado(request):
         'afiliado': afiliado,
         'titulo': 'Editar Meus Dados'
     }
-    return render(request, 'afiliado/editar_afiliado.html', context)
+    return render(request, 'afiliados/editar_afiliado.html', context)
 
 
 @login_required
@@ -109,7 +109,7 @@ def contratos_afiliado(request):
         'contratos': contratos,
         'afiliado': afiliado,
     }
-    return render(request, 'afiliado/contratos.html', context)
+    return render(request, 'afiliados/contratos.html', context)
 
 
 @login_required
@@ -141,4 +141,4 @@ def aceitar_contrato(request, contrato_id):
         'contrato': contrato,
         'afiliado': afiliado,
     }
-    return render(request, 'afiliado/aceitar_contrato.html', context)
+    return render(request, 'afiliados/aceitar_contrato.html', context)

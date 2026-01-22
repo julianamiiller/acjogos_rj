@@ -22,8 +22,16 @@ class CadastroUsuarioForm(UserCreationForm):
         self.fields['password1'].label = "Senha"
         self.fields['password2'].label = "Confirmar Senha"
 
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(username=email).exists():
+            raise forms.ValidationError("Este e-mail já está cadastrado no sistema.")
+        return email
+
     def save(self, commit=True):
         user = super().save(commit=False)
+        # Sincroniza username com o email
         user.username = self.cleaned_data['email']
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data.get('first_name')

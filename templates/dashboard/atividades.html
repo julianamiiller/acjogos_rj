@@ -1,0 +1,16 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block conteudo %}
+<h2>Atividades Recentes</h2>
+
+<ul>
+{% for a in atividades %}
+    <li>
+        {{ a.get_acao_display }} - {{ a.descricao }} <br>
+        <small>{{ a.data_criacao }}</small>
+    </li>
+{% empty %}
+    <li>Nenhuma atividade registrada.</li>
+{% endfor %}
+</ul>
+{% endblock %}
