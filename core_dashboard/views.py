@@ -103,7 +103,7 @@ def marcar_notificacao_lida(request, notificacao_id):
 
 
 login_required
-def marcar_todas(request): # Nome da função simplificado
+def marcar_todas(request): 
     perfil = request.user.perfil
     
     Notificacao.objects.filter(perfil=perfil, lida=False).update(
