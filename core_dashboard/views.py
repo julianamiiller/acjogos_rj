@@ -165,6 +165,7 @@ def configuracoes(request):
         return redirect('core_dashboard:configuracoes')
     
     context = {
+        'perfil': perfil,
         'config': config,
     }
     return render(request, 'dashboard/configuracoes.html', context)
