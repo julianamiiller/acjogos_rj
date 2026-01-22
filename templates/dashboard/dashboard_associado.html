@@ -1,0 +1,35 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block conteudo %}
+
+<h2 class="mb-4">Dashboard do Associado</h2>
+
+{% if estatisticas.possui_empresa %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Empresa vinculada</h5>
+            <p class="card-text">
+                {{ estatisticas.empresa.nome }}
+            </p>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-warning">
+        Você ainda não possui uma empresa cadastrada.
+    </div>
+{% endif %}
+
+{% if config.exibir_notificacoes %}
+    <h5>Últimas notificações</h5>
+
+    {% for n in notificacoes %}
+        <div class="alert alert-secondary">
+            <strong>{{ n.titulo }}</strong><br>
+            {{ n.mensagem }}
+        </div>
+    {% empty %}
+        <p>Nenhuma notificação.</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

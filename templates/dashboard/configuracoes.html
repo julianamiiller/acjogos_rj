@@ -1,0 +1,26 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block conteudo %}
+<h2>Configurações do Dashboard</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>
+        <input type="checkbox" name="exibir_atividades_recentes" {% if config.exibir_atividades_recentes %}checked{% endif %}>
+        Exibir atividades recentes
+    </label><br>
+
+    <label>
+        <input type="checkbox" name="exibir_notificacoes" {% if config.exibir_notificacoes %}checked{% endif %}>
+        Exibir notificações
+    </label><br>
+
+    <label>
+        <input type="checkbox" name="exibir_estatisticas" {% if config.exibir_estatisticas %}checked{% endif %}>
+        Exibir estatísticas
+    </label><br><br>
+
+    <button type="submit">Salvar configurações</button>
+</form>
+{% endblock %}

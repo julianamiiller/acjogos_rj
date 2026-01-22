@@ -1,0 +1,26 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block conteudo %}
+<h2>Notificações</h2>
+
+<p>Total: {{ total }} | Não lidas: {{ nao_lidas }}</p>
+
+<ul>
+{% for n in notificacoes %}
+    <li>
+        <strong>{{ n.titulo }}</strong><br>
+        {{ n.mensagem }}<br>
+
+        {% if not n.lida %}
+            <a href="{% url 'core_dashboard:marcar_notificacao' n.id %}">Marcar como lida</a>
+        {% else %}
+            <em>Lida</em>
+        {% endif %}
+    </li>
+{% empty %}
+    <li>Nenhuma notificação.</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'core_dashboard:marcar_todas' %}">Marcar todas como lidas</a>
+{% endblock %}
