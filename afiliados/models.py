@@ -4,12 +4,12 @@ from perfis.models import Perfil
 
 class Afiliado(models.Model):
     perfil = models.OneToOneField(
-        Perfil,
-        on_deletname='dados_afiliado',
-        limit_choices_to={'tipo_usuario': 'AFILIADO'}
-    )
+    Perfil,
+    on_delete=models.CASCADE,
+    related_name='dados_afiliado',
+    limit_choices_to={'tipo_usuario': 'AFILIADO'}
+)
     
-        related_
     cpf = models.CharField('CPF', max_length=14, unique=True)
     data_nascimento = models.DateField('Data de Nascimento', null=True, blank=True)
     telefone = models.CharField('Telefone', max_length=20)
