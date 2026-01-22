@@ -84,6 +84,7 @@ def notificacoes(request):
         'filtro': filtro,
         'total': total,
         'nao_lidas': nao_lidas,
+        'perfil': perfil,
     }
     return render(request, 'dashboard/notificacoes.html', context)
 
@@ -101,8 +102,8 @@ def marcar_notificacao_lida(request, notificacao_id):
     return redirect('core_dashboard:notificacoes')
 
 
-@login_required
-def marcar_todas_lidas(request):
+login_required
+def marcar_todas(request): # Nome da função simplificado
     perfil = request.user.perfil
     
     Notificacao.objects.filter(perfil=perfil, lida=False).update(
@@ -112,7 +113,6 @@ def marcar_todas_lidas(request):
     
     messages.success(request, 'Todas as notificações foram marcadas como lidas.')
     return redirect('core_dashboard:notificacoes')
-
 
 @login_required
 def atividades(request):
@@ -133,6 +133,7 @@ def atividades(request):
         'atividades': atividades_list,
         'acao_selecionada': acao,
         'tipos_acao': tipos_acao,
+        'perfil': perfil,
     }
     return render(request, 'dashboard/atividades.html', context)
 
