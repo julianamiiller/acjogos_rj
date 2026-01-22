@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/afiliado/afiliado_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="main-container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="glass-container">
+                <div class="text-center mb-5">
+                    <h3 class="title-neon">{{ titulo|default:"Completar Cadastro" }}</h3>
+                    <p class="text-secondary">Preencha seus dados para começar a operar</p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-5">
+                        <h6 class="title-neon mb-4 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.1) !important; font-size: 0.9em;">
+                            <i class="bi bi-person-badge me-2"></i>DADOS PESSOAIS
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3 form-group">
+                                {{ form.cpf.label_tag }}
+                                {{ form.cpf }}
+                                {% if form.cpf.errors %}
+                                    <small class="text-danger d-block mt-1">{{ form.cpf.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3 form-group">
+                                {{ form.data_nascimento.label_tag }}
+                                {{ form.data_nascimento }}
+                                {% if form.data_nascimento.errors %}
+                                    <small class="text-danger d-block mt-1">{{ form.data_nascimento.errors.0 }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <h6 class="title-neon mb-4 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.1) !important; font-size: 0.9em;">
+                            <i class="bi bi-telephone me-2"></i>CONTATO
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3 form-group">
+                                {{ form.telefone.label_tag }}
+                                {{ form.telefone }}
+                            </div>
+                            <div class="col-md-6 mb-3 form-group">
+                                {{ form.telefone_alternativo.label_tag }}
+                                {{ form.telefone_alternativo }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <h6 class="title-neon mb-4 pb-2 border-bottom" style="border-color: rgba(255,255,255,0.1) !important; font-size: 0.9em;">
+                            <i class="bi bi-bank me-2"></i>DADOS BANCÁRIOS
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-4 mb-3 form-group">
+                                {{ form.banco.label_tag }}
+                                {{ form.banco }}
+                            </div>
+                            <div class="col-md-4 mb-3 form-group">
+                                {{ form.agencia.label_tag }}
+                                {{ form.agencia }}
+                            </div>
+                            <div class="col-md-4 mb-3 form-group">
+                                {{ form.conta.label_tag }}
+                                {{ form.conta }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn-neon py-3 w-100">
+                            <i class="bi bi-check-circle-fill me-2"></i> FINALIZAR E SALVAR
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
