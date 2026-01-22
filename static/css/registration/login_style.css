@@ -1,22 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
-    --bg-void: #050507;         
-    --bg-card: rgba(22, 27, 34, 0.95);
-    --input-bg-deep: #0d1117; 
-    --accent-neon: #2962ff;    
-    --accent-gradient: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
-    --text-gradient: linear-gradient(90deg, #ffffff 0%, #a5b4fc 100%);
-    --text-pure: #ffffff;    
-    --text-secondary: #94a3b8;  
-    --error-red: #ff3333;    
-    --glow-blue: 0 0 25px rgba(41, 98, 255, 0.35);
-    --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
+    /* Paleta de Cores do Segundo Código */
+    --bg-void: #020617;          
+    --bg-card: rgba(8, 14, 28, 0.85);
+    --accent-primary: #3b82f6;    
+    --accent-light: #93c5fd;      
+    --accent-gradient: linear-gradient(90deg, #00d2ff 0%, #2962ff 100%);
+    --text-pure: #ffffff;
+    --text-secondary: #94a3b8;    
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --input-bg-deep: #0f172a;
+    --error-red: #ff4747;
+    --glow-blue: 0 0 25px rgba(59, 130, 246, 0.35);
+    --shadow-deep: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: radial-gradient(circle at 50% 0%, #1a1f35 0%, var(--bg-void) 70%);
+    /* Fundo degradê radial do segundo código */
+    background: radial-gradient(circle at 50% -20%, #1e293b 0%, var(--bg-void) 75%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,18 +29,21 @@ body {
     overflow: hidden;
 }
 
+/* --- APENAS O TRECHO AJUSTADO PARA O TAMANHO DA IMAGEM --- */
+
 .login-container {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 55px 45px;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Ajustado para 55px vertical e 40px horizontal para maior fidelidade */
+    padding: 55px 40px; 
+    border-radius: 32px;
+    border: 1px solid var(--glass-border);
     border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     box-shadow: var(--shadow-deep);
     width: 100%;
-    max-width: 420px;
+    /* Reduzido de 440px para 390px para ficar "fino" como na imagem */
+    max-width: 390px; 
     text-align: center;
     position: relative;
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -45,41 +51,44 @@ body {
     transform: translateY(30px);
 }
 
-.login-container::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: 20%;
-    right: 20%;
-    height: 2px;
-    background: var(--accent-neon);
-    box-shadow: 0 0 20px var(--accent-neon);
-    border-radius: 100%;
-    opacity: 0.7;
+.logo-area {
+    /* Espaço entre o logo e o texto abaixo */
+    margin-bottom: 20px; 
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 45px; 
+    font-size: 0.85rem;
+    line-height: 1.4;
+    font-weight: 400;
+    opacity: 0.8;
 }
 
 .logo-area {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .logo-text {
-    font-size: 2.2em;
+    font-size: 2.3rem;
     font-weight: 900;
-    letter-spacing: -1px;
-    background: var(--text-gradient);
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    /* Gradiente de texto do segundo código */
+    background: linear-gradient(180deg, #ffffff 40%, var(--accent-primary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 10px rgba(41, 98, 255, 0.3));
-    text-transform: uppercase;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .subtitle {
     color: var(--text-secondary);
     margin-bottom: 40px;
-    font-size: 0.95em;
+    font-size: 0.9rem;
     line-height: 1.5;
     font-weight: 400;
+    opacity: 0.8;
 }
 
 /* --- Estrutura do Formulário --- */
@@ -92,7 +101,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 15px; /* Atualizado para comportar o layout do CSS  ms ainda estou na duvida*/
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
 }
@@ -100,15 +109,13 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 10px;
-    font-weight: 600;
-    color: var(--text-pure);
-    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--accent-light);
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     opacity: 0.9;
 }
-
-/* --- Container e Inputs com Suporte a Ícone de Senha --- */
 
 .input-wrapper {
     position: relative;
@@ -123,39 +130,39 @@ body {
 .login-form input[type="text"] {
     width: 100% !important;
     display: block;
-    padding: 16px 18px;
-    padding-right: 45px !important; /* Espaço para o ícone do olho */
-    border: 2px solid transparent;
-    border-radius: 12px;
+    padding: 16px 20px;
+    padding-right: 50px !important;
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
     box-sizing: border-box;
     background-color: var(--input-bg-deep);
     color: var(--text-pure);
-    font-size: 1em;
+    font-size: 0.95rem;
     font-weight: 500;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-group input:focus,
 .login-form input:focus {
     outline: none;
-    background-color: #131720;
-    border-color: var(--accent-neon);
-    box-shadow: 0 0 20px rgba(41, 98, 255, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #131d33;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
 ::placeholder {
-    color: #4f5b6e;
+    color: #475569;
     opacity: 1;
     font-weight: 400;
 }
 
-/* --- Estilos do Botão de Olho (Password Toggle) --- */
+/* --- Estilos do Botão de Olho --- */
 
 .eye-button {
     position: absolute;
-    right: 12px;
+    right: 15px;
     background: none;
     border: none;
     padding: 0;
@@ -178,7 +185,7 @@ body {
 }
 
 .eye-button.active {
-    color: var(--accent-neon);
+    color: var(--accent-primary);
 }
 
 .eye-icon {
@@ -187,11 +194,7 @@ body {
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
 }
-
-/* --- Botões e Links --- */
 
 .btn-login {
     width: 100%;
@@ -199,16 +202,16 @@ body {
     color: var(--text-pure);
     padding: 18px;
     border: none;
-    border-radius: 50px;
+    border-radius: 50px; 
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 1.5px;
     margin-top: 25px;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 5px 25px rgba(41, 98, 255, 0.4);
+    box-shadow: 0 10px 25px rgba(41, 98, 255, 0.3);
     transition: all 0.4s ease;
     display: flex;
     justify-content: center;
@@ -218,13 +221,13 @@ body {
 }
 
 .btn-login:hover {
-    box-shadow: 0 10px 40px rgba(41, 98, 255, 0.6);
+    box-shadow: 0 15px 35px rgba(41, 98, 255, 0.5);
     transform: translateY(-3px) scale(1.02);
+    filter: brightness(1.1);
 }
 
 .btn-login:active {
     transform: translateY(-1px) scale(0.98);
-    box-shadow: 0 5px 20px rgba(41, 98, 255, 0.4);
 }
 
 .btn-login::after {
@@ -244,6 +247,28 @@ body {
     transform: rotate(45deg) translateY(100%);
 }
 
+
+.error-summary {
+    background: rgba(255, 71, 71, 0.1);
+    border-left: 4px solid var(--error-red);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.error-summary ul {
+    list-style: none;
+    color: #fca5a5;
+    font-size: 0.85rem;
+    padding: 0;
+    margin: 0;
+}
+
+.error-summary ul li {
+    margin-bottom: 5px;
+}
+
 .error-text {
     color: var(--error-red);
     font-size: 0.85em;
@@ -261,15 +286,15 @@ body {
 
 .reset-link {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .reset-link a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9em;
+    font-size: 0.85rem;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     position: relative;
 }
 
@@ -280,13 +305,13 @@ body {
     height: 1px;
     bottom: -2px;
     left: 50%;
-    background-color: var(--accent-neon);
+    background-color: var(--accent-primary);
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
 .reset-link a:hover {
-    color: var(--accent-neon);
+    color: var(--accent-light);
 }
 
 .reset-link a:hover::after {
@@ -294,35 +319,12 @@ body {
 }
 
 @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Container principal do erro */
-.error-summary {
-    background: rgba(255, 71, 71, 0.1);
-    border-left: 4px solid #ff4747;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-}
-
-/* Lista de mensagens de erro dentro do container */
-.error-summary ul {
-    list-style: none;
-    color: #ff6b6b;
-    font-size: 0.85rem;
-    padding: 0;
-    margin: 0;
-}
-
-/* Caso queira que cada item da lista tenha um pequeno espaçamento */
-.error-summary ul li {
-    margin-bottom: 5px;
-}
-
-.error-summary ul li:last-child {
-    margin-bottom: 0;
 }

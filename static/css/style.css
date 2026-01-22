@@ -1,0 +1,253 @@
+/* Importando a fonte Inter conforme sua base original */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+
+:root {
+    /* Cores extraídas do segundo CSS */
+    --primary-blue: #00d2ff;
+    --secondary-blue: #3a7bd5;
+    --bg-dark: #020617;
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Cores de texto auxiliares do segundo CSS */
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --text-nav: #cbd5e1;
+
+    /* Gradiente padrão dos botões */
+    --btn-gradient: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body.home-body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+    /* Mantido seu efeito de profundidade radial usando as cores novas */
+    background: radial-gradient(circle at 50% -10%, #1e293b 0%, var(--bg-dark) 60%);
+}
+
+/* --- Glass Navigation --- */
+.glass-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1200px;
+    padding: 12px 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logo-text { 
+    font-weight: 900; 
+    font-size: 1.1rem; 
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.logo-text span {
+    color: var(--primary-blue);
+}
+
+.nav-links a {
+    color: var(--text-nav); /* Cor do segundo CSS */
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active { 
+    color: var(--primary-blue); 
+}
+
+.btn-associe {
+    background: var(--btn-gradient);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+    transition: 0.3s;
+}
+
+.btn-associe:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.established-tag {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--text-muted); /* Slate 400 */
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.main-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+    max-width: 900px;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.main-title span {
+    /* Gradiente de texto específico do segundo CSS */
+    background: linear-gradient(to right, #fff 50%, var(--primary-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-sub { 
+    color: var(--text-muted); 
+    max-width: 550px; 
+    margin: 0 auto 40px;
+    font-size: 0.95rem;
+}
+
+.hero-actions { 
+    display: flex; 
+    gap: 15px; 
+    justify-content: center; 
+}
+
+.btn-main {
+    background: var(--btn-gradient);
+    padding: 14px 30px;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.3);
+    transition: 0.3s;
+}
+
+.btn-discord {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    padding: 14px 30px;
+    border-radius: 50px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-discord:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Stats & Cards --- */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: left;
+    transition: 0.4s;
+}
+
+.glass-card:hover {
+    border-color: var(--primary-blue);
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 5px;
+    display: block;
+    color: var(--text-main);
+}
+
+.stat-value::after {
+    content: '+';
+    color: var(--primary-blue);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 15px 0 10px;
+    color: var(--text-main);
+}
+
+.card-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.icon-blue {
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-title { font-size: 2.8rem; }
+    .glass-nav { padding: 10px 20px; }
+    .nav-links { display: none; } 
+    .hero-actions { flex-direction: column; width: 100%; padding: 0 40px; }
+}
