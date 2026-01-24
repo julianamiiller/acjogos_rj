@@ -1,72 +1,70 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Perfil | ACJOGOS-RJ{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/afiliado/afiliado_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/afiliado/meu_perfil.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="main-container mt-5">
-    <div class="row g-4">
-        <div class="col-lg-4">
-            <div class="glass-container text-center">
-                <div class="mb-4">
-                    <i class="bi bi-person-circle" style="font-size: 5rem; color: var(--accent-neon); filter: drop-shadow(var(--glow-blue));"></i>
-                </div>
-                <h4 class="title-neon h5">{{ afiliado.nome_completo }}</h4>
-                <p class="text-secondary small">Afiliado desde {{ afiliado.data_cadastro|date:"d/m/Y" }}</p>
+<div class="theme-wrapper">
+    <div class="profile-card-container">
+        
+        <div class="neon-accent-line"></div>
 
-                <div class="mt-4">
-                    <a href="{% url 'afiliados:editar_afiliado' %}" class="btn-neon">
-                        <i class="bi bi-pencil-square me-2"></i>Editar Perfil
-                    </a>
+        <div class="profile-header">
+            <div class="avatar-glow-ring">
+                <div class="avatar-box">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+            </div>
+            <h2 class="neon-title">{{ afiliado.nome_completo }}</h2>
+            <p class="subtitle-text">Parceiro desde {{ afiliado.data_cadastro|date:"Y" }}</p>
+        </div>
+
+        <div class="data-display-grid">
+            
+            <div class="data-group">
+                <label>ID do Contrato</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-file-signature icon-left"></i>
+                    <span>{% if contrato_ativo %}#{{ contrato_ativo.numero_contrato }}{% else %}---{% endif %}</span>
+                </div>
+            </div>
+
+            <div class="data-group">
+                <label>Sua Comissão</label>
+                <div class="read-only-box highlight-box">
+                    <i class="fa-solid fa-sack-dollar icon-left"></i>
+                    <span>{% if contrato_ativo %}{{ contrato_ativo.comissao_percentual }}%{% else %}0%{% endif %}</span>
+                </div>
+            </div>
+
+            <div class="data-group full-width">
+                <label>Status Atual</label>
+                <div class="read-only-box status-box {% if contrato_ativo %}status-active{% else %}status-pending{% endif %}">
+                    <i class="fa-solid fa-signal icon-left"></i>
+                    <span>{% if contrato_ativo %}CONTRATO ATIVO{% else %}PENDENTE{% endif %}</span>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-8">
-            <div class="glass-container">
-                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: rgba(255,255,255,0.1) !important;">
-                    <h5 class="title-neon m-0" style="font-size: 1.1em;">Contrato Ativo</h5>
-                    {% if contrato_ativo %}
-                        <span class="status-badge status-active">Ativo</span>
-                    {% else %}
-                        <span class="status-badge status-pending">Pendente</span>
-                    {% endif %}
-                </div>
-
-                <div class="card-body p-0">
-                    {% if contrato_ativo %}
-                        <div class="row mb-4">
-                            <div class="col-sm-6 mb-3">
-                                <label class="text-secondary small text-uppercase d-block mb-1">Nº do Contrato</label>
-                                <span class="h5 text-white">{{ contrato_ativo.numero_contrato }}</span>
-                            </div>
-                            <div class="col-sm-6 mb-3">
-                                <label class="text-secondary small text-uppercase d-block mb-1">Sua Comissão</label>
-                                <span class="h5" style="color: var(--accent-neon);">{{ contrato_ativo.comissao_percentual }}%</span>
-                            </div>
-                        </div>
-
-                        <hr style="border-color: rgba(255,255,255,0.1);">
-
-                        <div class="mt-4">
-                            <a href="{% url 'afiliados:contratos' %}" class="btn-neon secondary-btn">
-                                Ver Histórico de Contratos
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="p-4 rounded-4 text-center warning-box">
-                            <i class="bi bi-exclamation-triangle h2 d-block mb-3" style="color: #ffaa00;"></i>
-                            <p style="color: #ffaa00;">Você ainda não possui um contrato ativo ou precisa aceitar os termos.</p>
-                            <a href="{% url 'afiliados:contratos' %}" class="btn-neon mt-3" style="background: var(--accent-gradient);">
-                                Ver Contratos Pendentes
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+        <div class="actions-row">
+            <a href="{% url 'afiliados:editar_afiliado' %}" class="secondary-btn">
+                <i class="fa-solid fa-user-pen"></i> Editar
+            </a>
+            <a href="#" class="secondary-btn">
+                <i class="fa-brands fa-whatsapp"></i> Suporte
+            </a>
         </div>
+
+        <div class="main-action-area">
+            <a href="{% url 'afiliados:contratos' %}" class="btn-neon-action">
+                HISTÓRICO DE CONTRATOS
+            </a>
+        </div>
+
     </div>
 </div>
 {% endblock %}
