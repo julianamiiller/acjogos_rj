@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Perfil(models.Model):
-    # --- OPÇÕES DE ESCOLHA (CHOICES) ---
+  
     TIPOS_USUARIO = [
         ('DIRETOR', 'Diretoria'),
         ('ASSOCIADO', 'Associado'),
@@ -16,7 +16,7 @@ class Perfil(models.Model):
         ('REJEITADO', 'Rejeitado'),
     ]
 
-    # --- SUA BASE ORIGINAL ---
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     tipo_usuario = models.CharField(
@@ -27,18 +27,13 @@ class Perfil(models.Model):
     
     telefone_contato = models.CharField(max_length=15, blank=True, null=True)
 
-    # --- NOVAS ATUALIZAÇÕES ---
     nome_social = models.CharField(max_length=150, blank=True, null=True) 
     cpf = models.CharField(max_length=14, unique=True, null=True, blank=True)
     discord_nick = models.CharField(max_length=50, blank=True, null=True, verbose_name="Nick no Discord")
-    
-    # Campos de Endereço
     cep = models.CharField(max_length=9, blank=True, null=True)
     endereco = models.CharField(max_length=255, blank=True, null=True, verbose_name="Endereço")
     numero = models.CharField(max_length=10, blank=True, null=True, verbose_name="Número")
     complemento = models.CharField(max_length=100, blank=True, null=True)
-
-    # --- NOVO CAMPO ADICIONADO ---
     status = models.CharField(
         max_length=10,
         choices=STATUS,

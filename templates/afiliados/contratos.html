@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meus Contratos - ACJOGOS-RJ{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/afiliado/meu_perfil.css' %}">
+
+<style>
+    /* Ajustes específicos para a tabela caber no design dark */
+    .profile-card-container.wide-card {
+        max-width: 400px; /* Expandido para acomodar a tabela */
+    }
+    
+    .custom-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 8px;
+        margin-top: 20px;
+    }
+
+    .custom-table th {
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .contract-row {
+        background: var(--input-bg-deep);
+        transition: 0.3s;
+    }
+
+    .contract-row:hover {
+        background: rgba(41, 98, 255, 0.1);
+    }
+
+    .contract-row td {
+        padding: 15px 10px;
+        color: var(--text-pure);
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .contract-row td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid rgba(255,255,255,0.05); }
+    .contract-row td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid rgba(255,255,255,0.05); }
+
+    .status-badge {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        border: 1px solid;
+    }
+
+    .text-accepted {
+        color: #00ff88;
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    .empty-icon { font-size: 3rem; margin-bottom: 15px; opacity: 0.5; }
+</style>
+
+<div class="theme-wrapper">
+    <div class="profile-card-container wide-card">
+        <div class="neon-accent-line"></div>
+        
+        <header class="profile-header">
+            <h2 class="neon-title">Meus Contratos</h2>
+            <p class="subtitle-text">Gerencie suas afiliações e termos ativos</p>
+        </header>
+
+        {% if contratos %}
+            <div class="table-responsive-wrapper" style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nº Contrato</th>
+                            <th>Status</th>
+                            <th>Comissão</th>
+                            <th>Início</th>
+                            <th style="text-align: center;">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contrato in contratos %}
+                        <tr class="contract-row">
+                            <td class="col-id" style="font-family: monospace; color: var(--accent-neon);">
+                                #{{ contrato.numero_contrato }}
+                            </td>
+                            <td>
+                                <span class="status-badge 
+                                    {% if contrato.status == 'ativo' %}status-active
+                                    {% elif contrato.status == 'pendente' %}status-pending
+                                    {% else %}status-default{% endif %}">
+                                    {{ contrato.get_status_display }}
+                                </span>
+                            </td>
+                            <td class="col-commission">
+                                <span style="color: var(--text-pure); font-weight: 700;">
+                                    {{ contrato.comissao_percentual }}%
+                                </span>
+                            </td>
+                            <td class="col-date">{{ contrato.data_inicio|date:"d/m/Y" }}</td>
+                            <td style="text-align: center;">
+                                {% if not contrato.termo_aceito %}
+                                    <a href="{% url 'afiliados:aceitar_contrato' contrato.id %}" 
+                                       class="btn-neon-action" 
+                                       style="min-width: 100px; padding: 8px 15px; font-size: 0.7rem;">
+                                        Aceitar
+                                    </a>
+                                {% else %}
+                                    <span class="text-accepted">
+                                        <i class="icon-check">✓</i> Assinado
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">📂</div>
+                <p class="text-pure" style="margin-bottom: 5px;">Você ainda não possui contratos.</p>
+                <p class="subtitle-text">Novas afiliações aparecerão aqui.</p>
+            </div>
+        {% endif %}
+
+        <div class="footer-actions" style="margin-top: 30px; display: flex; justify-content: center;">
+            <a href="javascript:history.back()" class="secondary-btn" style="max-width: 200px;">
+                Voltar ao Painel
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

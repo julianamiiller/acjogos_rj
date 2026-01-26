@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Coletivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/coletivos/dashboard.css' %}">
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+        <div class="logo">ACJOGOS-RJ</div>
+
+        <div class="header-right">
+            <span class="user-name">{{ request.user.get_full_name }}</span>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">Sair</button>
+            </form>
+
+
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+
+        <h1>Dashboard do Coletivo</h1>
+
+        <section class="info-card">
+            <p><strong>Instituição:</strong> {{ coletivo.nome_institucional }}</p>
+            <p><strong>Email:</strong> {{ coletivo.email_institucional }}</p>
+            <p><strong>Status:</strong> {{ coletivo.ativo|yesno:"Ativo,Inativo" }}</p>
+        </section>
+
+        <section class="actions">
+            <a href="{% url 'coletivos:meu_perfil' %}" class="btn-secondary">
+                Meu Perfil
+            </a>
+            <a href="{% url 'coletivos:editar' %}" class="btn-primary">
+                Editar Dados
+            </a>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

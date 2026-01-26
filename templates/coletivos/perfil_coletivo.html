@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/coletivos/perfil.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="perfil-page">
+
+    <div class="container">
+        <h2>Perfil Institucional</h2>
+
+        <div class="card">
+            <p>
+                <strong>Nome:</strong>
+                {{ coletivo.nome_institucional }}
+            </p>
+
+            <p>
+                <strong>CNPJ:</strong>
+                {{ coletivo.cnpj }}
+            </p>
+
+            <p>
+                <strong>Responsável Legal:</strong>
+                {{ coletivo.responsavel_legal }}
+            </p>
+
+            <p>
+                <strong>Telefone:</strong>
+                {{ coletivo.telefone }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ coletivo.email_institucional }}
+            </p>
+
+            <p>
+                <strong>Descrição:</strong>
+                {{ coletivo.descricao|default:"—" }}
+            </p>
+        </div>
+
+        <a href="{% url 'coletivos:editar' %}" class="btn-primary">
+            Editar Perfil
+        </a>
+    </div>
+
+</div>
+{% endblock %}

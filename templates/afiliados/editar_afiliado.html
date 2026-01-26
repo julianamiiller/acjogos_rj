@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Dados do Afiliado</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="{% static 'css/afiliado/editar_dados.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <span class="navbar-brand">Área do Afiliado</span>
+
+        <span class="text-white">
+            {{ afiliado.nome_completo }}
+        </span>
+    </nav>
+
+    <div class="container mt-4">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Editar Meus Dados</h5>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <h6 class="mt-2 mb-3 text-secondary">Dados Pessoais</h6>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">CPF</label>
+                            <input type="text" class="form-control" value="{{ afiliado.cpf }}" readonly>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Data de Nascimento</label>
+                            {{ form.data_nascimento }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telefone</label>
+                            {{ form.telefone }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Telefone Alternativo</label>
+                            {{ form.telefone_alternativo }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mt-3 mb-3 text-secondary">Endereço</h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">CEP</label>
+                            {{ form.cep }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Endereço</label>
+                            {{ form.endereco }}
+                        </div>
+
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label">Número</label>
+                            {{ form.numero }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Bairro</label>
+                            {{ form.bairro }}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cidade</label>
+                            {{ form.cidade }}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Estado</label>
+                            {{ form.estado }}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mt-3 mb-3 text-secondary">Área Profissional</h6>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Área de Atuação</label>
+                            {{ form.area_atuacao }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Especialidade</label>
+                            {{ form.especialidade }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Biografia</label>
+                        {{ form.biografia }}
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mt-3 mb-3 text-secondary">Dados Bancários</h6>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Banco</label>
+                            {{ form.banco }}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Agência</label>
+                            {{ form.agencia }}
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Conta</label>
+                            {{ form.conta }}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Tipo de Conta</label>
+                        {{ form.tipo_conta }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'afiliados:meu_perfil' %}" class="btn btn-secondary">
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-success">
+                            Salvar Alterações
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

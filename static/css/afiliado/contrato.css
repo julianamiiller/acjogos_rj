@@ -1,0 +1,91 @@
+/* contrato.css */
+:root {
+    --bg-void: #050507;
+    --bg-card: #161b22;
+    --accent-neon: #2962ff;
+    --text-pure: #ffffff;
+    --text-secondary: #94a3b8;
+}
+
+/* Garante que o fundo ocupe a tela toda e centralize o card */
+.theme-wrapper {
+    background: var(--bg-void) !important;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.profile-card-container {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 850px;
+    min-height: 400px; /* Evita que o card encolha na sua foto */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.neon-accent-line {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 3px;
+    background: var(--accent-neon);
+    box-shadow: 0 0 15px var(--accent-neon);
+}
+
+.neon-title {
+    color: var(--text-pure);
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.subtitle-text {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estado Vazio */
+.empty-state-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.empty-icon { font-size: 3rem; margin-bottom: 15px; opacity: 0.2; color: #fff; }
+.empty-text { color: #fff; font-weight: 600; }
+.empty-subtext { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* Botões */
+.secondary-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 25px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-secondary) !important;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    align-self: center;
+}
+
+.secondary-btn:hover {
+    background: var(--accent-neon);
+    color: white !important;
+}

@@ -31,7 +31,6 @@ class CadastroUsuarioForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        # Sincroniza username com o email
         user.username = self.cleaned_data['email']
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data.get('first_name')

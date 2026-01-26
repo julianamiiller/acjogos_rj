@@ -5,29 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ACJOGOS-RJ{% endblock %}</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    {# Bloco de CSS: O login_style.css fica como padrão #}
-    {% block css %}
-    <link rel="stylesheet" href="{% static 'css/registration/login_style.css' %}">
-    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {% block css %}{% endblock %}
 </head>
 <body>
 
-    {% block content %}
-    {% endblock %}
+    {# ===== HEADER GLOBAL ===== #}
+    {% if user.is_authenticated and perfil %}
+    <header class="base-header">
+        <div class="header-left">
+            <span class="logo-text">ACJOGOS-RJ</span>
+        </div>
 
-    <script src="https://unpkg.com/imask"></script>
+        <div class="header-right">
+            <span class="user-name">
+                {{ perfil.user.get_full_name|default:perfil.user.username }}
+            </span>
 
-    {# Bloco de JS: O auth.js fica como padrão #}
-    {% block js %}
-    <script src="{% static 'js/auth.js' %}"></script>
-    {% endblock %}
+            {% if perfil.tipo_usuario == 'AFILIADO' %}
+                <a href="{% url 'core_dashboard:dashboard_afiliado' %}" class="btn-dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
 
-    {% block extra_js %}
-    {% endblock %}
+            {% elif perfil.tipo_usuario == 'COLETIVO' %}
+                <a href="{% url 'coletivos:dashboard' %}" class="btn-dashboard">
+                    <i class="fas fa-building"></i> Dashboard
+                </a>
+            {% endif %}
+        </div>
+    </header>
+    {% endif %}
+
+    {# ===== CONTEÚDO DAS PÁGINAS ===== #}
+    {% block content %}{% endblock %}
+
+    {% block js %}{% endblock %}
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

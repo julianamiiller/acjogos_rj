@@ -1,4 +1,3 @@
-/* --- static/css/empresa_style.css --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
@@ -13,7 +12,7 @@
     --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
 }
 
-/* Forçar a rolagem em todos os níveis */
+
 html,
 body {
     height: auto !important;
@@ -22,14 +21,13 @@ body {
     /* Força a barra vertical */
     overflow-x: hidden !important;
     display: block !important;
-    /* Remove o flex do body que pode causar bugs de altura */
+  
 }
 
 .registration-container {
     margin: 60px auto !important;
-    /* Centraliza horizontalmente e dá espaço no topo/base */
     display: block;
-    /* ... resto do seu código original ... */
+  
 }
 
 .registration-container {
@@ -43,11 +41,9 @@ body {
     width: 100%;
     max-width: 700px;
     margin: auto;
-    /* Centraliza o card quando ele for menor que a tela */
     animation: fadeInUp 0.8s ease forwards;
 }
 
-/* Estilização da Barra de Rolagem (Scrollbar) para combinar com o tema */
 ::-webkit-scrollbar {
     width: 10px;
 }

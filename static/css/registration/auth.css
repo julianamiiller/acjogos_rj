@@ -54,8 +54,6 @@ body {
     /* Animação de entrada suave */
     animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
-
-/*parte da esquerda*/
 .auth-sidebar {
     flex: 1;
     background: linear-gradient(135deg, #1b63f2 0%, #050a1f 100%);
@@ -104,7 +102,7 @@ body {
     margin-bottom: 40px;
     max-width: 300px;
 }
-/*meu botão de entrar*/
+
 .btn-ghost {
     display: inline-block;
     padding: 14px 45px;
@@ -148,7 +146,6 @@ body {
     margin-bottom: 30px;
 }
 
-/*campo de senha, nome e sobrenome*/
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -209,33 +206,32 @@ input:focus, select:focus {
 
 .toggle-password:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-neon); }
 
-/* BOTÃO DE AÇÃO - O "CORE" DO DESIGN */
+
 .btn-primary-action {
     width: 100%;
-    background: var(--accent-gradient); /* O gradiente azul neon */
+    background: var(--accent-gradient); 
     color: #fff;
     padding: 22px;
     border: none;
-    border-radius: 100px; /* Formato de pílula moderno */
+    border-radius: 100px; 
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 0.9rem;
-    letter-spacing: 3px; /* Letras bem espaçadas para visual premium */
+    letter-spacing: 3px; 
     cursor: pointer;
     margin-top: 30px;
     text-transform: uppercase;
     position: relative;
-    overflow: hidden; /* Necessário para o efeito de brilho (flare) */
-    box-shadow: 0 20px 40px -10px rgba(41, 98, 255, 0.1); /* Sombra de brilho azul */
+    overflow: hidden; 
+    box-shadow: 0 20px 40px -10px rgba(41, 98, 255, 0.1); 
     transition: all 0.4s ease;
 }
 
-/* Efeito ao passar o mouse */
+
 .btn-primary-action:hover {
-    transform: translateY(-4px) scale(1.02); /* Sobe levemente e cresce */
+    transform: translateY(-4px) scale(1.02);
 }
 
-/* O efeito de "Raio de Luz" (Flare) que passa pelo botão */
 .btn-primary-action::before {
     content: '';
     position: absolute;

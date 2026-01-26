@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACJOGOS-RJ | Editar Coletivo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/coletivos/editar.css' %}">
+    
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    {# Cabeçalho Isolado (Idêntico ao seu print) #}
+    <nav class="navbar">
+        <div class="brand">ACJOGOS-RJ</div>
+        
+        <div class="user-menu">
+            <span class="user-name">
+                {{ user.get_full_name|default:user.username }} coletivo
+            </span>
+            
+            <a href="/coletivos/dashboard/" class="btn-dashboard">
+                <i class="fas fa-building"></i> DASHBOARD
+            </a>
+        </div>
+    </nav>
+
+    {# Conteúdo da Edição #}
+    <main class="main-wrapper">
+        <div class="container">
+            <header class="form-header">
+                <h2>Editar Dados do Coletivo</h2>
+            </header>
+            
+            <form method="post" class="card">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    <a href="javascript:history.back()" class="btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-/* static/css/empresa_form.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
 :root {
@@ -13,6 +12,10 @@
     --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background: radial-gradient(circle at 50% 0%, #1a1f35 0%, var(--bg-void) 70%);
@@ -22,23 +25,24 @@ body {
     justify-content: center;
     align-items: center;
     color: var(--text-pure);
+    padding: 20px; 
 }
 
 .form-container {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
-    padding: 40px;
+    padding: 50px;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-deep);
     width: 100%;
-    max-width: 850px; /* Largura maior para as duas colunas */
+    max-width: 900px;
     animation: fadeInUp 0.6s ease-out;
 }
 
 .form-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 45px;
 }
 
 .form-header h1 {
@@ -49,14 +53,16 @@ body {
     background: linear-gradient(90deg, #ffffff, #a5b4fc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin: 0;
 }
 
-/* GRID DE DUAS COLUNAS (O SEGREDO DA FOTO) */
+
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
-    column-gap: 30px;
-    row-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px; 
+    row-gap: 25px;   
+    width: 100%;
 }
 
 .form-group {
@@ -65,11 +71,15 @@ body {
     text-align: left;
 }
 
+.form-group:last-of-type {
+    grid-column: span 2;
+}
+
 .form-group label {
     font-size: 0.75em;
     font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: var(--text-secondary);
     letter-spacing: 1px;
 }
@@ -78,33 +88,32 @@ body {
 .form-group select, 
 .form-group textarea {
     width: 100%;
-    padding: 14px 16px;
+    padding: 12px 16px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background-color: var(--input-bg-deep);
     color: var(--text-pure);
     font-size: 0.95em;
     transition: all 0.3s ease;
+    outline: none;
 }
 
 .form-group input:focus {
-    outline: none;
     border-color: var(--accent-neon);
     box-shadow: 0 0 15px rgba(41, 98, 255, 0.2);
 }
 
-/* BOTÃO ESTILO PÍLULA DA FOTO */
 .btn-submit-container {
-    grid-column: span 2; /* Ocupa as duas colunas */
+    grid-column: span 2;
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 .btn-pill {
     background: var(--accent-gradient);
     color: white;
-    padding: 16px 60px;
+    padding: 16px 70px;
     border: none;
     border-radius: 50px;
     font-weight: 800;
@@ -120,11 +129,16 @@ body {
     box-shadow: 0 15px 30px rgba(41, 98, 255, 0.6);
 }
 
-/* Responsividade para Celular */
 @media (max-width: 768px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .btn-submit-container { grid-column: span 1; }
-    .form-container { margin: 20px; padding: 25px; }
+    .form-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .btn-submit-container, .form-group:last-of-type { 
+        grid-column: span 1; 
+    }
+    .form-container { 
+        padding: 30px 20px; 
+    }
 }
 
 @keyframes fadeInUp {

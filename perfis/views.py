@@ -4,9 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CadastroUsuarioForm
 
 def cadastro_view(request):
-    #if request.user.is_authenticated:
-        #return redirect('pos_login')
-        
+    
     if request.method == 'POST':
         form = CadastroUsuarioForm(request.POST)
         if form.is_valid():
@@ -19,36 +17,48 @@ def cadastro_view(request):
 
 @login_required
 def pos_login_view(request):
+    print(f"DEBUG: Usuário {request.user.username} logou.")
+    
     try:
         perfil = request.user.perfil
-    except AttributeError:
+        print(f"DEBUG: Tipo de usuário: {perfil.tipo_usuario} | Status: {perfil.status}")
+    except Exception as e:
+        print(f"DEBUG: Erro ao buscar perfil: {e}")
         if request.user.is_staff:
             return redirect('admin:index')
         return redirect('home')
 
-    # 1️⃣ VALIDAÇÃO DE STATUS
-    if perfil.status == 'PENDENTE':
+  
+    status_atual = perfil.status.upper()
+    if status_atual == 'PENDENTE':
         return redirect('cadastro_pendente')
     
-    if perfil.status == 'REJEITADO':
-        messages.error(request, "Seu acesso foi bloqueado. Contate o suporte.")
+    if status_atual == 'REJEITADO':
+        messages.error(request, "Seu acesso foi bloqueado.")
         return redirect('login')
     
-    # AFILIADOS
-    if perfil.tipo_usuario == 'AFILIADO':
+   
+    tipo = perfil.tipo_usuario.upper()
+
+    if tipo == 'AFILIADO':
+        print("DEBUG: Entrou na lógica de AFILIADO")
+      
         if hasattr(perfil, 'dados_afiliado'):
             return redirect('afiliados:meu_perfil')
         return redirect('afiliados:cadastro_afiliado')
 
-    #  ASSOCIADOS
-    if perfil.tipo_usuario == 'ASSOCIADO':
+    if tipo == 'ASSOCIADO':
         if hasattr(perfil, 'empresa'):
             return redirect('minha_empresa')
         return redirect('empresa_cadastrar')
 
-    if perfil.tipo_usuario == 'COLETIVO':
-        return redirect('area_institucional')
+    if tipo == 'COLETIVO':
+        if hasattr(perfil, 'dados_coletivo'):
+            return redirect('coletivos:dashboard')
+        return redirect('coletivos:cadastro')
 
+   
+    print("DEBUG: Nenhum tipo coincidiu, indo para HOME")
     return redirect('home')
 
 @login_required

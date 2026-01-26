@@ -2,6 +2,31 @@
 {% load static %}
 
 {% block content %}
+<style>
+    
+    .logout-button {
+        background: none;
+        border: none;
+        padding: 0;
+        color: #3498db; 
+        text-decoration: underline;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+        transition: color 0.2s;
+    }
+
+    .logout-button:hover {
+        color: #2980b9; 
+        text-decoration: none;
+    }
+
+    .reset-link {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+
 <div class="login-container">
     <div class="logo-area">
         <h1 class="logo-text" style="color: #f1c40f;">Aguarde</h1>
@@ -15,7 +40,12 @@
     </div>
 
     <div class="reset-link">
-        <a href="{% url 'logout' %}">Sair do Sistema</a>
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">
+                Sair do Sistema
+            </button>
+        </form>
     </div>
 </div>
 {% endblock %}

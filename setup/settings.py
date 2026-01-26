@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'empresas',
     'core_dashboard',
     'afiliados',
+    'coletivos',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/coletivos/coletivo.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Cadastro Institucional</h2>
+
+    <form method="post" class="card">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn-primary">
+            Cadastrar Coletivo
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Aceitar Contrato</h2>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <p><strong>Número:</strong> {{ contrato.numero_contrato }}</p>
+            <p><strong>Comissão:</strong> {{ contrato.comissao_percentual }}%</p>
+            <p><strong>Data de início:</strong> {{ contrato.data_inicio|date:"d/m/Y" }}</p>
+
+            <hr>
+
+            <h5>Termos do Contrato</h5>
+            <p>
+                Ao aceitar este contrato, você concorda com as regras de afiliação,
+                comissões e políticas da plataforma.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">
+                    Aceitar Contrato
+                </button>
+                <a href="{% url 'afiliados:contratos' %}" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

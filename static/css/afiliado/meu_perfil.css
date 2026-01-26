@@ -216,3 +216,85 @@ html, body {
         transform: translateY(0);
     }
 }
+
+/* --- static/css/afiliado_style.css --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+:root {
+    --bg-void: #050507;
+    --bg-card: rgba(22, 27, 34, 0.95);
+    --input-bg-deep: #0d1117;
+    --accent-neon: #2962ff;
+    --accent-gradient: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
+    --text-gradient: linear-gradient(90deg, #ffffff 0%, #a5b4fc 100%);
+    --text-pure: #ffffff;
+    --text-secondary: #94a3b8;
+    --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
+}
+
+/* Base */
+body {
+    background-color: var(--bg-void) !important;
+    color: var(--text-pure);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Card Principal */
+.card {
+    background: var(--bg-card) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 24px !important;
+    box-shadow: var(--shadow-deep) !important;
+}
+
+.card-header h5 {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* Labels */
+.form-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Estilização dos Inputs (Editáveis) */
+.form-control, .form-select {
+    background-color: var(--input-bg-deep) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+}
+
+/* --- O SEGREDO PARA O CPF (Read Only) --- */
+/* Estiliza o campo quando ele está desabilitado ou somente leitura */
+input[readonly], input[disabled] {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px dashed rgba(41, 98, 255, 0.3) !important;
+    color: var(--text-secondary) !important;
+    cursor: not-allowed;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+}
+
+/* Botões */
+.btn-success {
+    background: var(--accent-gradient) !important;
+    border: none !important;
+    border-radius: 50px !important;
+    font-weight: 800;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 50px !important;
+}
+
+hr { border-color: rgba(255,255,255,0.1); }

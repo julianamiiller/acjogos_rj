@@ -1,33 +1,58 @@
-{% extends 'dashboard/dashboard_base.html' %}
+{% extends "dashboard/dashboard_base.html" %}
 
 {% block conteudo %}
 
-<h2 class="mb-4">Dashboard do Afiliado</h2>
+<h3 class="mb-4">Dashboard do Afiliado</h3>
 
-{% if estatisticas.cadastro_completo %}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card text-center mb-3">
-                <div class="card-body">
-                    <h6>Total de contratos</h6>
-                    <h3>{{ estatisticas.total_contratos }}</h3>
-                </div>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6>Total de contratos</h6>
+                <h2>{{ estatisticas.total_contratos|default:0 }}</h2>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-4">
-            <div class="card text-center mb-3">
-                <div class="card-body">
-                    <h6>Contratos ativos</h6>
-                    <h3>{{ estatisticas.contratos_ativos }}</h3>
-                </div>
+    <div class="col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h6>Contratos ativos</h6>
+                <h2>{{ estatisticas.contratos_ativos|default:0 }}</h2>
             </div>
+        </div>
+    </div>
+</div>
+
+{% if estatisticas.cadastro_completo %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Meu Perfil</h5>
+            <p class="card-text">
+                Gerencie seus dados pessoais e profissionais.
+            </p>
+            <a href="{% url 'afiliados:meu_perfil' %}" class="btn btn-outline-primary">
+                Ver meu perfil
+            </a>
         </div>
     </div>
 {% else %}
-    <div class="alert alert-danger">
-        Complete seu cadastro de afiliado para visualizar as estatísticas.
+    <div class="alert alert-warning">
+        Seu cadastro ainda não está completo.
+        <a href="{% url 'afiliados:cadastro_afiliado' %}">Clique aqui para completar</a>.
     </div>
 {% endif %}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Contratos</h5>
+        <p class="card-text">
+            Visualize seus contratos, aceite termos e acompanhe o status.
+        </p>
+        <a href="{% url 'afiliados:contratos' %}" class="btn btn-primary">
+            Meus Contratos
+        </a>
+    </div>
+</div>
 
 {% endblock %}

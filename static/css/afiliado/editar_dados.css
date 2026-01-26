@@ -1,0 +1,177 @@
+/* perfil.css - Versão Premium Afiliado Style */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg-void: #050507;
+    --bg-card: rgba(22, 27, 34, 0.95);
+    --input-bg-deep: #0d1117;
+    --accent-neon: #2962ff;
+    --accent-gradient: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
+    --text-gradient: linear-gradient(90deg, #ffffff 0%, #a5b4fc 100%);
+    --text-pure: #ffffff;
+    --text-secondary: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
+}
+
+body {
+    background-color: var(--bg-void) !important;
+    color: var(--text-pure);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+.container {
+    width: 100%;
+    max-width: 680px;
+    padding: 20px;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Título com o Gradiente do Afiliado */
+h2 {
+    font-size: 1.8em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(41, 98, 255, 0.5), transparent);
+}
+
+/* Card Estilo Glassmorphism Neon */
+.card {
+    background: var(--bg-card) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 24px !important;
+    box-shadow: var(--shadow-deep) !important;
+    padding: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Linha de brilho no topo do card */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--accent-gradient);
+    box-shadow: 0 0 15px var(--accent-neon);
+}
+
+/* Estilização das Linhas de Dados */
+.card p {
+    margin: 0;
+    padding: 20px 30px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+}
+
+.card p:last-child {
+    border-bottom: none;
+}
+
+.card p:hover {
+    background: rgba(41, 98, 255, 0.03);
+}
+
+/* Labels (Os Strongs) */
+.card p strong {
+    font-size: 0.75rem;
+    color: var(--accent-neon);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    align-self: center;
+}
+
+/* Valores */
+.card p {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Botão de Ação Estilo Afiliado */
+.btn-primary {
+    display: block;
+    width: fit-content;
+    margin-top: 30px;
+    padding: 14px 40px;
+    background: var(--accent-gradient) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 50px !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    box-shadow: 0 5px 20px rgba(41, 98, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(41, 98, 255, 0.5);
+}
+
+/* Custom Scrollbar para combinar com o corpo */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+    background: #1e40af;
+    border-radius: 10px;
+}
+
+/* Animação */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .card p {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 15px 25px;
+    }
+    
+    h2 {
+        font-size: 1.4em;
+    }
+}
