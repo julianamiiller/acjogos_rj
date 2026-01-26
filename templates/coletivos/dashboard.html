@@ -8,7 +8,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/coletivos/dashboard.css' %}">
+    
+    <style>
+        :root {
+            --bg-deep: #0a0c10;
+            --surface: #161b22;
+            --surface-border: rgba(255, 255, 255, 0.08);
+            --accent-primary: #2962ff;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --success: #4ade80;
+            --shadow-lg: 0 30px 60px rgba(0,0,0,0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(at 0% 0%, rgba(41, 98, 255, 0.05), transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.05), transparent 50%),
+                var(--bg-deep);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            height: 70px;
+            padding: 0 40px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--surface-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-name {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .btn-logout {
+            background: var(--accent-primary);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dashboard-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 40px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .dashboard-container h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .dashboard-container h1::before {
+            content: '';
+            width: 4px;
+            height: 32px;
+            background: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-primary);
+        }
+
+        .info-card {
+            background: rgba(22, 27, 34, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--surface-border);
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .info-card p {
+            margin: 0;
+            padding: 14px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+
+        .info-card p:last-child {
+            border-bottom: none;
+        }
+
+        .info-card strong {
+            color: var(--accent-primary);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .actions {
+            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 14px 36px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2962ff, #1e40af);
+            color: white;
+            box-shadow: 0 5px 25px rgba(41,98,255,0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--surface-border);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,12 +179,11 @@
 
         <div class="header-right">
             <span class="user-name">{{ request.user.get_full_name }}</span>
+            
             <form action="{% url 'logout' %}" method="post" style="display: inline;">
                 {% csrf_token %}
                 <button type="submit" class="btn-logout">Sair</button>
             </form>
-
-
         </div>
     </header>
 
@@ -49,5 +209,4 @@
     </main>
 
 </body>
-
 </html>

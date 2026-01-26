@@ -16,7 +16,6 @@
 
 .theme-wrapper {
     font-family: 'Inter', sans-serif;
-    /* Mantém o background original do seu login */
     background: radial-gradient(circle at 50% 0%, #1a1f35 0%, var(--bg-void) 70%);
     min-height: 100vh;
     display: flex;
@@ -217,7 +216,6 @@ html, body {
     }
 }
 
-/* --- static/css/afiliado_style.css --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
@@ -232,14 +230,13 @@ html, body {
     --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
 }
 
-/* Base */
 body {
     background-color: var(--bg-void) !important;
     color: var(--text-pure);
     font-family: 'Inter', sans-serif;
 }
 
-/* Card Principal */
+
 .card {
     background: var(--bg-card) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -254,7 +251,6 @@ body {
     font-weight: 800;
 }
 
-/* Labels */
 .form-label {
     font-size: 0.75em;
     font-weight: 700;
@@ -263,7 +259,7 @@ body {
     letter-spacing: 1px;
 }
 
-/* Estilização dos Inputs (Editáveis) */
+
 .form-control, .form-select {
     background-color: var(--input-bg-deep) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -272,8 +268,6 @@ body {
     padding: 12px !important;
 }
 
-/* --- O SEGREDO PARA O CPF (Read Only) --- */
-/* Estiliza o campo quando ele está desabilitado ou somente leitura */
 input[readonly], input[disabled] {
     background-color: rgba(255, 255, 255, 0.03) !important;
     border: 1px dashed rgba(41, 98, 255, 0.3) !important;
@@ -283,7 +277,7 @@ input[readonly], input[disabled] {
     opacity: 0.8;
 }
 
-/* Botões */
+
 .btn-success {
     background: var(--accent-gradient) !important;
     border: none !important;

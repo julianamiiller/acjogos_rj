@@ -1,16 +1,147 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Cadastro Institucional{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/coletivos/coletivo.css' %}">
+<style>
+  
+    :root {
+        --bg-deep: #0a0c10;
+        --surface: #161b22;
+        --surface-border: rgba(255, 255, 255, 0.08);
+        --accent-primary: #2962ff;
+        --accent-soft: rgba(41, 98, 255, 0.1);
+        --text-main: #f0f6fc;
+        --text-muted: #8b949e;
+        --success: #238636;
+        --shadow-sm: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    body {
+        background-color: var(--bg-deep);
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(41, 98, 255, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.05) 0px, transparent 50%);
+        color: var(--text-main);
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+       
+    }
+
+
+    .cadastro-container {
+        width: 100%;
+        max-width: 520px;
+        padding: 40px 24px;
+        margin: 0 auto; 
+        box-sizing: border-box;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    h2 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid var(--accent-primary);
+        padding-left: 16px;
+        color: var(--text-main);
+    }
+
+    .card {
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: 12px;
+        padding: 32px; 
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    form.card p {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+        width: 100%;
+    }
+
+    form.card label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+
+    form.card input,
+    form.card textarea,
+    form.card select {
+        background: #0d1117;
+        border: 1px solid var(--surface-border);
+        border-radius: 8px;
+        padding: 14px;
+        color: var(--text-main);
+        font-size: 0.95rem;
+        font-family: 'Inter', sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    form.card input:focus,
+    form.card textarea:focus,
+    form.card select:focus {
+        outline: none;
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px rgba(41,98,255,0.15);
+    }
+
+
+    .btn-primary {
+        display: inline-block;
+        padding: 14px 24px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.2s;
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--accent-primary);
+        color: white;
+        border: none;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        background: #3b82f6;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(41,98,255,0.35);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="cadastro-container">
     <h2>Cadastro Institucional</h2>
 
     <form method="post" class="card">
         {% csrf_token %}
+        
         {{ form.as_p }}
 
         <button type="submit" class="btn-primary">
