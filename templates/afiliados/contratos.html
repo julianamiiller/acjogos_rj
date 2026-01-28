@@ -1,88 +1,114 @@
-{% extends "base.html" %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
 
-{% block title %}Meus Contratos - ACJOGOS-RJ{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Contratos - ACJOGOS-RJ</title>
 
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/afiliado/meu_perfil.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<style>
-    /* Ajustes específicos para a tabela caber no design dark */
-    .profile-card-container.wide-card {
-        max-width: 400px; /* Expandido para acomodar a tabela */
-    }
-    
-    .custom-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 8px;
-        margin-top: 20px;
-    }
+    <link rel="stylesheet" href="{% static 'css/afiliado/meu_perfil.css' %}">
 
-    .custom-table th {
-        color: var(--text-secondary);
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 10px;
-        text-align: left;
-    }
+    <style>
+        .profile-card-container.wide-card {
+            max-width: 400px;
+        }
 
-    .contract-row {
-        background: var(--input-bg-deep);
-        transition: 0.3s;
-    }
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin-top: 20px;
+        }
 
-    .contract-row:hover {
-        background: rgba(41, 98, 255, 0.1);
-    }
+        .custom-table th {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px;
+            text-align: left;
+        }
 
-    .contract-row td {
-        padding: 15px 10px;
-        color: var(--text-pure);
-        font-size: 0.9rem;
-        border-top: 1px solid rgba(255,255,255,0.05);
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
+        .contract-row {
+            background: var(--input-bg-deep);
+            transition: 0.3s;
+        }
 
-    .contract-row td:first-child { border-radius: 12px 0 0 12px; border-left: 1px solid rgba(255,255,255,0.05); }
-    .contract-row td:last-child { border-radius: 0 12px 12px 0; border-right: 1px solid rgba(255,255,255,0.05); }
+        .contract-row:hover {
+            background: rgba(41, 98, 255, 0.1);
+        }
 
-    .status-badge {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        border: 1px solid;
-    }
+        .contract-row td {
+            padding: 15px 10px;
+            color: var(--text-pure);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .text-accepted {
-        color: #00ff88;
-        font-weight: 600;
-        font-size: 0.85rem;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
+        .contract-row td:first-child {
+            border-radius: 12px 0 0 12px;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .empty-state {
-        text-align: center;
-        padding: 40px 0;
-    }
+        .contract-row td:last-child {
+            border-radius: 0 12px 12px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .empty-icon { font-size: 3rem; margin-bottom: 15px; opacity: 0.5; }
-</style>
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid;
+        }
 
-<div class="theme-wrapper">
-    <div class="profile-card-container wide-card">
-        <div class="neon-accent-line"></div>
-        
-        <header class="profile-header">
-            <h2 class="neon-title">Meus Contratos</h2>
-            <p class="subtitle-text">Gerencie suas afiliações e termos ativos</p>
-        </header>
+        .text-accepted {
+            color: #00ff88;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-        {% if contratos %}
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="theme-wrapper">
+        <div class="profile-card-container wide-card">
+            <div class="neon-accent-line"></div>
+
+            <header class="profile-header">
+                <h2 class="neon-title">Meus Contratos</h2>
+                <p class="subtitle-text">Gerencie suas afiliações e termos ativos</p>
+            </header>
+
+            {% if contratos %}
             <div class="table-responsive-wrapper" style="overflow-x: auto;">
                 <table class="custom-table">
                     <thead>
@@ -116,15 +142,14 @@
                             <td class="col-date">{{ contrato.data_inicio|date:"d/m/Y" }}</td>
                             <td style="text-align: center;">
                                 {% if not contrato.termo_aceito %}
-                                    <a href="{% url 'afiliados:aceitar_contrato' contrato.id %}" 
-                                       class="btn-neon-action" 
-                                       style="min-width: 100px; padding: 8px 15px; font-size: 0.7rem;">
-                                        Aceitar
-                                    </a>
+                                <a href="{% url 'afiliados:aceitar_contrato' contrato.id %}" class="btn-neon-action"
+                                    style="min-width: 100px; padding: 8px 15px; font-size: 0.7rem;">
+                                    Aceitar
+                                </a>
                                 {% else %}
-                                    <span class="text-accepted">
-                                        <i class="icon-check">✓</i> Assinado
-                                    </span>
+                                <span class="text-accepted">
+                                    <i class="fa-solid fa-check"></i> Assinado
+                                </span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -132,19 +157,22 @@
                     </tbody>
                 </table>
             </div>
-        {% else %}
+            {% else %}
             <div class="empty-state">
                 <div class="empty-icon">📂</div>
                 <p class="text-pure" style="margin-bottom: 5px;">Você ainda não possui contratos.</p>
                 <p class="subtitle-text">Novas afiliações aparecerão aqui.</p>
             </div>
-        {% endif %}
+            {% endif %}
 
-        <div class="footer-actions" style="margin-top: 30px; display: flex; justify-content: center;">
-            <a href="javascript:history.back()" class="secondary-btn" style="max-width: 200px;">
-                Voltar ao Painel
-            </a>
+            <div class="footer-actions" style="margin-top: 30px; display: flex; justify-content: center;">
+                <a href="javascript:history.back()" class="secondary-btn" style="max-width: 200px;">
+                    Voltar ao Painel
+                </a>
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+
+</body>
+
+</html>
