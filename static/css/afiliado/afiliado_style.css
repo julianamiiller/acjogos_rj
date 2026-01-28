@@ -13,13 +13,24 @@
     --border-light: rgba(255, 255, 255, 0.08);
 }
 
+/* AJUSTE: Garantindo que o container pai permita rolagem */
+html {
+    height: 100%;
+    overflow-y: auto; /* Força a existência da rolagem vertical quando necessário */
+}
+
 body {
     background-color: var(--bg-void) !important;
     font-family: 'Inter', sans-serif;
     color: var(--text-pure);
+    margin: 0;
+    padding: 40px 20px; /* Adicionado padding para o card não colar no topo/rodapé */
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
-
 
 .main-card {
     background: var(--bg-card);
@@ -33,6 +44,9 @@ body {
     max-width: 800px; 
     margin: 0 auto;
     animation: fadeInUp 0.8s ease forwards;
+    
+    /* ADICIONE ESTA LINHA: */
+    box-sizing: border-box; 
 }
 
 .form-title {
@@ -50,20 +64,18 @@ body {
     font-size: 0.9rem;
 }
 
-
 .section-divider {
     margin-top: 30px;
     margin-bottom: 20px;
 }
 
 .title-neon {
-    color: var(--text-pure);
+    color: var(--accent-neon);
     font-weight: 700;
     font-size: 0.85rem;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
-    color: var(--accent-neon);
     text-shadow: 0 0 15px rgba(41, 98, 255, 0.3);
 }
 
@@ -72,7 +84,6 @@ body {
     opacity: 0.3;
     margin-top: 10px;
 }
-
 
 .form-grid {
     display: grid;
@@ -90,8 +101,6 @@ body {
     flex-direction: column;
     margin-bottom: 0; 
     position: relative;
-    background: transparent; 
-    border: none;
 }
 
 .input-group label {
@@ -103,7 +112,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
 
 .form-grid input,
 .form-grid select,
@@ -124,7 +132,6 @@ body {
     resize: vertical;
 }
 
-
 .form-grid input:focus,
 .form-grid select:focus,
 .form-grid textarea:focus {
@@ -133,7 +140,6 @@ body {
     background: #0f151f;
     box-shadow: 0 0 15px rgba(41, 98, 255, 0.2);
 }
-
 
 ::placeholder {
     color: rgba(255, 255, 255, 0.2);
@@ -187,7 +193,7 @@ small.text-muted {
     filter: brightness(1.1);
 }
 
-/* --- Animação --- */
+/* Animação */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -199,28 +205,18 @@ small.text-muted {
     }
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
-    .main-card {
-        padding: 25px;
-        margin: 20px auto;
-    }
-    
-    .form-grid {
-        grid-template-columns: 1fr; 
-        gap: 15px;
-    }
-    
-    .full-width {
-        grid-column: span 1;
-    }
-
-    .form-title {
-        font-size: 1.5em;
-    }
+    body { padding: 20px 10px; }
+    .main-card { padding: 25px; }
+    .form-grid { grid-template-columns: 1fr; gap: 15px; }
+    .full-width { grid-column: span 1; }
+    .form-title { font-size: 1.5em; }
 }
 
+/* Scrollbar Customizada - AJUSTE: Garantindo visibilidade */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 ::-webkit-scrollbar-track {
     background: var(--bg-void);
@@ -228,6 +224,7 @@ small.text-muted {
 ::-webkit-scrollbar-thumb {
     background: #1e40af;
     border-radius: 10px;
+    border: 2px solid var(--bg-void); /* Dá um efeito de espaçamento */
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-neon);

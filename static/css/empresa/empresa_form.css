@@ -23,9 +23,12 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* ALTERAÇÃO: Removemos o align-items: center para evitar que o topo suma */
+    align-items: flex-start; 
     color: var(--text-pure);
-    padding: 20px; 
+    padding: 40px 20px; /* Aumentamos o padding para o card respirar no topo e base */
+    overflow-y: auto;   /* Garante a rolagem vertical */
+    overflow-x: hidden; /* Evita a linha chata de rolagem horizontal */
 }
 
 .form-container {
@@ -38,6 +41,8 @@ body {
     width: 100%;
     max-width: 900px;
     animation: fadeInUp 0.6s ease-out;
+    /* ADIÇÃO: O margin: auto no flex-item centraliza perfeitamente e respeita a rolagem */
+    margin: auto; 
 }
 
 .form-header {
@@ -144,4 +149,20 @@ body {
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar Customizada - AJUSTE: Garantindo visibilidade */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+    background: #1e40af;
+    border-radius: 10px;
+    border: 2px solid var(--bg-void); /* Dá um efeito de espaçamento */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-neon);
 }

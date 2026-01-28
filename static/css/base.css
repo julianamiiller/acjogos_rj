@@ -11,13 +11,11 @@
 }
 
 body {
-    background-color: var(--bg-deep);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    width: 100%;
+    background-color: var(--bg-void);
+    color: var(--text-pure);
+   font-family: 'Inter', sans-serif;
 }
+
 
 /* HEADER */
 .base-header {
