@@ -13,10 +13,9 @@
     --border-light: rgba(255, 255, 255, 0.08);
 }
 
-/* AJUSTE: Garantindo que o container pai permita rolagem */
 html {
     height: 100%;
-    overflow-y: auto; /* Força a existência da rolagem vertical quando necessário */
+    overflow-y: auto;
 }
 
 body {
@@ -24,7 +23,7 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-pure);
     margin: 0;
-    padding: 40px 20px; /* Adicionado padding para o card não colar no topo/rodapé */
+    padding: 40px 20px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -214,7 +213,6 @@ small.text-muted {
     .form-title { font-size: 1.5em; }
 }
 
-/* Scrollbar Customizada - AJUSTE: Garantindo visibilidade */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -224,7 +222,7 @@ small.text-muted {
 ::-webkit-scrollbar-thumb {
     background: #1e40af;
     border-radius: 10px;
-    border: 2px solid var(--bg-void); /* Dá um efeito de espaçamento */
+    border: 2px solid var(--bg-void);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-neon);
