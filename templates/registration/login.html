@@ -1,77 +1,73 @@
+{% extends "base_auth.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login Intranet ACJOGOS-RJ</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/registration/login_style.css' %}">
-</head>
-<body>
-    <div class="login-container">
-        
-        <div class="logo-area">
-            <span class="logo-text">ACJOGOS-RJ</span>
-        </div>
 
-        <p class="subtitle">Mapa de Empresas e Profissionais de Jogos do Rio de Janeiro</p>
-        
-        <form method="post" class="login-form">
-            {% csrf_token %}
+{% block title %}Login | ACJOGOS-RJ{% endblock %}
 
-            {% if form.non_field_errors %}
-                <div class="error-summary">
-                    <ul>
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            
-            {% for field in form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    
-                    <div class="input-wrapper">
-                        {{ field }}
-                        
-                        {% if field.field.widget.input_type == "password" or "password" in field.name or "senha" in field.label|lower %}
-                            <button type="button" class="eye-button" id="togglePassword">
-                                <svg class="eye-icon" viewBox="0 0 24 24">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </button>
-                        {% endif %}
-                    </div>
-
-                    {% for error in field.errors %}
-                        <p class="error-text">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            
-            <button type="submit" class="btn-login">ENTRAR</button>
-            
-            <p class="reset-link">
-                <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
-            </p>
-        </form>
+{% block content %}
+<div class="login-container">
+    <div class="logo-area">
+        <span class="logo-text">ACJOGOS-RJ</span>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.querySelector('#togglePassword');
-            const passwordInput = document.querySelector('input[type="password"]');
+    <p class="subtitle">Mapa de Empresas e Profissionais de Jogos do Rio de Janeiro</p>
 
-            if (toggleBtn && passwordInput) {
-                toggleBtn.addEventListener('click', function() {
-                    const isPassword = passwordInput.getAttribute('type') === 'password';
-                    passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
-                    this.classList.toggle('active');
-                    passwordInput.focus();
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="error-summary">
+            <ul>
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            <div class="input-wrapper">
+                {{ field }}
+                {% if field.field.widget.input_type == "password" %}
+                <button type="button" class="eye-button" id="togglePassword">
+                    <svg class="eye-icon" viewBox="0 0 24 24">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+                {% endif %}
+            </div>
+
+            {% for error in field.errors %}
+            <p class="error-text">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-login">ENTRAR</button>
+
+        <p class="reset-link">
+            <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+        </p>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('input[type="password"]');
+
+        if (toggleBtn && passwordInput) {
+            toggleBtn.addEventListener('click', function () {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                this.classList.toggle('active');
+                passwordInput.focus();
+            });
+        }
+    });
+</script>
+{% endblock %}
