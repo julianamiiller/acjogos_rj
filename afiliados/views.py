@@ -8,7 +8,11 @@ from .forms import AfiliadoForm, AfiliadoEditForm
 
 @login_required
 def cadastro_afiliado(request):
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Perfil de usuário não encontrado.')
+        return redirect('home')
     
     
     if perfil.tipo_usuario != 'AFILIADO':
@@ -28,7 +32,7 @@ def cadastro_afiliado(request):
             afiliado.save()
             
             messages.success(request, 'Cadastro realizado com sucesso!')
-            return redirect('afiliados:meu_perfil')
+            return redirect('core_dashboard:dashboard')
     else:
         form = AfiliadoForm()
     
