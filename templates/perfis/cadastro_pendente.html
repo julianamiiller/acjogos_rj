@@ -1,46 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html' %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/perfis/cadastro_pendente.css' %}">
+{% endblock %}
+
 {% block content %}
-<style>
-    
-    .logout-button {
-        background: none;
-        border: none;
-        padding: 0;
-        color: #3498db; 
-        text-decoration: underline;
-        cursor: pointer;
-        font-family: inherit;
-        font-size: inherit;
-        transition: color 0.2s;
-    }
-
-    .logout-button:hover {
-        color: #2980b9; 
-        text-decoration: none;
-    }
-
-    .reset-link {
-        margin-top: 20px;
-        text-align: center;
-    }
-</style>
-
 <div class="login-container">
     <div class="logo-area">
-        <h1 class="logo-text" style="color: #f1c40f;">Aguarde</h1>
+        <h1 class="logo-text-wait">Aguarde</h1>
     </div>
-    
-    <div class="info-section" style="margin: 20px 0; border-color: rgba(255, 165, 0, 0.2);">
-        <p class="subtitle">Seu cadastro está em <strong>Análise Pendente</strong>.</p>
-        <p style="font-size: 0.85em; color: var(--text-secondary);">
+
+    <div class="info-section">
+        <p class="subtitle">Seu cadastro está em <strong class="accent-text">Análise Pendente</strong>.</p>
+        <p class="text-detail">
             Nossa equipe está revisando suas informações. Você receberá um e-mail assim que o acesso for liberado.
         </p>
     </div>
 
     <div class="reset-link">
-        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="logout-button">
                 Sair do Sistema
