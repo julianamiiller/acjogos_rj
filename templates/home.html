@@ -39,7 +39,11 @@
             <a href="https://rj.acjogos.com.br/category/noticias/">Notícias</a>
             <a href="https://rj.acjogos.com.br/empresas/">Empresas</a>
         </div>
-        <a href="{% url 'cadastro' %}" class="btn-associe">CADASTRE-SE</a>
+        <div class="d-flex align-items-center gap-2">
+            <a href="{% url 'login' %}" class="btn-associe"
+                style="background: var(--accent-blue); border-color: var(--accent-blue);">LOGIN</a>
+            <a href="{% url 'cadastro' %}" class="btn-associe">CADASTRE-SE</a>
+        </div>
     </nav>
 
     <main>
@@ -117,7 +121,7 @@
                 </a>
             </div>
             <p class="footer-copy">
- contato@rj.acjogos.com.br.</p>
+                contato@rj.acjogos.com.br.</p>
         </section>
     </main>
 
