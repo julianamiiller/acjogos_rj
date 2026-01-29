@@ -3,17 +3,22 @@
 
 :root {
     --bg-deep: #050507;
+    --bg-void: #050507;
     --surface: #0d1117;
     --surface-border: rgba(255, 255, 255, 0.08);
     --accent-primary: #2962ff;
     --text-main: #ffffff;
+    --text-pure: #ffffff;
     --text-muted: #8b949e;
 }
 
 body {
-    background-color: var(--bg-void);
+    background: radial-gradient(circle at 50% 0%, #1a1f35 0%, var(--bg-void) 70%);
+    background-attachment: fixed;
     color: var(--text-pure);
-   font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
 }
 
 
@@ -21,39 +26,94 @@ body {
 .base-header {
     width: 100%;
     height: 70px;
-    background: #0d1117;
+    background: rgba(13, 17, 23, 0.8);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--surface-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s;
+}
+
+.logo-link:hover {
+    opacity: 0.8;
 }
 
 .logo-text {
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+}
+
+.logo-text span {
+    color: var(--accent-primary);
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .user-name {
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-pure);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.user-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    letter-spacing: 0.5px;
+    background: rgba(41, 98, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 .btn-dashboard {
     background: var(--accent-primary);
     color: #fff;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 0.75rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.8rem;
     font-weight: 700;
     text-decoration: none;
-    white-space: nowrap;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(41, 98, 255, 0.3);
 }
 
+.btn-dashboard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
+}
+
+.btn-logout-icon {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    padding: 8px;
+}
+
+.btn-logout-icon:hover {
+    color: #ff4747;
+}

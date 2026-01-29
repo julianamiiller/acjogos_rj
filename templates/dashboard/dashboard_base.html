@@ -3,61 +3,336 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
-
+    <title>Painel ACJOGOS-RJ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-void: #050507;
+            --bg-card: rgba(22, 27, 34, 0.65);
+            --accent-blue: #2962ff;
+            --accent-glow: rgba(41, 98, 255, 0.4);
+            --text-pure: #ffffff;
+            --text-muted: #8b949e;
+            --sidebar-width: 260px;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(15px);
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 0%, #1a1f35 0%, var(--bg-void) 70%);
+            background-attachment: fixed;
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--border-glass);
+            z-index: 1000;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .sidebar-brand {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            padding-left: 12px;
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-brand span {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            color: #fff;
+            background: var(--accent-blue);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        /* MAIN CONTENT */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid var(--border-glass);
+            background: rgba(13, 17, 23, 0.4);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .content-area {
+            padding: 40px;
+            flex-grow: 1;
+        }
+
+        /* UTILITIES */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-dark bg-dark px-4">
-        <span class="navbar-brand">Painel</span>
-
-        <span class="text-white">
-            {{ perfil.user.get_full_name|default:perfil.user.username }}
-        </span>
-    </nav>
-
-    <div class="container mt-4">
-
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message }}
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            ACJOGOS<span>RJ</span>
         </div>
-        {% endfor %}
-        {% endif %}
 
-        <div class="row">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:dashboard' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i data-lucide="layout-dashboard"></i>
+                    Dashboard
+                </a>
+            </li>
 
-            <div class="col-md-3">
-                <div class="list-group mb-4">
-                    <a href="{% url 'core_dashboard:dashboard' %}" class="list-group-item list-group-item-action">
-                        Dashboard
-                    </a>
-                    <a href="{% url 'core_dashboard:notificacoes' %}" class="list-group-item list-group-item-action">
-                        Notificações
-                    </a>
-                    <a href="{% url 'core_dashboard:atividades' %}" class="list-group-item list-group-item-action">
-                        Atividades
-                    </a>
-                    <a href="{% url 'core_dashboard:configuracoes' %}" class="list-group-item list-group-item-action">
-                        Configurações
-                    </a>
-                </div>
-            </div>
+            {% if perfil.tipo_usuario == 'AFILIADO' %}
+            <li class="nav-item">
+                <a href="{% url 'afiliados:meu_perfil' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'meu_perfil' %}active{% endif %}">
+                    <i data-lucide="user"></i>
+                    Meu Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'afiliados:contratos' %}" class="nav-link">
+                    <i data-lucide="file-text"></i>
+                    Contratos
+                </a>
+            </li>
+            {% endif %}
 
-            <div class="col-md-9">
-                {% block conteudo %}
+            {% if perfil.tipo_usuario == 'ASSOCIADO' %}
+            <li class="nav-item">
+                <a href="{% url 'minha_empresa' %}" class="nav-link">
+                    <i data-lucide="briefcase"></i>
+                    Minha Empresa
+                </a>
+            </li>
+            {% endif %}
 
-                {% endblock %}
-            </div>
+            {% if perfil.tipo_usuario == 'COLETIVO' %}
+            <li class="nav-item">
+                <a href="{% url 'coletivos:dashboard' %}" class="nav-link">
+                    <i data-lucide="building-2"></i>
+                    Gestão Coletivo
+                </a>
+            </li>
+            {% endif %}
 
+            {% if perfil.tipo_usuario == 'DIRETOR' %}
+            <li class="nav-item">
+                <a href="/admin/" class="nav-link text-warning">
+                    <i data-lucide="shield-check"></i>
+                    Django Admin
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i data-lucide="users-2"></i>
+                    Gestão de Membros
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:notificacoes' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}">
+                    <i data-lucide="bell"></i>
+                    Notificações
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:atividades' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'atividades' %}active{% endif %}">
+                    <i data-lucide="history"></i>
+                    Atividades
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:configuracoes' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
+                    <i data-lucide="settings"></i>
+                    Configurações
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-item" style="margin-top: auto;">
+            <a href="{% url 'logout' %}" class="nav-link text-danger">
+                <i data-lucide="log-out"></i>
+                Sair do Sistema
+            </a>
         </div>
     </div>
 
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="page-title">
+                <h6 class="mb-0 text-muted" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                    Painel de Controle</h6>
+            </div>
+
+            <div class="user-profile">
+                <div class="user-info text-end">
+                    <span class="user-name">{{ perfil.user.get_full_name|default:perfil.user.username }}</span>
+                    <span class="user-role">{{ perfil.get_tipo_usuario_display }}</span>
+                </div>
+                <div class="user-avatar">
+                    {{ perfil.user.username|make_list|first|upper }}
+                </div>
+            </div>
+        </header>
+
+        <main class="content-area">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} glass-card mb-4 border-0 py-3"
+                style="background: rgba(41, 98, 255, 0.1); color: #fff;">
+                <div class="d-flex align-items: center; gap: 10px;">
+                    <i data-lucide="info" style="width: 18px;"></i>
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% block conteudo %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

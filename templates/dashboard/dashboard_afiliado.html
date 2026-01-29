@@ -2,57 +2,160 @@
 
 {% block conteudo %}
 
-<h3 class="mb-4">Dashboard do Afiliado</h3>
-
-<div class="row mb-4">
-    <div class="col-md-6">
-        <div class="card text-center">
-            <div class="card-body">
-                <h6>Total de contratos</h6>
-                <h2>{{ estatisticas.total_contratos|default:0 }}</h2>
+<div class="row g-4 mb-5">
+    <!-- Widget: Total Contratos -->
+    <div class="col-md-4">
+        <div class="glass-card h-100 position-relative">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="icon-box"
+                    style="background: rgba(41, 98, 255, 0.1); color: var(--accent-blue); padding: 10px; border-radius: 12px;">
+                    <i data-lucide="file-stack"></i>
+                </div>
+                <span class="badge bg-primary bg-opacity-10 text-primary border-0 rounded-pill px-3">Geral</span>
             </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Total de Contratos</h6>
+            <h2 class="mb-0 fw-800">{{ estatisticas.total_contratos|default:0 }}</h2>
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="card text-center">
-            <div class="card-body">
-                <h6>Contratos ativos</h6>
-                <h2>{{ estatisticas.contratos_ativos|default:0 }}</h2>
+    <!-- Widget: Contratos Ativos -->
+    <div class="col-md-4">
+        <div class="glass-card h-100 position-relative border-top border-success border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="icon-box"
+                    style="background: rgba(35, 134, 54, 0.1); color: #238636; padding: 10px; border-radius: 12px;">
+                    <i data-lucide="check-circle"></i>
+                </div>
+                <span class="badge bg-success bg-opacity-10 text-success border-0 rounded-pill px-3">Ativos</span>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Contratos Ativos</h6>
+            <h2 class="mb-0 fw-800 text-success">{{ estatisticas.contratos_ativos|default:0 }}</h2>
+        </div>
+    </div>
+
+    <!-- Widget: Status Cadastro -->
+    <div class="col-md-4">
+        <div class="glass-card h-100">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="icon-box"
+                    style="background: rgba(255, 170, 0, 0.1); color: #ffaa00; padding: 10px; border-radius: 12px;">
+                    <i data-lucide="user-check"></i>
+                </div>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Status do Perfil</h6>
+            <div class="d-flex align-items: center; gap: 8px;">
+                {% if estatisticas.cadastro_completo %}
+                <span class="text-white fw-600">Completo</span>
+                <i data-lucide="shield-check" class="text-primary" style="width: 16px;"></i>
+                {% else %}
+                <span class="text-warning fw-600">Incompleto</span>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
-{% if estatisticas.cadastro_completo %}
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title">Meu Perfil</h5>
-            <p class="card-text">
-                Gerencie seus dados pessoais e profissionais.
-            </p>
-            <a href="{% url 'afiliados:meu_perfil' %}" class="btn btn-outline-primary">
-                Ver meu perfil
-            </a>
+<div class="row g-4">
+    <!-- Coluna: Ações e Atalhos -->
+    <div class="col-lg-8">
+        <div class="glass-card mb-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div style="width: 4px; height: 24px; background: var(--accent-blue); border-radius: 2px;"></div>
+                <h5 class="mb-0 fw-700">Ações Rápidas</h5>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <a href="{% url 'afiliados:meu_perfil' %}"
+                        class="d-block glass-card border-opacity-10 hover-lift text-decoration-none p-4"
+                        style="background: rgba(255, 255, 255, 0.02);">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle" style="color: var(--accent-blue);">
+                                <i data-lucide="user-cog"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1 text-white fw-600">Gerenciar Perfil</h6>
+                                <p class="mb-0 text-muted small">Altere seus dados e senha</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'afiliados:contratos' %}"
+                        class="d-block glass-card border-opacity-10 hover-lift text-decoration-none p-4"
+                        style="background: rgba(255, 255, 255, 0.02);">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info">
+                                <i data-lucide="briefcase"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1 text-white fw-600">Meus Contratos</h6>
+                                <p class="mb-0 text-muted small">Veja termos e status</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% if not estatisticas.cadastro_completo %}
+        <div class="alert glass-card border-warning border-opacity-25 p-4 d-flex gap-3 align-items-center"
+            style="background: rgba(255, 170, 0, 0.05);">
+            <div class="bg-warning bg-opacity-10 p-3 rounded-circle text-warning">
+                <i data-lucide="alert-triangle"></i>
+            </div>
+            <div>
+                <h6 class="mb-1 text-warning fw-600">Perfil Incompleto</h6>
+                <p class="mb-0 text-muted small">Complete seus dados para liberar todas as funcionalidades. <a
+                        href="{% url 'afiliados:cadastro_afiliado' %}" class="text-warning fw-bold">Completar Agora
+                        →</a></p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Coluna: Informações Úteis -->
+    <div class="col-lg-4">
+        <div class="glass-card">
+            <h6 class="text-muted fw-bold small text-uppercase mb-4">Suporte ACJOGOS</h6>
+            <div class="p-3 rounded-4 mb-3"
+                style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass);">
+                <p class="small text-muted mb-2">Precisa de ajuda com seus contratos?</p>
+                <a href="#" class="btn btn-sm btn-outline-primary w-100 rounded-pill">Abrir Chamado</a>
+            </div>
+            <div class="d-flex align-items-center gap-3 p-2">
+                <div class="bg-primary bg-opacity-10 p-2 rounded text-primary">
+                    <i data-lucide="mail" style="width: 16px;"></i>
+                </div>
+                <span class="small text-muted">suporte@acjogosrj.com</span>
+            </div>
         </div>
     </div>
-{% else %}
-    <div class="alert alert-warning">
-        Seu cadastro ainda não está completo.
-        <a href="{% url 'afiliados:cadastro_afiliado' %}">Clique aqui para completar</a>.
-    </div>
-{% endif %}
-
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Contratos</h5>
-        <p class="card-text">
-            Visualize seus contratos, aceite termos e acompanhe o status.
-        </p>
-        <a href="{% url 'afiliados:contratos' %}" class="btn btn-primary">
-            Meus Contratos
-        </a>
-    </div>
 </div>
+
+<style>
+    .hover-lift {
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: var(--accent-blue) !important;
+    }
+
+    .fw-800 {
+        font-weight: 800;
+    }
+
+    .fw-700 {
+        font-weight: 700;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
 
 {% endblock %}

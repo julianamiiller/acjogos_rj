@@ -1,26 +1,97 @@
-{% extends 'dashboard/dashboard_base.html' %}
+{% extends "dashboard/dashboard_base.html" %}
 
 {% block conteudo %}
-<h2>Notificações</h2>
 
-<p>Total: {{ total }} | Não lidas: {{ nao_lidas }}</p>
+<div class="glass-card mb-4 border-top border-primary border-opacity-25" style="border-top-width: 3px !important;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-3">
+            <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                <i data-lucide="bell"></i>
+            </div>
+            <div>
+                <h5 class="mb-0 fw-700">Central de Notificações</h5>
+                <p class="text-muted small mb-0">{{ nao_lidas }} novas mensagens</p>
+            </div>
+        </div>
 
-<ul>
-{% for n in notificacoes %}
-    <li>
-        <strong>{{ n.titulo }}</strong><br>
-        {{ n.mensagem }}<br>
+        <div class="d-flex gap-2">
+            <a href="{% url 'core_dashboard:marcar_todas' %}"
+                class="btn btn-sm btn-outline-light border-opacity-10 rounded-pill px-3 fw-600">
+                Marcar todas como lidas
+            </a>
+        </div>
+    </div>
 
-        {% if not n.lida %}
-            <a href="{% url 'core_dashboard:marcar_notificacao' n.id %}">Marcar como lida</a>
-        {% else %}
-            <em>Lida</em>
-        {% endif %}
-    </li>
-{% empty %}
-    <li>Nenhuma notificação.</li>
-{% endfor %}
-</ul>
+    <!-- Filtros -->
+    <div class="d-flex gap-2 mb-4">
+        <a href="?filtro=todas"
+            class="badge rounded-pill px-3 py-2 text-decoration-none {% if filtro == 'todas' %}bg-primary text-white{% else %}bg-white bg-opacity-10 text-muted{% endif %}">Todas</a>
+        <a href="?filtro=nao_lidas"
+            class="badge rounded-pill px-3 py-2 text-decoration-none {% if filtro == 'nao_lidas' %}bg-primary text-white{% else %}bg-white bg-opacity-10 text-muted{% endif %}">Não
+            lidas</a>
+        <a href="?filtro=lidas"
+            class="badge rounded-pill px-3 py-2 text-decoration-none {% if filtro == 'lidas' %}bg-primary text-white{% else %}bg-white bg-opacity-10 text-muted{% endif %}">Lidas</a>
+    </div>
 
-<a href="{% url 'core_dashboard:marcar_todas' %}">Marcar todas como lidas</a>
+    <div class="list-group list-group-flush bg-transparent">
+        {% for n in notificacoes %}
+        <div class="list-group-item bg-transparent border-0 border-bottom border-white border-opacity-10 px-0 py-4 
+                {% if not n.lida %}position-relative{% endif %}" style="transition: background 0.3s;">
+
+            {% if not n.lida %}
+            <div
+                style="position: absolute; left: -10px; top: 50%; transform: translateY(-50%); width: 4px; height: 30px; background: var(--accent-blue); border-radius: 0 4px 4px 0; box-shadow: 0 0 10px var(--accent-glow);">
+            </div>
+            {% endif %}
+
+            <div class="d-flex gap-3 align-items-start">
+                <div class="notification-icon rounded-circle bg-opacity-10 
+                        {% if n.tipo == 'info' %}bg-primary text-primary{% elif n.tipo == 'warning' %}bg-warning text-warning{% else %}bg-info text-info{% endif %}"
+                    style="width: 48px; height: 48px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="{% if n.tipo == 'info' %}info{% elif n.tipo == 'warning' %}alert-circle{% else %}bell{% endif %}"
+                        style="width: 22px;"></i>
+                </div>
+
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-white mb-1 fw-700">{{ n.titulo }}</h6>
+                        <span class="text-muted" style="font-size: 0.7rem;">{{ n.data_criacao|date:"d/m H:i" }}</span>
+                    </div>
+                    <p class="text-muted mb-3 small">{{ n.mensagem }}</p>
+
+                    <div class="d-flex gap-2">
+                        {% if not n.lida %}
+                        <a href="{% url 'core_dashboard:marcar_notificacao_lida' n.id %}"
+                            class="btn btn-sm btn-primary rounded-pill px-3 fw-600">Abrir</a>
+                        {% elif n.link %}
+                        <a href="{{ n.link }}"
+                            class="btn btn-sm btn-outline-light border-opacity-10 rounded-pill px-3 fw-600">Ver
+                            Detalhes</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <div class="mb-3 opacity-20">
+                <i data-lucide="inbox" style="width: 64px; height: 64px;"></i>
+            </div>
+            <h6 class="text-white">Sua caixa está limpa!</h6>
+            <p class="text-muted small">Nenhuma notificação encontrada com este filtro.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .fw-700 {
+        font-weight: 700;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
+
 {% endblock %}

@@ -42,7 +42,6 @@ def pos_login_view(request):
 
     if tipo == 'AFILIADO':
         print("DEBUG: Entrou na lógica de AFILIADO")
-      
         if hasattr(perfil, 'dados_afiliado'):
             return redirect('afiliados:meu_perfil')
         return redirect('afiliados:cadastro_afiliado')
@@ -57,7 +56,9 @@ def pos_login_view(request):
             return redirect('coletivos:dashboard')
         return redirect('coletivos:cadastro')
 
-   
+    if tipo == 'DIRETOR':
+        return redirect('core_dashboard:dashboard')
+
     print("DEBUG: Nenhum tipo coincidiu, indo para HOME")
     return redirect('home')
 

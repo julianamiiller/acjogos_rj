@@ -2,34 +2,182 @@
 
 {% block conteudo %}
 
-<h2 class="mb-4">Dashboard do Associado</h2>
+<div class="row g-4 mb-5">
+    <!-- Card: Informações da Empresa -->
+    <div class="col-lg-7">
+        <div class="glass-card h-100 border-top border-primary border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                        <i data-lucide="building-2"></i>
+                    </div>
+                    <h5 class="mb-0 fw-700">Empresa Vinculada</h5>
+                </div>
+                {% if estatisticas.possui_empresa %}
+                <span class="badge bg-success bg-opacity-10 text-success border-0 rounded-pill px-3">Ativa</span>
+                {% endif %}
+            </div>
 
-{% if estatisticas.possui_empresa %}
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Empresa vinculada</h5>
-            <p class="card-text">
-                {{ estatisticas.empresa.nome }}
-            </p>
+            {% if estatisticas.possui_empresa %}
+            <div class="ms-1">
+                <h3 class="text-white fw-800 mb-1">{{ estatisticas.empresa.nome }}</h3>
+                <p class="text-muted small mb-4">{{ estatisticas.empresa.cnpj|default:"CNPJ não informado" }}</p>
+
+                <div class="d-flex gap-2">
+                    <a href="{% url 'minha_empresa' %}" class="btn btn-primary rounded-pill px-4 btn-sm fw-600">
+                        Gerenciar Empresa
+                    </a>
+                    <a href="{% url 'empresa_editar' %}"
+                        class="btn btn-outline-light border-opacity-10 rounded-pill px-4 btn-sm fw-600">
+                        Editar Dados
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <div class="mb-3 text-muted opacity-50">
+                    <i data-lucide="layers" style="width: 48px; height: 48px;"></i>
+                </div>
+                <h6 class="text-white">Nenhuma empresa encontrada</h6>
+                <p class="text-muted small mb-4">Você ainda não vinculou uma empresa ao seu perfil.</p>
+                <a href="{% url 'empresa_cadastrar' %}" class="btn btn-primary rounded-pill px-4">
+                    Cadastrar Agora
+                </a>
+            </div>
+            {% endif %}
         </div>
     </div>
-{% else %}
-    <div class="alert alert-warning">
-        Você ainda não possui uma empresa cadastrada.
+
+    <!-- Card: Acesso Rápido -->
+    <div class="col-lg-5">
+        <div class="glass-card h-100">
+            <h6 class="text-muted fw-bold small text-uppercase mb-4">Acesso Rápido</h6>
+
+            <div class="d-grid gap-3">
+                <a href="#" class="quick-link-item">
+                    <div class="icon bg-info"><i data-lucide="newspaper"></i></div>
+                    <div class="text">
+                        <span>Notícias e Eventos</span>
+                        <small>Fique por dentro da ACJOGOS</small>
+                    </div>
+                </a>
+                <a href="#" class="quick-link-item">
+                    <div class="icon bg-warning"><i data-lucide="help-circle"></i></div>
+                    <div class="text">
+                        <span>Central de Ajuda</span>
+                        <small>Dúvidas e suporte técnico</small>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-{% endif %}
+</div>
 
 {% if config.exibir_notificacoes %}
-    <h5>Últimas notificações</h5>
+<div class="row">
+    <div class="col-12">
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width: 4px; height: 24px; background: var(--accent-blue); border-radius: 2px;"></div>
+                    <h5 class="mb-0 fw-700">Comunicados Recentes</h5>
+                </div>
+                <a href="{% url 'core_dashboard:notificacoes' %}"
+                    class="text-primary text-decoration-none small fw-bold">Ver todos →</a>
+            </div>
 
-    {% for n in notificacoes %}
-        <div class="alert alert-secondary">
-            <strong>{{ n.titulo }}</strong><br>
-            {{ n.mensagem }}
+            <div class="list-group list-group-flush bg-transparent">
+                {% for n in notificacoes %}
+                <div
+                    class="list-group-item bg-transparent border-0 border-bottom border-white border-opacity-10 px-0 py-3">
+                    <div class="d-flex gap-3">
+                        <div class="notification-icon rounded-circle bg-opacity-10 
+                                {% if n.tipo == 'info' %}bg-primary text-primary{% elif n.tipo == 'warning' %}bg-warning text-warning{% else %}bg-info text-info{% endif %}"
+                            style="width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="{% if n.tipo == 'info' %}info{% elif n.tipo == 'warning' %}alert-circle{% else %}bell{% endif %}"
+                                style="width: 18px;"></i>
+                        </div>
+                        <div>
+                            <h6 class="text-white mb-1 small fw-700">{{ n.titulo }}</h6>
+                            <p class="text-muted mb-0 small">{{ n.mensagem }}</p>
+                            <span class="text-muted" style="font-size: 0.65rem;">{{ n.data_criacao|timesince }}
+                                atrás</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="text-center py-5">
+                    <p class="text-muted mb-0">Nenhum comunicado no momento.</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-    {% empty %}
-        <p>Nenhuma notificação.</p>
-    {% endfor %}
+    </div>
+</div>
 {% endif %}
+
+<style>
+    .quick-link-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .quick-link-item:hover {
+        background: rgba(41, 98, 255, 0.05);
+        border-color: var(--accent-blue);
+        transform: translateX(5px);
+    }
+
+    .quick-link-item .icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background-opacity: 0.1 !important;
+    }
+
+    .quick-link-item .text span {
+        display: block;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .quick-link-item .text small {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+    }
+
+    .bg-info {
+        background-color: #0ea5e9 !important;
+    }
+
+    .bg-warning {
+        background-color: #f59e0b !important;
+    }
+
+    .fw-800 {
+        font-weight: 800;
+    }
+
+    .fw-700 {
+        font-weight: 700;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
 
 {% endblock %}

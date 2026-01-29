@@ -1,26 +1,83 @@
 {% extends 'dashboard/dashboard_base.html' %}
 
 {% block conteudo %}
-<h2>Configurações do Dashboard</h2>
 
-<form method="post">
-    {% csrf_token %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="glass-card">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div style="width: 4px; height: 24px; background: var(--accent-blue); border-radius: 2px;"></div>
+                <h5 class="mb-0 fw-700">Preferências do Painel</h5>
+            </div>
 
-    <label>
-        <input type="checkbox" name="exibir_atividades_recentes" {% if config.exibir_atividades_recentes %}checked{% endif %}>
-        Exibir atividades recentes
-    </label><br>
+            <form method="post" class="mt-4">
+                {% csrf_token %}
 
-    <label>
-        <input type="checkbox" name="exibir_notificacoes" {% if config.exibir_notificacoes %}checked{% endif %}>
-        Exibir notificações
-    </label><br>
+                <div class="settings-group mb-4">
+                    <h6 class="text-muted small text-uppercase fw-bold mb-3">Visualização</h6>
 
-    <label>
-        <input type="checkbox" name="exibir_estatisticas" {% if config.exibir_estatisticas %}checked{% endif %}>
-        Exibir estatísticas
-    </label><br><br>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input custom-switch" type="checkbox" name="exibir_atividades_recentes"
+                            id="checkAtividades" {% if config.exibir_atividades_recentes %}checked{% endif %}>
+                        <label class="form-check-label text-white ms-2" for="checkAtividades">Exibir histórico de
+                            atividades recentes</label>
+                    </div>
 
-    <button type="submit">Salvar configurações</button>
-</form>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input custom-switch" type="checkbox" name="exibir_notificacoes"
+                            id="checkNotif" {% if config.exibir_notificacoes %}checked{% endif %}>
+                        <label class="form-check-label text-white ms-2" for="checkNotif">Exibir alertas e notificações
+                            no painel</label>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input custom-switch" type="checkbox" name="exibir_estatisticas"
+                            id="checkStats" {% if config.exibir_estatisticas %}checked{% endif %}>
+                        <label class="form-check-label text-white ms-2" for="checkStats">Exibir widgets de
+                            estatísticas</label>
+                    </div>
+                </div>
+
+                <hr class="border-white border-opacity-10 my-4">
+
+                <button type="submit" class="btn btn-primary rounded-pill px-5 fw-600">
+                    <i data-lucide="save" class="me-2" style="width: 18px;"></i>
+                    Salvar Alterações
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="glass-card bg-primary bg-opacity-10 border-primary border-opacity-25">
+            <h6 class="text-primary fw-bold small text-uppercase mb-3">Dica de Experiência</h6>
+            <p class="text-muted small mb-0">Você pode personalizar o que vê na sua tela inicial para focar no que é
+                mais importante para sua gestão.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-switch {
+        width: 3rem !important;
+        height: 1.5rem !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .custom-switch:checked {
+        background-color: var(--accent-blue) !important;
+        border-color: var(--accent-blue) !important;
+        box-shadow: 0 0 10px var(--accent-glow) !important;
+    }
+
+    .fw-700 {
+        font-weight: 700;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
+
 {% endblock %}

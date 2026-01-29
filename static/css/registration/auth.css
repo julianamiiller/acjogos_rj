@@ -6,12 +6,12 @@
     --accent-neon: #2962ff;
     --accent-gradient: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
     --text-gradient: linear-gradient(90deg, #ffffff 0%, #a2b8f6 100%);
-    
+
     --text-primary: #f0f6fc;
     --text-secondary: #ffffff;
     --input-bg: #0d1117;
     --border-subtle: rgba(255, 255, 255, 0.08);
-    
+
     --glow-blue: 0 0 25px rgba(41, 98, 255, 0.3);
     --transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -54,6 +54,7 @@ body {
     /* Animação de entrada suave */
     animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
+
 .auth-sidebar {
     flex: 1;
     background: linear-gradient(135deg, #1b63f2 0%, #050a1f 100%);
@@ -69,7 +70,10 @@ body {
 .auth-sidebar::before {
     content: '';
     position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
     background: radial-gradient(circle at center, rgba(41, 98, 255, 0.2) 0%, transparent 50%);
     pointer-events: none;
 }
@@ -81,10 +85,12 @@ body {
     letter-spacing: -1px;
     color: #fff;
     margin-bottom: 2.5rem;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
 }
 
-.logo-brand span { opacity: 0.6; }
+.logo-brand span {
+    opacity: 0.6;
+}
 
 .welcome-message h2 {
     font-family: 'Montserrat', sans-serif;
@@ -93,6 +99,7 @@ body {
     margin-bottom: 15px;
     background: linear-gradient(to bottom, #fff, #ffffff);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -136,6 +143,7 @@ body {
     font-weight: 800;
     background: var(--text-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 8px;
 }
@@ -152,7 +160,9 @@ body {
     gap: 20px;
 }
 
-.form-group { margin-bottom: 20px; }
+.form-group {
+    margin-bottom: 20px;
+}
 
 .form-group label {
     display: block;
@@ -164,7 +174,8 @@ body {
     text-transform: uppercase;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     background: var(--input-bg);
     border: 2px solid transparent;
@@ -177,7 +188,8 @@ input, select {
     transition: var(--transition);
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--accent-neon);
     background: #131720;
@@ -185,7 +197,9 @@ input:focus, select:focus {
     transform: translateY(-2px);
 }
 
-.input-wrapper { position: relative; }
+.input-wrapper {
+    position: relative;
+}
 
 .toggle-password {
     position: absolute;
@@ -204,26 +218,29 @@ input:focus, select:focus {
     transition: 0.3s;
 }
 
-.toggle-password:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-neon); }
+.toggle-password:hover {
+    opacity: 1;
+    text-shadow: 0 0 8px var(--accent-neon);
+}
 
 
 .btn-primary-action {
     width: 100%;
-    background: var(--accent-gradient); 
+    background: var(--accent-gradient);
     color: #fff;
     padding: 22px;
     border: none;
-    border-radius: 100px; 
+    border-radius: 100px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 0.9rem;
-    letter-spacing: 3px; 
+    letter-spacing: 3px;
     cursor: pointer;
     margin-top: 30px;
     text-transform: uppercase;
     position: relative;
-    overflow: hidden; 
-    box-shadow: 0 20px 40px -10px rgba(41, 98, 255, 0.1); 
+    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(41, 98, 255, 0.1);
     transition: all 0.4s ease;
 }
 
@@ -235,14 +252,16 @@ input:focus, select:focus {
 .btn-primary-action::before {
     content: '';
     position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: 0.6s;
 }
 
-.btn-primary-action:hover::before { 
-    left: 100%; 
+.btn-primary-action:hover::before {
+    left: 100%;
 }
 
 .error-summary {
@@ -267,15 +286,35 @@ select {
 }
 
 @media (max-width: 900px) {
-    .auth-card { flex-direction: column; border-radius: 0; }
-    .auth-sidebar { padding: 50px 30px; }
-    .auth-form-container { padding: 40px 25px; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .auth-card {
+        flex-direction: column;
+        border-radius: 0;
+    }
+
+    .auth-sidebar {
+        padding: 50px 30px;
+    }
+
+    .auth-form-container {
+        padding: 40px 25px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
 }
 
 @keyframes cardEntrance {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 ::placeholder {

@@ -42,7 +42,23 @@ def dashboard(request):
             estatisticas['cadastro_completo'] = True
         else:
             estatisticas['cadastro_completo'] = False
-    
+
+    elif perfil.tipo_usuario == 'DIRETOR':
+        from django.contrib.auth.models import User
+        from empresas.models import Empresa
+        from coletivos.models import Coletivo
+        estatisticas['total_usuarios'] = User.objects.count()
+        estatisticas['pendentes_aprovacao'] = Perfil.objects.filter(status='PENDENTE').count()
+        estatisticas['total_empresas'] = Empresa.objects.count()
+        estatisticas['total_coletivos'] = Coletivo.objects.count()
+
+    elif perfil.tipo_usuario == 'COLETIVO':
+        if hasattr(perfil, 'dados_coletivo'):
+            estatisticas['instituicao'] = perfil.dados_coletivo
+            estatisticas['voto_ativo'] = True # Exemplo de lógica para coletivo
+        else:
+            estatisticas['instituicao'] = None
+
     context = {
         'perfil': perfil,
         'config': config,
@@ -56,6 +72,10 @@ def dashboard(request):
         return render(request, 'dashboard/dashboard_associado.html', context)
     elif perfil.tipo_usuario == 'AFILIADO':
         return render(request, 'dashboard/dashboard_afiliado.html', context)
+    elif perfil.tipo_usuario == 'DIRETOR':
+        return render(request, 'dashboard/dashboard_diretoria.html', context)
+    elif perfil.tipo_usuario == 'COLETIVO':
+        return render(request, 'dashboard/dashboard_coletivo.html', context)
     else:
         return render(request, 'dashboard/dashboard_base.html', context)
 

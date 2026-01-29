@@ -24,12 +24,12 @@ urlpatterns = [
     
     path('accounts/cadastro/', cadastro_view, name='cadastro'), 
     path('accounts/pendente/', cadastro_pendente_view, name='cadastro_pendente'),
+    
+    # Rotas de Autenticação e Senha
     path('accounts/', include('django.contrib.auth.urls')),
     
     #protecao home
-    path('', login_required(
-        TemplateView.as_view(template_name='home.html')
-    ), name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
     #pos login
     path('pos-login/', pos_login_view, name='pos_login'),

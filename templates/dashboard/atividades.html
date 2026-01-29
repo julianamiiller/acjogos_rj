@@ -1,16 +1,67 @@
 {% extends 'dashboard/dashboard_base.html' %}
 
 {% block conteudo %}
-<h2>Atividades Recentes</h2>
 
-<ul>
-{% for a in atividades %}
-    <li>
-        {{ a.get_acao_display }} - {{ a.descricao }} <br>
-        <small>{{ a.data_criacao }}</small>
-    </li>
-{% empty %}
-    <li>Nenhuma atividade registrada.</li>
-{% endfor %}
-</ul>
+<div class="glass-card mb-4 border-top border-info border-opacity-25" style="border-top-width: 3px !important;">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info">
+            <i data-lucide="history"></i>
+        </div>
+        <div>
+            <h5 class="mb-0 fw-700">Histórico de Atividades</h5>
+            <p class="text-muted small mb-0">Rastro de ações recentes no sistema</p>
+        </div>
+    </div>
+
+    <div class="timeline mt-4">
+        {% for a in atividades %}
+        <div class="timeline-item d-flex gap-4 pb-4 position-relative">
+            <!-- Linha da timeline -->
+            {% if not forloop.last %}
+            <div class="timeline-line"
+                style="position: absolute; left: 19px; top: 40px; bottom: 0; width: 2px; background: rgba(255, 255, 255, 0.05);">
+            </div>
+            {% endif %}
+
+            <div class="timeline-icon rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); z-index: 1;">
+                <i data-lucide="{% if 'login' in a.acao %}log-in{% elif 'edit' in a.acao %}edit-3{% elif 'delete' in a.acao %}trash-2{% else %}activity{% endif %}"
+                    style="width: 16px; color: var(--text-muted);"></i>
+            </div>
+
+            <div class="timeline-content glass-card p-3 border-opacity-10 flex-grow-1"
+                style="background: rgba(255, 255, 255, 0.01);">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge bg-white bg-opacity-10 text-muted rounded-pill small fw-600">{{
+                        a.get_acao_display }}</span>
+                    <span class="text-muted" style="font-size: 0.7rem;">{{ a.data_criacao|date:"d/m/Y H:i" }}</span>
+                </div>
+                <h6 class="text-white mb-1 small fw-700">{{ a.descricao }}</h6>
+                {% if a.detalhes %}
+                <p class="text-muted mb-0 small opacity-75">{{ a.detalhes }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <div class="mb-3 opacity-20">
+                <i data-lucide="clock" style="width: 64px; height: 64px;"></i>
+            </div>
+            <h6 class="text-white">Nenhum rastro encontrado</h6>
+            <p class="text-muted small">Suas atividades aparecerão aqui conforme você interage com o sistema.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .fw-700 {
+        font-weight: 700;
+    }
+
+    .fw-600 {
+        font-weight: 600;
+    }
+</style>
+
 {% endblock %}

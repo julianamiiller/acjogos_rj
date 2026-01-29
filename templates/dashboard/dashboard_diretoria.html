@@ -1,0 +1,146 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block conteudo %}
+
+<div class="row g-4 mb-5">
+    <!-- Widget: Usuários Totais -->
+    <div class="col-md-3">
+        <div class="glass-card h-100 border-top border-primary border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="icon-box mb-3"
+                style="background: rgba(41, 98, 255, 0.1); color: var(--accent-blue); padding: 10px; border-radius: 12px; width: fit-content;">
+                <i data-lucide="users"></i>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Total de Usuários</h6>
+            <h2 class="mb-0 fw-800">{{ estatisticas.total_usuarios|default:0 }}</h2>
+        </div>
+    </div>
+
+    <!-- Widget: Pendentes -->
+    <div class="col-md-3">
+        <div class="glass-card h-100 border-top border-warning border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="icon-box mb-3"
+                style="background: rgba(255, 170, 0, 0.1); color: #ffaa00; padding: 10px; border-radius: 12px; width: fit-content;">
+                <i data-lucide="clock"></i>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Aprovações Pendentes</h6>
+            <h2 class="mb-0 fw-800 text-warning">{{ estatisticas.pendentes_aprovacao|default:0 }}</h2>
+        </div>
+    </div>
+
+    <!-- Widget: Empresas -->
+    <div class="col-md-3">
+        <div class="glass-card h-100 border-top border-info border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="icon-box mb-3"
+                style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9; padding: 10px; border-radius: 12px; width: fit-content;">
+                <i data-lucide="building"></i>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Empresas Cadastradas</h6>
+            <h2 class="mb-0 fw-800 text-info">{{ estatisticas.total_empresas|default:0 }}</h2>
+        </div>
+    </div>
+
+    <!-- Widget: Coletivos -->
+    <div class="col-md-3">
+        <div class="glass-card h-100 border-top border-success border-opacity-25"
+            style="border-top-width: 3px !important;">
+            <div class="icon-box mb-3"
+                style="background: rgba(35, 134, 54, 0.1); color: #238636; padding: 10px; border-radius: 12px; width: fit-content;">
+                <i data-lucide="share-2"></i>
+            </div>
+            <h6 class="text-muted fw-bold small text-uppercase mb-2">Total Coletivos</h6>
+            <h2 class="mb-0 fw-800 text-success">{{ estatisticas.total_coletivos|default:0 }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width: 4px; height: 24px; background: var(--accent-blue); border-radius: 2px;"></div>
+                    <h5 class="mb-0 fw-700">Ações Administrativas</h5>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <a href="/admin/" class="admin-action-btn">
+                        <i data-lucide="shield-check"></i>
+                        <span>Painel Django Admin</span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="admin-action-btn">
+                        <i data-lucide="user-plus"></i>
+                        <span>Aprovar Usuários</span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="#" class="admin-action-btn">
+                        <i data-lucide="bar-chart-3"></i>
+                        <span>Relatórios Globais</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="glass-card h-100">
+            <h6 class="text-muted fw-bold small text-uppercase mb-4">Log de Sistema</h6>
+            <div class="text-center py-4 opacity-50">
+                <i data-lucide="activity" class="mb-2" style="width: 32px; height: 32px;"></i>
+                <p class="small text-muted">Carregando logs em tempo real...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .admin-action-btn:hover {
+        background: rgba(41, 98, 255, 0.08);
+        border-color: var(--accent-blue);
+        transform: translateY(-5px);
+    }
+
+    .admin-action-btn i {
+        width: 32px;
+        height: 32px;
+        color: var(--accent-blue);
+    }
+
+    .admin-action-btn span {
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    .fw-800 {
+        font-weight: 800;
+    }
+
+    .fw-700 {
+        font-weight: 700;
+    }
+</style>
+
+{% endblock %}
