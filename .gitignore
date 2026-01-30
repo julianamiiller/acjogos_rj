@@ -2,8 +2,6 @@
 
 # Ambientes Virtuais
 venv/
-env/
-ENV/
 
 # Python (arquivos compilados)
 **/__pycache__/
