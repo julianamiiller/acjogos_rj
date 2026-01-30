@@ -6,14 +6,11 @@ load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
 
-DEBUG=False
+
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 
-ALLOWED_HOSTS = (
-    ["*"]
-    if os.getenv("ALLOWED_HOSTS") == "*"
-    else os.getenv("ALLOWED_HOSTS", "").split(",")
-)
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 
 INSTALLED_APPS = [
