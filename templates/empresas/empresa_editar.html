@@ -2,101 +2,208 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/empresa/empresa_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
+<style>
+    .profile-card-container {
+        max-width: 850px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 40px;
+        row-gap: 30px;
+        margin-top: 30px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        background: var(--input-bg-deep);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 12px;
+        color: white;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--accent-neon);
+        box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+        outline: none;
+    }
+
+    .btn-pill {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+        box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4) !important;
+        border: none;
+        color: white;
+        padding: 14px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        width: fit-content;
+        min-width: 200px;
+        margin: 10px auto 0;
+        display: block;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: 0.3s;
+    }
+
+    .btn-pill:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(14, 165, 233, 0.6) !important;
+    }
+
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .btn-submit-container {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .btn-submit-container {
+            grid-column: span 1;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <div class="form-header">
-        <h1>Editar Empresa</h1>
-    </div>
+<div class="theme-wrapper">
+    <div class="profile-card-container">
+        <div class="neon-accent-line"></div>
 
-    <form method="POST" class="form-grid">
-        {% csrf_token %}
-        
-        {% for field in form %}
+        <div class="profile-header">
+            <div class="avatar-glow-ring"
+                style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: var(--accent-gradient); padding: 3px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);">
+                <div class="avatar-box"
+                    style="width: 100%; height: 100%; background: var(--bg-void); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+            </div>
+            <h2 class="neon-title">Editar Empresa</h2>
+            <p class="subtitle-text">Atualize as informações da sua organização</p>
+        </div>
+
+        <form method="POST" class="form-grid">
+            {% csrf_token %}
+
+            {% for field in form %}
             <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                
-                {# Adicionando o gatilho onblur se o campo for o CEP #}
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                    {% if field.name != 'complemento' and field.name != 'site' and field.name != 'url' %}
+                    <span style="color: #ff3333; margin-left: 2px;">*</span>
+                    {% endif %}
+                </label>
+
                 {% if field.name == 'cep' %}
-                    <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}" 
-                           value="{{ field.value|default:'' }}" class="form-control"
-                           onblur="pesquisacep(this.value)">
+                <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                    value="{{ field.value|default:'' }}" class="form-control" onblur="pesquisacep(this.value)">
                 {% else %}
-                    {{ field }}
+                {{ field }}
                 {% endif %}
 
                 {% if field.errors %}
-                    {% for error in field.errors %}
-                        <span style="color: var(--error-red); font-size: 0.7em; margin-top: 5px;">{{ error }}</span>
-                    {% endfor %}
+                {% for error in field.errors %}
+                <span style="color: #ff4747; font-size: 0.75rem; margin-top: 5px; display: block;">{{ error }}</span>
+                {% endfor %}
                 {% endif %}
             </div>
-        {% endfor %}
+            {% endfor %}
 
-        <div class="btn-submit-container">
-            <button type="submit" class="btn-pill">
-                Salvar Alterações
-            </button>
+            <div class="btn-submit-container">
+                <button type="submit" class="btn-pill">
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+
+        <div
+            style="text-align: center; margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+            <a href="{% url 'minha_empresa' %}"
+                style="color: var(--text-secondary); text-decoration: none; font-size: 0.85em; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
         </div>
-    </form>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="{% url 'minha_empresa' %}" style="color: var(--text-secondary); text-decoration: none; font-size: 0.8em; text-transform: uppercase;">
-            <i class="fas fa-times"></i> Cancelar
-        </a>
     </div>
 </div>
 
 <script>
-function pesquisacep(valor) {
-    var cep = valor.replace(/\D/g, '');
-    if (cep != "") {
-        var validacep = /^[0-9]{8}$/; 
-        if(validacep.test(cep)) {
-         
-            const campoLogradouro = document.getElementById('id_logradouro');
-            const campoBairro = document.getElementById('id_bairro');
-            const campoCidade = document.getElementById('id_cidade');
-            const campoUF = document.getElementById('id_uf') || document.getElementById('id_estado');
+    function pesquisacep(valor) {
+        var cep = valor.replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if (validacep.test(cep)) {
 
-            if(campoLogradouro) campoLogradouro.value = "Buscando...";
-            if(campoBairro) campoBairro.value = "Buscando...";
-            if(campoCidade) campoCidade.value = "Buscando...";
+                const campoLogradouro = document.getElementById('id_logradouro');
+                const campoBairro = document.getElementById('id_bairro');
+                const campoCidade = document.getElementById('id_localidade') || document.getElementById('id_cidade');
+                const campoUF = document.getElementById('id_uf') || document.getElementById('id_estado');
 
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(dados => {
-                    if (!("erro" in dados)) {
-                        if(campoLogradouro) campoLogradouro.value = dados.logradouro;
-                        if(campoBairro) campoBairro.value = dados.bairro;
-                        if(campoCidade) campoCidade.value = dados.localidade;
-                        
-                        if(campoUF) {
-                            campoUF.value = dados.uf;
-                            
-                            if (campoUF.tagName === 'SELECT' && campoUF.value !== dados.uf) {
-                                for (let i = 0; i < campoUF.options.length; i++) {
-                                    if (campoUF.options[i].text === dados.uf || campoUF.options[i].value === dados.uf) {
-                                        campoUF.selectedIndex = i;
-                                        break;
+                if (campoLogradouro) campoLogradouro.value = "Buscando...";
+                if (campoBairro) campoBairro.value = "Buscando...";
+                if (campoCidade) campoCidade.value = "Buscando...";
+
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(dados => {
+                        if (!("erro" in dados)) {
+                            if (campoLogradouro) campoLogradouro.value = dados.logradouro;
+                            if (campoBairro) campoBairro.value = dados.bairro;
+                            if (campoCidade) campoCidade.value = dados.localidade;
+
+                            if (campoUF) {
+                                campoUF.value = dados.uf;
+
+                                if (campoUF.tagName === 'SELECT' && campoUF.value !== dados.uf) {
+                                    for (let i = 0; i < campoUF.options.length; i++) {
+                                        if (campoUF.options[i].text === dados.uf || campoUF.options[i].value === dados.uf) {
+                                            campoUF.selectedIndex = i;
+                                            break;
+                                        }
                                     }
                                 }
                             }
+
+                            const campoNumero = document.getElementById('id_numero');
+                            if (campoNumero) campoNumero.focus();
+                        } else {
+                            alert("CEP não encontrado.");
                         }
-                        
-                        document.getElementById('id_numero').focus();
-                    } else {
-                        alert("CEP não encontrado.");
-                    }
-                })
-                .catch(err => {
-                    console.error("Erro na API ViaCEP:", err);
-                    alert("Erro ao buscar CEP.");
-                });
+                    })
+                    .catch(err => {
+                        console.error("Erro na API ViaCEP:", err);
+                        alert("Erro ao buscar CEP.");
+                    });
+            }
         }
     }
-}
 </script>
 {% endblock %}

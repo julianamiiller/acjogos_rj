@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import EmpresaForm
 from .models import Empresa
+from core_dashboard.views import criar_notificacao
 
 # --- VIEW: CADASTRAR ---
 @login_required
@@ -27,6 +28,16 @@ def empresa_cadastrar_view(request):
             empresa.save()
             
             messages.success(request, 'Empresa cadastrada com sucesso!')
+            
+            # Notificação no Dashboard
+            criar_notificacao(
+                perfil=perfil,
+                titulo='Empresa Cadastrada',
+                mensagem=f'A empresa {empresa.nome} foi vinculada ao seu perfil com sucesso!',
+                tipo='sucesso',
+                link='/empresas/minha/'
+            )
+            
             return redirect('minha_empresa')
     else:
         form = EmpresaForm()
@@ -78,6 +89,16 @@ def empresa_editar_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Dados da empresa atualizados com sucesso!')
+            
+            # Notificação no Dashboard
+            criar_notificacao(
+                perfil=perfil,
+                titulo='Dados Atualizados',
+                mensagem='As alterações nas informações da sua empresa foram salvas e já estão no sistema.',
+                tipo='info',
+                link='/empresas/minha/'
+            )
+            
             return redirect('minha_empresa')
     else:
         # Carrega o formulário preenchido com os dados atuais

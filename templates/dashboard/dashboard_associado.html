@@ -52,7 +52,8 @@
     <!-- Card: Acesso Rápido -->
     <div class="col-lg-5">
         <div class="glass-card h-100">
-            <h6 class="text-muted fw-bold small text-uppercase mb-4">Acesso Rápido</h6>
+            <h6 class="fw-bold small text-uppercase mb-4" style="color: #a5b4fc; letter-spacing: 1.5px; opacity: 0.9;">
+                Acesso Rápido</h6>
 
             <div class="d-grid gap-3">
                 <a href="#" class="quick-link-item">
@@ -100,7 +101,7 @@
                         </div>
                         <div>
                             <h6 class="text-white mb-1 small fw-700">{{ n.titulo }}</h6>
-                            <p class="text-muted mb-0 small">{{ n.mensagem }}</p>
+                            <p class="text-white mb-0 small" style="opacity: 0.8;">{{ n.mensagem }}</p>
                             <span class="text-muted" style="font-size: 0.65rem;">{{ n.data_criacao|timesince }}
                                 atrás</span>
                         </div>
@@ -144,7 +145,7 @@
         align-items: center;
         justify-content: center;
         color: #fff;
-        background-opacity: 0.1 !important;
+        background: rgba(255, 255, 255, 0.1);
     }
 
     .quick-link-item .text span {

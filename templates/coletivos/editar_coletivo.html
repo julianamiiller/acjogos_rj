@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
 
-{% block css %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
 <style>
     .profile-card-container {
@@ -20,7 +20,7 @@
         margin-bottom: 5px;
         font-size: 0.75rem;
         font-weight: 700;
-        color: var(--text-secondary);
+        color: var(--text-muted);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -29,8 +29,8 @@
     .form-group select,
     .form-group textarea {
         width: 100%;
-        background: var(--input-bg-deep);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(22, 27, 34, 0.65);
+        border: 1px solid var(--border-glass);
         border-radius: 12px;
         padding: 12px;
         color: white;
@@ -39,14 +39,14 @@
     }
 
     .form-group input:focus {
-        border-color: var(--accent-neon);
-        box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 10px var(--accent-glow);
         outline: none;
     }
 
     .btn-pill {
-        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
-        box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4) !important;
+        background: linear-gradient(135deg, var(--accent-blue) 0%, #6366f1 100%) !important;
+        box-shadow: 0 10px 25px var(--accent-glow) !important;
         border: none;
         color: white;
         padding: 14px 40px;
@@ -84,9 +84,9 @@
         }
     }
 </style>
-{% endblock %}
+{% endblock extra_css %}
 
-{% block content %}
+{% block conteudo %}
 <div class="theme-wrapper">
 
     <div class="profile-card-container">
@@ -94,13 +94,13 @@
 
         <div class="profile-header">
             <div class="avatar-glow-ring"
-                style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: var(--accent-gradient); padding: 3px; box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);">
+                style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%); padding: 3px; box-shadow: 0 0 20px rgba(165, 180, 252, 0.4);">
                 <div class="avatar-box"
-                    style="width: 100%; height: 100%; background: var(--bg-void); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    style="width: 100%; height: 100%; background: #050507; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
                     <i class="fa-solid fa-user-astronaut"></i>
                 </div>
             </div>
-            <h2 class="neon-title">Editar Instituição</h2>
+            <h2 class="neon-title">Editar Coletivo</h2>
             <p class="subtitle-text">Gerencie as informações da sua organização</p>
         </div>
 
@@ -108,7 +108,8 @@
             {% csrf_token %}
 
             {% for field in form %}
-            <div class="form-group {% if field.name == 'descricao' %}full-width-field{% endif %}" {% if field.name == 'descricao' %}style="grid-column: span 2;"{% endif %}>
+            <div class="form-group {% if field.name == 'descricao' %}full-width-field{% endif %}" {% if
+                field.name=='descricao' %} style="grid-column: span 2;" {% endif %}>
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 {{ field }}
                 {% if field.errors %}
@@ -129,10 +130,10 @@
         <div
             style="text-align: center; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
             <a href="{% url 'coletivos:dashboard' %}"
-                style="color: var(--text-secondary); text-decoration: none; font-size: 0.85em; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                style="color: var(--text-muted); text-decoration: none; font-size: 0.85em; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
                 <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
             </a>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock conteudo %}

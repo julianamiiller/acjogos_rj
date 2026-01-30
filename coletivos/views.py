@@ -38,19 +38,7 @@ def cadastro_coletivo(request):
 
 @login_required
 def dashboard_coletivo(request):
-    try:
-        perfil = request.user.perfil
-    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
-        messages.error(request, 'Perfil de usuário não encontrado.')
-        return redirect('home')
-    
-    coletivo = get_object_or_404(Coletivo, perfil=perfil)
-    
-    # Enviando ambos para evitar erro no template
-    return render(request, 'coletivos/dashboard.html', {
-        'coletivo': coletivo,
-        'perfil': perfil
-    })
+    return redirect('core_dashboard:dashboard')
 
 @login_required
 def meu_perfil_coletivo(request):
@@ -60,7 +48,15 @@ def meu_perfil_coletivo(request):
         messages.error(request, 'Perfil de usuário não encontrado.')
         return redirect('home')
 
-    coletivo = get_object_or_404(Coletivo, perfil=perfil)
+    if perfil.tipo_usuario != 'COLETIVO':
+        messages.error(request, 'Acesso restrito a instituições.')
+        return redirect('core_dashboard:dashboard')
+
+    if not hasattr(perfil, 'dados_coletivo'):
+        messages.info(request, 'Por favor, complete seu cadastro institucional primeiro.')
+        return redirect('coletivos:cadastro')
+
+    coletivo = perfil.dados_coletivo
     
     return render(request, 'coletivos/perfil_coletivo.html', {
         'coletivo': coletivo,
@@ -75,7 +71,15 @@ def editar_coletivo(request):
         messages.error(request, 'Perfil de usuário não encontrado.')
         return redirect('home')
 
-    coletivo = get_object_or_404(Coletivo, perfil=perfil)
+    if perfil.tipo_usuario != 'COLETIVO':
+        messages.error(request, 'Acesso restrito a instituições.')
+        return redirect('core_dashboard:dashboard')
+
+    if not hasattr(perfil, 'dados_coletivo'):
+        messages.info(request, 'Por favor, complete seu cadastro institucional primeiro.')
+        return redirect('coletivos:cadastro')
+
+    coletivo = perfil.dados_coletivo
     
     if request.method == 'POST':
         form = ColetivoForm(request.POST, instance=coletivo)
@@ -86,8 +90,7 @@ def editar_coletivo(request):
     else:
         form = ColetivoForm(instance=coletivo)
     
-    # Adicionado 'perfil' para que o cabeçalho do template funcione
-    return render(request, 'coletivos/editar_coletivo.html', {
+    return render(request, 'coletivos/editar.html', {
         'form': form, 
         'coletivo': coletivo,
         'perfil': perfil

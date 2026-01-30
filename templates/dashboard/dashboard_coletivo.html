@@ -1,79 +1,155 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'dashboard/dashboard_base.html' %}
 
-{% block title %}Painel Coletivo | ACJOGOS-RJ{% endblock %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
+{% block extra_css %}
 <style>
-    body,
-    html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
+    .quick-link-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border-glass);
+        border-radius: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .quick-link-item:hover {
+        background: rgba(41, 98, 255, 0.05);
+        border-color: var(--accent-blue);
+        transform: translateX(5px);
+    }
+
+    .quick-link-item .icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: rgba(165, 180, 252, 0.1);
+    }
+
+    .quick-link-item .text span {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+
+    .quick-link-item .text strong {
+        font-size: 0.95rem;
+        color: var(--text-pure);
     }
 </style>
 {% endblock %}
 
-{% block content %}
-<div class="theme-wrapper">
-    <div class="profile-card-container">
+{% block conteudo %}
 
-        <div class="neon-accent-line"></div>
-
-        <div class="profile-header">
-            <div class="avatar-glow-ring">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-user-astronaut"></i>
+<!-- Seção de Boas-vindas e Status -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="glass-card border-0 position-relative overflow-hidden"
+            style="background: linear-gradient(135deg, rgba(41, 98, 255, 0.1) 0%, rgba(5, 5, 7, 0.65) 100%);">
+            <div class="d-flex align-items-center gap-4 py-2">
+                <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary"
+                    style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="building-2" style="width: 40px; height: 40px;"></i>
                 </div>
-            </div>
-            <h2 class="neon-title">{{ perfil.dados_coletivo.nome_institucional|default:perfil.user.username }}</h2>
-            <p class="subtitle-text">Gestão Coletiva Autorizada</p>
-        </div>
-
-        <div class="data-display-grid">
-            <div class="data-group">
-                <label>Instituição</label>
-                <div class="read-only-box">
-                    <i class="fa-solid fa-building icon-left"></i>
-                    <span>{{ perfil.dados_coletivo.nome_institucional|default:"Não informado" }}</span>
-                </div>
-            </div>
-
-            <div class="data-group">
-                <label>CNPJ / Registro</label>
-                <div class="read-only-box">
-                    <i class="fa-solid fa-id-card icon-left"></i>
-                    <span>{{ perfil.dados_coletivo.cnpj|default:"---" }}</span>
-                </div>
-            </div>
-
-            <div class="data-group">
-                <label>Responsável Técnico</label>
-                <div class="read-only-box">
-                    <i class="fa-solid fa-user-tie icon-left"></i>
-                    <span>{{ perfil.dados_coletivo.responsavel_legal|default:perfil.user.get_full_name }}</span>
+                <div>
+                    <h2 class="text-white fw-800 mb-1">{{
+                        estatisticas.instituicao.nome_institucional|default:perfil.user.username }}</h2>
+                    <p class="text-muted mb-0">Cockpit de Gestão Institucional • Status:
+                        <span
+                            class="{% if perfil.status == 'APROVADO' %}bg-success text-success{% elif perfil.status == 'PENDENTE' %}bg-warning text-warning{% else %}bg-danger text-danger{% endif %} bg-opacity-10 px-2 py-0.5 rounded-pill small ms-1">
+                            {{ perfil.get_status_display }}
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="secondary-actions" style="margin-bottom: 20px;">
-            <a href="{% url 'coletivos:editar' %}" class="secondary-btn">
-                <i class="fa-solid fa-user-pen"></i> EDITAR DADOS
-            </a>
-            <a href="#" class="secondary-btn">
-                <i class="fa-solid fa-life-ring"></i> SUPORTE
-            </a>
-        </div>
-
-        <div class="main-action-area">
-            <a href="{% url 'coletivos:meu_perfil' %}" class="btn-neon-action">
-                <i class="fa-solid fa-globe"></i> VER PERFIL PÚBLICO
-            </a>
-        </div>
-
     </div>
 </div>
-{% endblock %}
+
+<!-- Cards de Estatísticas -->
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="glass-card h-100">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-primary bg-opacity-10 p-3 rounded-3">
+                    <i data-lucide="users" class="text-primary"></i>
+                </div>
+                <div>
+                    <div class="fw-700 text-muted small">Total de Membros</div>
+                    <div class="fs-3 fw-800 text-white">{{ estatisticas.total_membros|default:0 }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="glass-card h-100">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-info bg-opacity-10 p-3 rounded-3">
+                    <i data-lucide="briefcase" class="text-info"></i>
+                </div>
+                <div>
+                    <div class="fw-700 text-muted small">Empresas Associadas</div>
+                    <div class="fs-3 fw-800 text-white">{{ estatisticas.total_empresas|default:0 }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="glass-card h-100">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="bg-warning bg-opacity-10 p-3 rounded-3">
+                    <i data-lucide="alert-circle" class="text-warning"></i>
+                </div>
+                <div>
+                    <div class="fw-700 text-muted small">Aprovações Pendentes</div>
+                    <div class="fs-3 fw-800 text-white">{{ estatisticas.pendencias|default:0 }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ações Rápidas -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="glass-card">
+            <h3 class="fw-800 mb-4">
+                <i data-lucide="zap" class="me-2" style="width: 20px; height: 20px;"></i>
+                Ações Rápidas
+            </h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <a href="{% url 'coletivos:editar' %}" class="quick-link-item">
+                        <div class="icon">
+                            <i data-lucide="settings"></i>
+                        </div>
+                        <div class="text">
+                            <strong>Editar Coletivo</strong>
+                            <span>Configure dados e informações</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'coletivos:meu_perfil' %}" class="quick-link-item">
+                        <div class="icon">
+                            <i data-lucide="eye"></i>
+                        </div>
+                        <div class="text">
+                            <strong>Visualizar Perfil</strong>
+                            <span>Ver como os membros veem</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock conteudo %}
