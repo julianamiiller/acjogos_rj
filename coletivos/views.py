@@ -6,7 +6,11 @@ from .forms import ColetivoForm
 
 @login_required
 def cadastro_coletivo(request):
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Perfil de usuário não encontrado.')
+        return redirect('home')
     
     if perfil.tipo_usuario != 'COLETIVO':
         messages.error(request, 'Acesso negado.')
@@ -34,7 +38,12 @@ def cadastro_coletivo(request):
 
 @login_required
 def dashboard_coletivo(request):
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Perfil de usuário não encontrado.')
+        return redirect('home')
+    
     coletivo = get_object_or_404(Coletivo, perfil=perfil)
     
     # Enviando ambos para evitar erro no template
@@ -45,7 +54,12 @@ def dashboard_coletivo(request):
 
 @login_required
 def meu_perfil_coletivo(request):
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Perfil de usuário não encontrado.')
+        return redirect('home')
+
     coletivo = get_object_or_404(Coletivo, perfil=perfil)
     
     return render(request, 'coletivos/perfil_coletivo.html', {
@@ -55,7 +69,12 @@ def meu_perfil_coletivo(request):
 
 @login_required
 def editar_coletivo(request):
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Perfil de usuário não encontrado.')
+        return redirect('home')
+
     coletivo = get_object_or_404(Coletivo, perfil=perfil)
     
     if request.method == 'POST':
@@ -63,13 +82,12 @@ def editar_coletivo(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Dados atualizados com sucesso!')
-            # Certifique-se que o nome da URL em redirect está correto (coletivos:perfil ou similar)
             return redirect('coletivos:meu_perfil') 
     else:
         form = ColetivoForm(instance=coletivo)
     
     # Adicionado 'perfil' para que o cabeçalho do template funcione
-    return render(request, 'coletivos/editar.html', {
+    return render(request, 'coletivos/editar_coletivo.html', {
         'form': form, 
         'coletivo': coletivo,
         'perfil': perfil

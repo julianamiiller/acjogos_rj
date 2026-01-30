@@ -22,7 +22,7 @@ def cadastro_afiliado(request):
     
     if hasattr(perfil, 'dados_afiliado'):
         messages.info(request, 'Você já possui cadastro completo.')
-        return redirect('afiliados:meu_perfil')
+        return redirect('core_dashboard:dashboard')
     
     if request.method == 'POST':
         form = AfiliadoForm(request.POST)

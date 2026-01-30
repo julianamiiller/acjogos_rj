@@ -1,0 +1,138 @@
+/* custom_admin.css - ACJOGOS-RJ Custom Theme (Restored) */
+
+:root {
+    --primary: #2962ff;
+    --primary-fg: #ffffff;
+    --secondary: #1a1f35;
+    --secondary-fg: #94a3b8;
+    --accent: #2962ff;
+    --body-bg: #050507;
+    --body-fg: #e2e8f0;
+    --header-bg: #0d1117;
+    --header-color: #ffffff;
+    --header-link-color: #a5b4fc;
+    --breadcrumbs-bg: #0d1117;
+    --breadcrumbs-link-fg: #94a3b8;
+    --item-selected-bg: rgba(41, 98, 255, 0.15);
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    --link-fg: #60a5fa;
+    --link-hover-color: #a5b4fc;
+    --link-selected-fg: #ffffff;
+
+    --button-bg: #2962ff;
+    --button-hover-bg: #1e40af;
+    --default-button-bg: #1e293b;
+    --close-button-bg: #334155;
+    --delete-button-bg: #ef4444;
+}
+
+body {
+    background: radial-gradient(circle at 50% 0%, #1a1f35 0%, #050507 70%) !important;
+    background-attachment: fixed !important;
+    color: var(--body-fg) !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+#header {
+    background: #0d1117 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+#branding h1 {
+    color: #fff !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px;
+}
+
+#branding h1 span {
+    color: #2962ff !important;
+}
+
+.module {
+    background: rgba(22, 27, 34, 0.6) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    margin-bottom: 20px !important;
+}
+
+.module caption {
+    background: rgba(41, 98, 255, 0.1) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.module th,
+.module td {
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--body-fg) !important;
+}
+
+.module a {
+    color: var(--link-fg) !important;
+}
+
+div.breadcrumbs {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    color: var(--breadcrumbs-link-fg) !important;
+}
+
+.breadcrumbs a {
+    color: var(--link-fg) !important;
+}
+
+#changelist table thead th {
+    background: #1a1f35 !important;
+    color: #fff !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+#changelist table tbody tr.selected {
+    background-color: var(--item-selected-bg) !important;
+}
+
+#changelist table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=number],
+textarea,
+select {
+    background-color: #0d1117 !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    padding: 10px !important;
+}
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background: var(--button-bg) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    transition: 0.3s !important;
+}
+
+.button:hover,
+input[type=submit]:hover {
+    background: var(--button-hover-bg) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(41, 98, 255, 0.4);
+}

@@ -1,11 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
+<style>
+    .profile-card-container {
+        max-width: 850px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        background: var(--input-bg-deep);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 12px;
+        color: white;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--accent-neon);
+        box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+        outline: none;
+    }
+
+    .btn-pill {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+        box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4) !important;
+        border: none;
+        color: white;
+        padding: 14px 40px;
+        border-radius: 50px;
+        font-weight: 800;
+        width: fit-content;
+        min-width: 200px;
+        margin: 20px auto 0;
+        display: block;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group[style*="grid-column: span 2;"] {
+            grid-column: span 1 !important;
+        }
+    }
+
+    .btn-submit-container {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .btn-submit-container {
+            grid-column: span 1;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="theme-wrapper">
+
+    <div class="profile-card-container">
+        <div class="neon-accent-line"></div>
+
+        <div class="profile-header">
+            <div class="avatar-glow-ring"
+                style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: var(--accent-gradient); padding: 3px; box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);">
+                <div class="avatar-box"
+                    style="width: 100%; height: 100%; background: var(--bg-void); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+            </div>
+            <h2 class="neon-title">Editar Instituição</h2>
+            <p class="subtitle-text">Gerencie as informações da sua organização</p>
+        </div>
+
+        <form method="POST" class="form-grid">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group {% if field.name == 'descricao' %}full-width-field{% endif %}" {% if field.name == 'descricao' %}style="grid-column: span 2;"{% endif %}>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <span style="color: #ff4747; font-size: 0.75rem; margin-top: 5px; display: block;">{{ error }}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="btn-submit-container">
+                <button type="submit" class="btn-pill">
+                    Salvar Alterações
+                </button>
+            </div>
+        </form>
+
+        <div
+            style="text-align: center; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+            <a href="{% url 'coletivos:dashboard' %}"
+                style="color: var(--text-secondary); text-decoration: none; font-size: 0.85em; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,50 +1,89 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Coletivo | ACJOGOS-RJ</title>
-    
-    <link rel="stylesheet" href="{% static 'css/coletivos/perfil.css' %}">
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body>
 
+{% block title %}Perfil Institucional | ACJOGOS-RJ{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Ajuste específico para a página de perfil read-only */
+    .profile-card-container {
+        max-width: 500px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
 <div class="theme-wrapper">
     <div class="profile-card-container">
-        
-        <h2 class="neon-title">Perfil Institucional</h2>
 
-        <div class="read-only-box">
-            <div class="info-group">
-                <label>Instituição</label>
-                <span>{{ coletivo.nome_institucional }}</span>
+        <div class="neon-accent-line"></div>
+
+        <div class="profile-header">
+            <div class="avatar-glow-ring">
+                <div class="avatar-box">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
             </div>
-            <div class="info-group">
+            <h2 class="neon-title">{{ coletivo.nome_institucional }}</h2>
+            <p class="subtitle-text">Perfil Institucional Verificado</p>
+        </div>
+
+        <div class="data-display-grid">
+            <div class="data-group">
+                <label>Nome da Instituição</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-building icon-left"></i>
+                    <span>{{ coletivo.nome_institucional }}</span>
+                </div>
+            </div>
+
+            <div class="data-group">
                 <label>CNPJ</label>
-                <span>{{ coletivo.cnpj|default:"Não informado" }}</span>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-id-card icon-left"></i>
+                    <span>{{ coletivo.cnpj|default:"Não informado" }}</span>
+                </div>
             </div>
-            <div class="info-group">
+
+            <div class="data-group">
                 <label>Responsável</label>
-                <span>{{ coletivo.responsavel }}</span>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-user-tie icon-left"></i>
+                    <span>{{ coletivo.responsavel_legal }}</span>
+                </div>
             </div>
-            <div class="info-group">
-                <label>E-mail</label>
-                <span>{{ coletivo.email }}</span>
+
+            <div class="data-group">
+                <label>E-mail de Contato</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-envelope icon-left"></i>
+                    <span>{{ coletivo.email_institucional }}</span>
+                </div>
             </div>
         </div>
 
-        <div class="profile-actions">
-            <a href="/" class="btn-neon">VOLTAR AO INÍCIO</a>
-
+        <div class="main-action-area" style="margin-top: 30px;">
+            <a href="{% url 'coletivos:dashboard' %}" class="btn-neon-action">
+                VOLTAR AO PAINEL
+            </a>
         </div>
+
+        <div class="secondary-actions" style="margin-top: 15px; display: flex; justify-content: center;">
+            <a href="/" class="secondary-btn" style="width: 100%;">
+                <i class="fa-solid fa-house"></i> IR PARA HOME
+            </a>
+        </div>
+
     </div>
 </div>
-
-<script>
-    lucide.createIcons();
-</script>
-</body>
-</html>
+{% endblock %}

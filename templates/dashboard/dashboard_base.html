@@ -286,10 +286,14 @@
         </ul>
 
         <div class="nav-item" style="margin-top: auto;">
-            <a href="{% url 'logout' %}" class="nav-link text-danger">
-                <i data-lucide="log-out"></i>
-                Sair do Sistema
-            </a>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="nav-link text-danger w-100 text-start"
+                    style="background: none; border: none;">
+                    <i data-lucide="log-out"></i>
+                    Sair do Sistema
+                </button>
+            </form>
         </div>
     </div>
 

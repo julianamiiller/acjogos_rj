@@ -1,129 +1,79 @@
-{% extends "dashboard/dashboard_base.html" %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block conteudo %}
+{% block title %}Painel Coletivo | ACJOGOS-RJ{% endblock %}
 
-<div class="row g-4 mb-5">
-    <!-- Card: Status Institucional -->
-    <div class="col-lg-8">
-        <div class="glass-card h-100 border-top border-info border-opacity-25"
-            style="border-top-width: 3px !important;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info">
-                        <i data-lucide="users"></i>
-                    </div>
-                    <h5 class="mb-0 fw-700">Perfil Coletivo / Institucional</h5>
-                </div>
-                <span class="badge bg-info bg-opacity-10 text-info border-0 rounded-pill px-3">Ativo</span>
-            </div>
-
-            <div class="ms-1">
-                <h3 class="text-white fw-800 mb-1">{{
-                    perfil.dados_coletivo.nome_institucional|default:perfil.user.username }}</h3>
-                <p class="text-muted small mb-4">{{ perfil.dados_coletivo.cnpj|default:"ID Institucional" }}</p>
-
-                <div class="d-flex gap-2">
-                    <a href="{% url 'coletivos:perfil' %}"
-                        class="btn btn-info text-white rounded-pill px-4 btn-sm fw-600">
-                        Ver Perfil Público
-                    </a>
-                    <a href="{% url 'coletivos:editar' %}"
-                        class="btn btn-outline-light border-opacity-10 rounded-pill px-4 btn-sm fw-600">
-                        Editar Instituição
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Widget: Membros (Simulado) -->
-    <div class="col-lg-4">
-        <div class="glass-card h-100 text-center d-flex flex-column justify-content-center">
-            <h6 class="text-muted fw-bold small text-uppercase mb-3">Impacto Social</h6>
-            <h2 class="text-white fw-800 mb-0">Comunidade</h2>
-            <p class="text-info small fw-600">ACJOGOS Parceira</p>
-        </div>
-    </div>
-</div>
-
-<div class="row g-4">
-    <div class="col-12">
-        <div class="glass-card">
-            <div class="d-flex align-items-center gap-3 mb-4">
-                <div style="width: 4px; height: 24px; background: #0ea5e9; border-radius: 2px;"></div>
-                <h5 class="mb-0 fw-700">Ferramentas de Consultoria</h5>
-            </div>
-
-            <div class="row g-3">
-                <div class="col-md-6 col-lg-3">
-                    <div class="tool-card">
-                        <i data-lucide="landmark"></i>
-                        <span>Projetos Incentivados</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="tool-card">
-                        <i data-lucide="megaphone"></i>
-                        <span>Divulgação</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="tool-card">
-                        <i data-lucide="scroll-text"></i>
-                        <span>Documentação</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="tool-card">
-                        <i data-lucide="heart-handshake"></i>
-                        <span>Parcerias</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/coletivos/dashboard_card.css' %}">
 <style>
-    .tool-card {
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border-glass);
-        border-radius: 16px;
-        text-align: center;
-        transition: 0.3s;
-        cursor: pointer;
-    }
-
-    .tool-card:hover {
-        background: rgba(14, 165, 233, 0.08);
-        border-color: #0ea5e9;
-        transform: translateY(-5px);
-    }
-
-    .tool-card i {
-        width: 24px;
-        height: 24px;
-        color: #0ea5e9;
-        margin-bottom: 12px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .tool-card span {
-        font-weight: 600;
-        font-size: 0.8rem;
-        color: #fff;
-    }
-
-    .fw-800 {
-        font-weight: 800;
-    }
-
-    .fw-700 {
-        font-weight: 700;
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
     }
 </style>
+{% endblock %}
 
+{% block content %}
+<div class="theme-wrapper">
+    <div class="profile-card-container">
+
+        <div class="neon-accent-line"></div>
+
+        <div class="profile-header">
+            <div class="avatar-glow-ring">
+                <div class="avatar-box">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+            </div>
+            <h2 class="neon-title">{{ perfil.dados_coletivo.nome_institucional|default:perfil.user.username }}</h2>
+            <p class="subtitle-text">Gestão Coletiva Autorizada</p>
+        </div>
+
+        <div class="data-display-grid">
+            <div class="data-group">
+                <label>Instituição</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-building icon-left"></i>
+                    <span>{{ perfil.dados_coletivo.nome_institucional|default:"Não informado" }}</span>
+                </div>
+            </div>
+
+            <div class="data-group">
+                <label>CNPJ / Registro</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-id-card icon-left"></i>
+                    <span>{{ perfil.dados_coletivo.cnpj|default:"---" }}</span>
+                </div>
+            </div>
+
+            <div class="data-group">
+                <label>Responsável Técnico</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-user-tie icon-left"></i>
+                    <span>{{ perfil.dados_coletivo.responsavel_legal|default:perfil.user.get_full_name }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="secondary-actions" style="margin-bottom: 20px;">
+            <a href="{% url 'coletivos:editar' %}" class="secondary-btn">
+                <i class="fa-solid fa-user-pen"></i> EDITAR DADOS
+            </a>
+            <a href="#" class="secondary-btn">
+                <i class="fa-solid fa-life-ring"></i> SUPORTE
+            </a>
+        </div>
+
+        <div class="main-action-area">
+            <a href="{% url 'coletivos:meu_perfil' %}" class="btn-neon-action">
+                <i class="fa-solid fa-globe"></i> VER PERFIL PÚBLICO
+            </a>
+        </div>
+
+    </div>
+</div>
 {% endblock %}

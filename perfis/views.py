@@ -43,7 +43,7 @@ def pos_login_view(request):
     if tipo == 'AFILIADO':
         print("DEBUG: Entrou na lógica de AFILIADO")
         if hasattr(perfil, 'dados_afiliado'):
-            return redirect('afiliados:meu_perfil')
+            return redirect('core_dashboard:dashboard')
         return redirect('afiliados:cadastro_afiliado')
 
     if tipo == 'ASSOCIADO':

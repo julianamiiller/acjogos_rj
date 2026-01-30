@@ -8,8 +8,11 @@ from .models import Notificacao, AtividadeRecente, ConfiguracaoDashboard, MenuFa
 
 @login_required
 def dashboard(request):
-
-    perfil = request.user.perfil
+    try:
+        perfil = request.user.perfil
+    except request.user._meta.model.perfil.RelatedObjectDoesNotExist:
+        messages.error(request, 'Seu perfil de usuário não foi encontrado. Por favor, entre em contato com o suporte.')
+        return redirect('home')
     
     config, created = ConfiguracaoDashboard.objects.get_or_create(perfil=perfil)
     
