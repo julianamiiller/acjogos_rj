@@ -192,6 +192,48 @@
             .main-wrapper {
                 margin-left: 0;
             }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+        }
+
+        /* Menu Hamburguer */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
         }
 
         .text-muted {
@@ -203,149 +245,173 @@
 </head>
 
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-brand">
-            ACJOGOS<span>RJ</span>
+
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="{% url 'core_dashboard:dashboard' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                {% if perfil.tipo_usuario == 'AFILIADO' %}
+                <li class="nav-item">
+                    <a href="{% url 'afiliados:meu_perfil' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'meu_perfil' %}active{% endif %}">
+                        <i data-lucide="user"></i>
+                        Meu Perfil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'afiliados:contratos' %}" class="nav-link">
+                        <i data-lucide="file-text"></i>
+                        Contratos
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if perfil.tipo_usuario == 'ASSOCIADO' %}
+                <li class="nav-item">
+                    <a href="{% url 'minha_empresa' %}" class="nav-link">
+                        <i data-lucide="briefcase"></i>
+                        Minha Empresa
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if perfil.tipo_usuario == 'COLETIVO' %}
+                <li class="nav-item">
+                    <a href="{% url 'coletivos:editar' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'editar' %}active{% endif %}">
+                        <i data-lucide="settings-2"></i>
+                        Editar Coletivo
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if perfil.tipo_usuario == 'DIRETOR' %}
+                <li class="nav-item">
+                    <a href="/admin/" class="nav-link text-warning">
+                        <i data-lucide="shield-check"></i>
+                        Django Admin
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i data-lucide="users-2"></i>
+                        Gestão de Membros
+                    </a>
+                </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a href="{% url 'core_dashboard:notificacoes' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}">
+                        <i data-lucide="bell"></i>
+                        Notificações
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'core_dashboard:atividades' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'atividades' %}active{% endif %}">
+                        <i data-lucide="history"></i>
+                        Atividades
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'core_dashboard:configuracoes' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
+                        <i data-lucide="settings"></i>
+                        Configurações
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-item" style="margin-top: auto;">
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link text-danger w-100 text-start"
+                        style="background: none; border: none;">
+                        <i data-lucide="log-out"></i>
+                        Sair do Sistema
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <ul class="nav-list">
-            <li class="nav-item">
-                <a href="{% url 'core_dashboard:dashboard' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-                    <i data-lucide="layout-dashboard"></i>
-                    Dashboard
-                </a>
-            </li>
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <header class="topbar">
+                <div class="d-flex align-items-center">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div class="page-title">
+                        <h6 class="mb-0 text-muted"
+                            style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                            Painel de Controle</h6>
+                    </div>
+                </div>
 
-            {% if perfil.tipo_usuario == 'AFILIADO' %}
-            <li class="nav-item">
-                <a href="{% url 'afiliados:meu_perfil' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'meu_perfil' %}active{% endif %}">
-                    <i data-lucide="user"></i>
-                    Meu Perfil
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'afiliados:contratos' %}" class="nav-link">
-                    <i data-lucide="file-text"></i>
-                    Contratos
-                </a>
-            </li>
-            {% endif %}
+                <div class="user-profile">
+                    <div class="user-info text-end">
+                        <span class="user-name">{{ perfil.user.get_full_name|default:perfil.user.username }}</span>
+                        <span class="user-role">{{ perfil.get_tipo_usuario_display }}</span>
+                    </div>
+                    <div class="user-avatar">
+                        {{ perfil.user.username|make_list|first|upper }}
+                    </div>
+                </div>
+            </header>
 
-            {% if perfil.tipo_usuario == 'ASSOCIADO' %}
-            <li class="nav-item">
-                <a href="{% url 'minha_empresa' %}" class="nav-link">
-                    <i data-lucide="briefcase"></i>
-                    Minha Empresa
-                </a>
-            </li>
-            {% endif %}
+            <main class="content-area">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} glass-card mb-4 border-0 py-3"
+                    style="background: rgba(41, 98, 255, 0.1); color: #fff;">
+                    <div class="d-flex align-items: center; gap: 10px;">
+                        <i data-lucide="info" style="width: 18px;"></i>
+                        {{ message }}
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
 
-            {% if perfil.tipo_usuario == 'COLETIVO' %}
-            <li class="nav-item">
-                <a href="{% url 'coletivos:editar' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'editar' %}active{% endif %}">
-                    <i data-lucide="settings-2"></i>
-                    Editar Coletivo
-                </a>
-            </li>
-            {% endif %}
-
-            {% if perfil.tipo_usuario == 'DIRETOR' %}
-            <li class="nav-item">
-                <a href="/admin/" class="nav-link text-warning">
-                    <i data-lucide="shield-check"></i>
-                    Django Admin
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i data-lucide="users-2"></i>
-                    Gestão de Membros
-                </a>
-            </li>
-            {% endif %}
-
-            <li class="nav-item">
-                <a href="{% url 'core_dashboard:notificacoes' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}">
-                    <i data-lucide="bell"></i>
-                    Notificações
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{% url 'core_dashboard:atividades' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'atividades' %}active{% endif %}">
-                    <i data-lucide="history"></i>
-                    Atividades
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{% url 'core_dashboard:configuracoes' %}"
-                    class="nav-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
-                    <i data-lucide="settings"></i>
-                    Configurações
-                </a>
-            </li>
-        </ul>
-
-        <div class="nav-item" style="margin-top: auto;">
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="nav-link text-danger w-100 text-start"
-                    style="background: none; border: none;">
-                    <i data-lucide="log-out"></i>
-                    Sair do Sistema
-                </button>
-            </form>
+                {% block conteudo %}
+                {% endblock %}
+            </main>
         </div>
-    </div>
 
-    <!-- Main Content -->
-    <div class="main-wrapper">
-        <header class="topbar">
-            <div class="page-title">
-                <h6 class="mb-0 text-muted" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
-                    Painel de Controle</h6>
-            </div>
+        <script>
+            lucide.createIcons();
 
-            <div class="user-profile">
-                <div class="user-info text-end">
-                    <span class="user-name">{{ perfil.user.get_full_name|default:perfil.user.username }}</span>
-                    <span class="user-role">{{ perfil.get_tipo_usuario_display }}</span>
-                </div>
-                <div class="user-avatar">
-                    {{ perfil.user.username|make_list|first|upper }}
-                </div>
-            </div>
-        </header>
+            // Sidebar Toggle Logic
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
 
-        <main class="content-area">
-            {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} glass-card mb-4 border-0 py-3"
-                style="background: rgba(41, 98, 255, 0.1); color: #fff;">
-                <div class="d-flex align-items: center; gap: 10px;">
-                    <i data-lucide="info" style="width: 18px;"></i>
-                    {{ message }}
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                });
+            }
 
-            {% block conteudo %}
-            {% endblock %}
-        </main>
-    </div>
-
-    <script>
-        lucide.createIcons();
-    </script>
+            if (overlay) {
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+        </script>
 </body>
 
 </html>
