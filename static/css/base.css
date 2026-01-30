@@ -117,3 +117,44 @@ body {
 .btn-logout-icon:hover {
     color: #ff4747;
 }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .base-header {
+        padding: 0 20px;
+        height: 60px;
+    }
+
+    .logo-text {
+        font-size: 1.1rem;
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+
+    .user-meta {
+        display: none;
+        /* Oculta nome e cargo no mobile para poupar espaço */
+    }
+
+    .btn-dashboard {
+        padding: 8px 12px;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-dashboard span {
+        display: none;
+    }
+
+    .btn-dashboard i {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .btn-dashboard {
+        padding: 8px;
+    }
+}
