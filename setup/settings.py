@@ -8,7 +8,12 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
+ALLOWED_HOSTS = (
+    ["*"]
+    if os.getenv("ALLOWED_HOSTS") == "*"
+    else os.getenv("ALLOWED_HOSTS", "").split(",")
+)
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
