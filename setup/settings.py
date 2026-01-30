@@ -6,7 +6,8 @@ load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG=False
+
 
 ALLOWED_HOSTS = (
     ["*"]
