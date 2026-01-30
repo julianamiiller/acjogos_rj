@@ -5,148 +5,297 @@
     .quick-link-item {
         display: flex;
         align-items: center;
-        gap: 15px;
-        padding: 15px;
+        gap: 1.25rem;
+        padding: 1.25rem;
         background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border-glass);
-        border-radius: 16px;
+        border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.08));
+        border-radius: 20px;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .quick-link-item:hover {
-        background: rgba(41, 98, 255, 0.05);
-        border-color: var(--accent-blue);
-        transform: translateX(5px);
+        background: rgba(41, 98, 255, 0.08);
+        border-color: #2962ff;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(41, 98, 255, 0.2);
     }
 
     .quick-link-item .icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
-        background: rgba(165, 180, 252, 0.1);
-    }
-
-    .quick-link-item .text span {
-        display: block;
-        font-size: 0.75rem;
-        color: var(--text-muted);
+        background: linear-gradient(135deg, rgba(41, 98, 255, 0.2) 0%, rgba(41, 98, 255, 0.1) 100%);
+        border: 1px solid rgba(41, 98, 255, 0.2);
+        font-size: 1.2rem;
     }
 
     .quick-link-item .text strong {
-        font-size: 0.95rem;
-        color: var(--text-pure);
+        display: block;
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 2px;
+    }
+
+    .quick-link-item .text span {
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+
+    /* Table Refinement */
+    .table {
+        --bs-table-bg: transparent !important;
+        --bs-table-color: var(--text-pure) !important;
+        background-color: transparent !important;
+    }
+
+    .table thead {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table thead th {
+        border: none;
+        padding: 1.25rem 1rem;
+        color: #64748b !important;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .table-responsive {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .member-row {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+    }
+
+    .member-row:hover {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .status-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .type-badge {
+        font-size: 0.65rem;
+        background: rgba(14, 165, 233, 0.1);
+        color: #0ea5e9;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
     }
 </style>
 {% endblock %}
 
 {% block conteudo %}
 
-<!-- Seção de Boas-vindas e Status -->
+<!-- Seção de Boas-vindas -->
 <div class="row mb-5">
     <div class="col-12">
         <div class="glass-card border-0 position-relative overflow-hidden"
-            style="background: linear-gradient(135deg, rgba(41, 98, 255, 0.1) 0%, rgba(5, 5, 7, 0.65) 100%);">
-            <div class="d-flex align-items-center gap-4 py-2">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary"
-                    style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
-                    <i data-lucide="building-2" style="width: 40px; height: 40px;"></i>
+            style="background: linear-gradient(135deg, rgba(41, 98, 255, 0.15) 0%, rgba(5, 5, 7, 0.7) 100%);">
+            <div class="d-flex align-items-center gap-4 py-3">
+                <div
+                    style="width: 90px; height: 90px; border-radius: 50%; background: #050507; border: 3px solid #0ea5e9; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);">
+                    <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem; color: white;"></i>
                 </div>
                 <div>
-                    <h2 class="text-white fw-800 mb-1">{{
-                        estatisticas.instituicao.nome_institucional|default:perfil.user.username }}</h2>
-                    <p class="text-muted mb-0">Cockpit de Gestão Institucional • Status:
-                        <span
-                            class="{% if perfil.status == 'APROVADO' %}bg-success text-success{% elif perfil.status == 'PENDENTE' %}bg-warning text-warning{% else %}bg-danger text-danger{% endif %} bg-opacity-10 px-2 py-0.5 rounded-pill small ms-1">
-                            {{ perfil.get_status_display }}
-                        </span>
-                    </p>
+                    <h2 class="text-white fw-800 mb-1" style="font-size: 2rem; letter-spacing: -0.5px;">
+                        {{ estatisticas.instituicao.nome_institucional|default:perfil.user.username }}
+                    </h2>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="text-muted small fw-600">CENTRAL DE GESTÃO INSTITUCIONAL</span>
+                        <div class="{% if perfil.status == 'APROVADO' %}bg-success text-success{% elif perfil.status == 'PENDENTE' %}bg-warning text-warning{% else %}bg-danger text-danger{% endif %} bg-opacity-10 px-3 py-1 rounded-pill small fw-700"
+                            style="font-size: 0.7rem;">
+                            <i class="fa-solid fa-circle-check me-1"></i> {{ perfil.get_status_display }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Cards de Estatísticas -->
+<!-- Stats Widgets -->
 <div class="row g-4 mb-5">
+    {% with stats=estatisticas %}
     <div class="col-md-4">
-        <div class="glass-card h-100">
-            <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-3">
-                    <i data-lucide="users" class="text-primary"></i>
+        <div class="glass-card h-100 border-0" style="border-left: 4px solid #0ea5e9 !important;">
+            <div class="d-flex align-items-center gap-4">
+                <div class="bg-primary bg-opacity-10 p-4 rounded-4 text-primary">
+                    <i data-lucide="users-2" style="width: 32px; height: 32px;"></i>
                 </div>
                 <div>
-                    <div class="fw-700 text-muted small">Total de Membros</div>
-                    <div class="fs-3 fw-800 text-white">{{ estatisticas.total_membros|default:0 }}</div>
+                    <div class="text-muted small fw-800 text-uppercase letter-spacing-1">Membros Ativos</div>
+                    <div class="fs-1 fw-900 text-white">{{ stats.total_membros|default:0 }}</div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="glass-card h-100">
-            <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="bg-info bg-opacity-10 p-3 rounded-3">
-                    <i data-lucide="briefcase" class="text-info"></i>
+        <div class="glass-card h-100 border-0" style="border-left: 4px solid #8b5cf6 !important;">
+            <div class="d-flex align-items-center gap-4">
+                <div class="bg-purple bg-opacity-10 p-4 rounded-4 text-purple" style="color: #8b5cf6;">
+                    <i data-lucide="building" style="width: 32px; height: 32px;"></i>
                 </div>
                 <div>
-                    <div class="fw-700 text-muted small">Empresas Associadas</div>
-                    <div class="fs-3 fw-800 text-white">{{ estatisticas.total_empresas|default:0 }}</div>
+                    <div class="text-muted small fw-800 text-uppercase letter-spacing-1">Empresas Vínculadas</div>
+                    <div class="fs-1 fw-900 text-white">{{ stats.total_empresas|default:0 }}</div>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="glass-card h-100">
-            <div class="d-flex align-items-center gap-3 mb-3">
-                <div class="bg-warning bg-opacity-10 p-3 rounded-3">
-                    <i data-lucide="alert-circle" class="text-warning"></i>
+        <div class="glass-card h-100 border-0" style="border-left: 4px solid #f59e0b !important;">
+            <div class="d-flex align-items-center gap-4">
+                <div class="bg-warning bg-opacity-10 p-4 rounded-4 text-warning">
+                    <i data-lucide="shield-alert" style="width: 32px; height: 32px;"></i>
                 </div>
                 <div>
-                    <div class="fw-700 text-muted small">Aprovações Pendentes</div>
-                    <div class="fs-3 fw-800 text-white">{{ estatisticas.pendencias|default:0 }}</div>
+                    <div class="text-muted small fw-800 text-uppercase letter-spacing-1">Revisões Pendentes</div>
+                    <div class="fs-1 fw-900 text-white">{{ stats.pendencias|default:0 }}</div>
                 </div>
             </div>
         </div>
     </div>
+    {% endwith %}
 </div>
 
-<!-- Ações Rápidas -->
-<div class="row mb-5">
-    <div class="col-12">
+<div class="row g-5">
+    <!-- Recent Members Column -->
+    <div class="col-lg-8">
+        <div class="glass-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-800 text-white m-0">
+                    <i data-lucide="users" class="me-2 text-primary" style="width: 24px;"></i>
+                    Membros Recentes
+                </h3>
+                <a href="#" class="btn btn-sm btn-link text-primary text-decoration-none fw-700">Ver todos <i
+                        data-lucide="chevron-right" style="width: 16px;"></i></a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-borderless align-middle text-white m-0">
+                    <thead class="text-muted small text-uppercase">
+                        <tr>
+                            <th>Membro</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if estatisticas.ultimos_membros %}
+                        {% for membro in estatisticas.ultimos_membros %}
+                        <tr class="member-row">
+                            <td class="py-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 38px; height: 38px; font-weight: 800; color: #0ea5e9;">
+                                        {{ membro.user.username|make_list|first|upper }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-700">{{ membro.user.get_full_name|default:membro.user.username }}
+                                        </div>
+                                        <div class="text-muted small">{{ membro.user.email }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="type-badge">{{ membro.get_tipo_usuario_display }}</span>
+                            </td>
+                            <td>
+                                <span
+                                    class="status-badge {% if membro.status == 'APROVADO' %}bg-success text-success{% else %}bg-warning text-warning{% endif %} bg-opacity-10">
+                                    {{ membro.get_status_display }}
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm bg-white bg-opacity-5 text-white border-0 rounded-3">
+                                    <i data-lucide="more-horizontal" style="width: 18px;"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5">
+                                <div style="opacity: 0.1; margin-bottom: 1rem;">
+                                    <i data-lucide="user-minus" style="width: 48px; height: 48px;"></i>
+                                </div>
+                                <p class="text-muted small mb-0" style="letter-spacing: 1px; font-weight: 500;">NENHUM
+                                    MEMBRO VINCULADO</p>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Column -->
+    <div class="col-lg-4">
+        <div class="glass-card mb-4"
+            style="background: rgba(14, 165, 233, 0.05); border-color: rgba(14, 165, 233, 0.1);">
+            <h4 class="fw-800 text-white mb-4 small text-uppercase letter-spacing-2">Configurações</h4>
+            <div class="d-flex flex-column gap-3">
+                <a href="{% url 'coletivos:editar' %}" class="quick-link-item">
+                    <div class="icon">
+                        <i data-lucide="sliders-horizontal"></i>
+                    </div>
+                    <div class="text">
+                        <strong>Editar Instituição</strong>
+                        <span>Atualizar perfil e contatos</span>
+                    </div>
+                </a>
+                <a href="{% url 'coletivos:meu_perfil' %}" class="quick-link-item">
+                    <div class="icon">
+                        <i data-lucide="layout-template"></i>
+                    </div>
+                    <div class="text">
+                        <strong>Ver Perfil Público</strong>
+                        <span>Visualizar cartão institucional</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
         <div class="glass-card">
-            <h3 class="fw-800 mb-4">
-                <i data-lucide="zap" class="me-2" style="width: 20px; height: 20px;"></i>
-                Ações Rápidas
-            </h3>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <a href="{% url 'coletivos:editar' %}" class="quick-link-item">
-                        <div class="icon">
-                            <i data-lucide="settings"></i>
-                        </div>
-                        <div class="text">
-                            <strong>Editar Coletivo</strong>
-                            <span>Configure dados e informações</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-6">
-                    <a href="{% url 'coletivos:meu_perfil' %}" class="quick-link-item">
-                        <div class="icon">
-                            <i data-lucide="eye"></i>
-                        </div>
-                        <div class="text">
-                            <strong>Visualizar Perfil</strong>
-                            <span>Ver como os membros veem</span>
-                        </div>
-                    </a>
-                </div>
+            <h4 class="fw-800 text-white mb-4 small text-uppercase letter-spacing-2">Atalhos de Gestão</h4>
+            <div class="d-flex flex-column gap-3">
+                <a href="#" class="quick-link-item">
+                    <div class="icon" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;">
+                        <i data-lucide="user-plus"></i>
+                    </div>
+                    <div class="text">
+                        <strong>Convidar Membro</strong>
+                        <span>Gerar link exclusivo</span>
+                    </div>
+                </a>
+                <a href="#" class="quick-link-item">
+                    <div class="icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div class="text">
+                        <strong>Relatórios</strong>
+                        <span>Excel e PDF da rede</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

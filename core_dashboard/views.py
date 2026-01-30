@@ -83,6 +83,7 @@ def dashboard(request):
             ).count()
 
             estatisticas['pendencias'] = membros_grupo.filter(status='PENDENTE').count()
+            estatisticas['ultimos_membros'] = membros_grupo.select_related('user').order_by('-id')[:5]
         else:
             estatisticas['instituicao'] = None
 

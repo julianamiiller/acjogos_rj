@@ -70,6 +70,23 @@
                     <span>{{ coletivo.email_institucional }}</span>
                 </div>
             </div>
+
+            <div class="data-group">
+                <label>Sobre a Instituição</label>
+                <div class="read-only-box" style="flex-direction: column; align-items: flex-start;">
+                    <span style="font-weight: 400; font-size: 0.9em; opacity: 0.8; line-height: 1.5;">
+                        {{ coletivo.descricao|default:"Nenhuma descrição disponível." }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="data-group">
+                <label>Localização</label>
+                <div class="read-only-box">
+                    <i class="fa-solid fa-location-dot icon-left"></i>
+                    <span>{{ coletivo.cidade }}/{{ coletivo.estado }}</span>
+                </div>
+            </div>
         </div>
 
         <div class="main-action-area" style="margin-top: 30px;">
