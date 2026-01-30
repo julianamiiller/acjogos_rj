@@ -313,10 +313,58 @@ body.home-body {
 }
 
 @media (max-width: 768px) {
+  .glass-nav {
+    padding: 10px 20px;
+    width: 95%;
+  }
+
+  .nav-links {
+    display: none;
+    /* Simplificação: oculta links no mobile para não quebrar */
+  }
+
+  .hero-section {
+    padding-top: 120px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .main-title {
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+    letter-spacing: -1px;
+  }
+
   .hero-actions {
     flex-direction: column;
     width: 100%;
     padding: 0 30px;
     align-items: center;
+    gap: 15px;
+  }
+
+  .btn-main,
+  .btn-discord {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .glass-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .btn-associe {
+    padding: 8px 16px;
+    font-size: 0.65rem;
   }
 }
