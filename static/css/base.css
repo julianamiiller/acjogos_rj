@@ -121,16 +121,16 @@ body {
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .base-header {
-        padding: 0 20px;
+        padding: 0 16px;
         height: 60px;
     }
 
     .logo-text {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .header-right {
-        gap: 12px;
+        gap: 8px;
     }
 
     .user-meta {
@@ -139,8 +139,9 @@ body {
     }
 
     .btn-dashboard {
-        padding: 8px 12px;
-        font-size: 0.7rem;
+        padding: 6px 10px;
+        font-size: 0.65rem;
+        border-radius: 6px;
     }
 }
 
