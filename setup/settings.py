@@ -1,14 +1,23 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv 
+import dj_database_url
+from dotenv import load_dotenv
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-muda-isso-no-env')
+SECRET_KEY = os.getenv("SECRET_KEY", "chave-insegura-fallback")
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
+# O Render define a variável RENDER_EXTERNAL_HOSTNAME automaticamente
+render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,6 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", # <--- ADICIONE AQUI
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,11 +66,13 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 
 # Banco de dados
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+"default": dj_database_url.config(
+default=os.getenv("DATABASE_URL"),
+conn_max_age=600,
+ssl_require=True, # Importante para Render
+)
 }
+
 
 # Validação de Senhas
 
@@ -100,7 +112,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Compactação e cacheamento otimizado
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Configurações de Login/Logout
 LOGIN_REDIRECT_URL = '/pos-login/' #depois do login, nao vá direto para a home, vá primeiro para a minha logica
