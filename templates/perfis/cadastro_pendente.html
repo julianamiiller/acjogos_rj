@@ -19,7 +19,7 @@
     </div>
 
     <div class="reset-link">
-        <form action="{% url 'logout' %}" method="post">
+        <form id="logout-form" action="{% url 'logout' %}" method="post" autocomplete="off">
             {% csrf_token %}
             <button type="submit" class="logout-button">
                 <i class="fas fa-sign-out-alt"></i> Sair do Sistema
