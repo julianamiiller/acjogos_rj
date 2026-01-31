@@ -17,13 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.getElementById('formCadastro');
-    form.addEventListener('submit', (e) => {
-        const p1 = document.getElementById('pass1').value;
-        const p2 = document.getElementById('pass2').value;
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            const p1 = document.getElementById('pass1').value;
+            const p2 = document.getElementById('pass2').value;
 
-        if (p1 !== p2) {
-            e.preventDefault();
-            alert('Atenção: As senhas digitadas não são iguais.');
-        }
-    });
+            if (p1 !== p2) {
+                e.preventDefault();
+                alert('Atenção: As senhas digitadas não são iguais.');
+            }
+        });
+    }
 });
