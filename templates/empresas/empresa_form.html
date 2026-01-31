@@ -1,52 +1,419 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
 
-{% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/empresa/empresa_style.css' %}">
-{% endblock %}
+{% block extra_css %}
+<style>
+    .registration-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-bottom: 3rem;
+    }
 
-{% block content %}
+    .registration-header {
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
+
+    .registration-header .icon-wrapper {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: var(--accent-gradient, linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%));
+        padding: 4px;
+        box-shadow: 0 0 35px rgba(14, 165, 233, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .registration-header .icon-inner {
+        width: 100%;
+        height: 100%;
+        background: #050507;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+    }
+
+    .registration-header h2 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #ffffff 0%, #7dd3fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+
+    .registration-header p {
+        color: #94a3b8;
+        font-size: 1rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .form-section-title {
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #0ea5e9;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin: 2rem 0 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-section-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(14, 165, 233, 0.2);
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem 2rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        background: rgba(13, 17, 23, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 1rem;
+        color: white;
+        font-size: 0.95rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #0ea5e9;
+        background: rgba(13, 17, 23, 1);
+        box-shadow: 0 0 20px rgba(14, 165, 233, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .help-text {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        color: white;
+        padding: 1.1rem 3rem;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(14, 165, 233, 0.6);
+    }
+
+    .btn-back {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+        padding: 1.1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: white;
+        color: white;
+    }
+
+    .error-text {
+        color: #ef4444;
+        font-size: 0.75rem;
+        margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .btn-submit,
+        .btn-back {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block conteudo %}
 <div class="registration-container">
-    <h1 class="logo-text">Cadastro de Empresa</h1>
-    
-    <form method="post">
-        {% csrf_token %}
-        <div class="django-form-wrapper">
-            {{ form.as_p }}
-            
-            <div class="btn-area">
+    <div class="glass-card">
+        <div class="registration-header">
+            <div class="icon-wrapper">
+                <div class="icon-inner">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+            </div>
+            <h2>Cadastrar Empresa</h2>
+            <p>Registre sua empresa para ter acesso a mais funcionalidades e recursos exclusivos do sistema.</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger mb-4">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="form-section-title">
+                <i data-lucide="info" style="width: 18px;"></i>
+                Dados da Empresa
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="{{ form.nome_fantasia.id_for_label }}">
+                        {{ form.nome_fantasia.label }}
+                        {% if form.nome_fantasia.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.nome_fantasia }}
+                    {% for error in form.nome_fantasia.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.razao_social.id_for_label }}">
+                        {{ form.razao_social.label }}
+                        {% if form.razao_social.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.razao_social }}
+                    {% for error in form.razao_social.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cnpj.id_for_label }}">
+                        {{ form.cnpj.label }}
+                        {% if form.cnpj.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.cnpj }}
+                    {% for error in form.cnpj.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-section-title">
+                <i data-lucide="phone" style="width: 18px;"></i>
+                Contato
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.email_contato.id_for_label }}">
+                        {{ form.email_contato.label }}
+                        {% if form.email_contato.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.email_contato }}
+                    {% for error in form.email_contato.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.telefone.id_for_label }}">
+                        {{ form.telefone.label }}
+                        {% if form.telefone.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.telefone }}
+                    {% for error in form.telefone.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.site.id_for_label }}">
+                        {{ form.site.label }}
+                        {% if form.site.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.site }}
+                    {% for error in form.site.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-section-title">
+                <i data-lucide="map-pin" style="width: 18px;"></i>
+                Localização
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.cep.id_for_label }}">
+                        {{ form.cep.label }}
+                        {% if form.cep.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.cep }}
+                    {% for error in form.cep.errors %}
+                    <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.logradouro.id_for_label }}">
+                        {{ form.logradouro.label }}
+                        {% if form.logradouro.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.logradouro }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.numero.id_for_label }}">
+                        {{ form.numero.label }}
+                        {% if form.numero.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.numero }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.bairro.id_for_label }}">
+                        {{ form.bairro.label }}
+                        {% if form.bairro.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.bairro }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.cidade.id_for_label }}">
+                        {{ form.cidade.label }}
+                        {% if form.cidade.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.cidade }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.estado.id_for_label }}">
+                        {{ form.estado.label }}
+                        {% if form.estado.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.estado }}
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="{{ form.complemento.id_for_label }}">
+                        {{ form.complemento.label }}
+                        {% if form.complemento.field.required %}<span style="color: #ef4444;">*</span>{% endif %}
+                    </label>
+                    {{ form.complemento }}
+                </div>
+            </div>
+
+            <div class="form-actions">
                 <button type="submit" class="btn-submit">
+                    <i data-lucide="check-circle-2"></i>
                     Salvar Empresa
                 </button>
+                <a href="{% url 'minha_empresa' %}" class="btn-back">
+                    <i data-lucide="arrow-left"></i>
+                    Voltar
+                </a>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 <script>
-
-function pesquisacep(valor) {
-    var cep = valor.replace(/\D/g, '');
-    if (cep != "") {
-        var validacep = /^[0-9]{8}$/; 
-        if(validacep.test(cep)) {
-            document.getElementById('id_logradouro').value = "Buscando...";
-            document.getElementById('id_bairro').value = "Buscando...";
-            document.getElementById('id_cidade').value = "Buscando...";
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(response => response.json())
-                .then(dados => {
-                    if (!("erro" in dados)) {
-                        document.getElementById('id_logradouro').value = dados.logradouro;
-                        document.getElementById('id_bairro').value = dados.bairro;
-                        document.getElementById('id_cidade').value = dados.localidade;
-                        document.getElementById('id_estado').value = dados.uf;
-                        document.getElementById('id_numero').focus();
-                    }
-                });
+    function pesquisacep(valor) {
+        var cep = valor.replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if (validacep.test(cep)) {
+                document.getElementById('id_logradouro').value = "Buscando...";
+                document.getElementById('id_bairro').value = "Buscando...";
+                document.getElementById('id_cidade').value = "Buscando...";
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(dados => {
+                        if (!("erro" in dados)) {
+                            document.getElementById('id_logradouro').value = dados.logradouro;
+                            document.getElementById('id_bairro').value = dados.bairro;
+                            document.getElementById('id_cidade').value = dados.localidade;
+                            document.getElementById('id_estado').value = dados.uf;
+                            document.getElementById('id_numero').focus();
+                        }
+                    });
+            }
         }
     }
-}
 </script>
-{% endblock %}
+{% endblock conteudo %}
