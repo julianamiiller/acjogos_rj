@@ -2,7 +2,7 @@
 
 {% block title %}Dashboard{% endblock %}
 
-{% block content %}
+{% block conteudo %}
 <h1>Bem-vindo ao seu painel</h1>
 
 <p>
@@ -10,11 +10,11 @@
 </p>
 
 {% if perfil.tipo_usuario == 'ASSOCIADO' %}
-    <p>Você está logado como <strong>Associado</strong>.</p>
+<p>Você está logado como <strong>Associado</strong>.</p>
 {% elif perfil.tipo_usuario == 'AFILIADO' %}
-    <p>Você está logado como <strong>Afiliado</strong>.</p>
+<p>Você está logado como <strong>Afiliado</strong>.</p>
 {% elif perfil.tipo_usuario == 'COLETIVO' %}
-    <p>Você está logado como <strong>Coletivo Institucional</strong>.</p>
+<p>Você está logado como <strong>Coletivo Institucional</strong>.</p>
 {% endif %}
 
 {% endblock %}
