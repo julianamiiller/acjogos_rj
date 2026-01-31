@@ -33,7 +33,7 @@ def empresa_cadastrar_view(request):
             criar_notificacao(
                 perfil=perfil,
                 titulo='Empresa Cadastrada',
-                mensagem=f'A empresa {empresa.nome} foi vinculada ao seu perfil com sucesso!',
+                mensagem=f'A empresa {empresa.nome_fantasia} foi vinculada ao seu perfil com sucesso!',
                 tipo='sucesso',
                 link='/empresas/minha/'
             )
