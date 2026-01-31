@@ -288,20 +288,42 @@ select {
 @media (max-width: 900px) {
     .auth-card {
         flex-direction: column;
-        border-radius: 0;
+        border-radius: 20px;
+        margin: 10px;
     }
 
     .auth-sidebar {
-        padding: 50px 30px;
+        padding: 40px 20px;
+        min-height: auto;
+    }
+
+    .welcome-message h2 {
+        font-size: 1.8rem;
     }
 
     .auth-form-container {
-        padding: 40px 25px;
+        padding: 30px 20px;
     }
 
     .form-row {
         grid-template-columns: 1fr;
         gap: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-wrapper {
+        padding: 1rem;
+    }
+
+    .logo-brand {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-ghost {
+        padding: 12px 30px;
+        font-size: 0.7rem;
     }
 }
 

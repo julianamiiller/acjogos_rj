@@ -1,150 +1,156 @@
-{% extends 'base.html' %}
+{% extends 'dashboard/dashboard_base.html' %}
 {% load static %}
 
-{% block css %}
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/afiliado/afiliado_style.css' %}">
+<style>
+    .cadastro-wrapper {
+        margin-top: -30px;
+        /* Sobe o conteúdo */
+    }
+</style>
 {% endblock %}
 
-{% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="main-card">
-            
-            <div class="text-center mb-5">
-                <h2 class="form-title fw-bold">{{ titulo|default:"COMPLETAR CADASTRO" }}</h2>
-                <p class="text-info opacity-75">Sincronize seu perfil para desbloquear todas as funcionalidades</p>
+{% block conteudo %}
+<div class="cadastro-wrapper">
+    <div class="main-card">
+        <div class="text-center mb-5">
+            <h2 class="form-title fw-bold">{{ titulo|default:"COMPLETAR CADASTRO" }}</h2>
+            <p class="text-info opacity-75">Sincronize seu perfil para desbloquear todas as funcionalidades</p>
+        </div>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="section-divider">
+                <h6 class="title-neon"><i class="fas fa-id-card me-2"></i>DADOS PESSOAIS</h6>
+                <hr>
             </div>
 
-            <form method="post" novalidate>
-                {% csrf_token %}
+            <div class="form-grid">
+                <div class="field-wrapper">
+                    {{ form.cpf.label_tag }}
+                    {{ form.cpf }}
+                    {% if form.cpf.errors %}<span class="error-text">{{ form.cpf.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.data_nascimento.label_tag }}
+                    {{ form.data_nascimento }}
+                    {% if form.data_nascimento.errors %}<span class="error-text">{{ form.data_nascimento.errors.0
+                        }}</span>{% endif %}
+                </div>
+            </div>
 
-                {% if form.non_field_errors %}
-                    <div class="alert alert-danger">
-                        {{ form.non_field_errors }}
-                    </div>
-                {% endif %}
+            <div class="section-divider">
+                <h6 class="title-neon"><i class="fas fa-phone me-2"></i>CONTATO</h6>
+                <hr>
+            </div>
+            <div class="form-grid">
+                <div class="field-wrapper">
+                    {{ form.telefone.label_tag }}
+                    {{ form.telefone }}
+                    {% if form.telefone.errors %}<span class="error-text">{{ form.telefone.errors.0 }}</span>{% endif %}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.telefone_alternativo.label_tag }}
+                    {{ form.telefone_alternativo }}
+                </div>
+            </div>
 
-                <div class="section-divider">
-                    <h6 class="title-neon"><i class="bi bi-person-vcard me-2"></i>DADOS PESSOAIS</h6>
-                    <hr>
+            <div class="section-divider">
+                <h6 class="title-neon"><i class="fas fa-map-marker-alt me-2"></i>LOCALIZAÇÃO</h6>
+                <hr>
+            </div>
+            <div class="form-grid">
+                <div class="field-wrapper">
+                    {{ form.cep.label_tag }}
+                    {{ form.cep }}
+                    {% if form.cep.errors %}<span class="error-text">{{ form.cep.errors.0 }}</span>{% endif %}
                 </div>
-                
-                <div class="form-grid">
-                    <div class="input-group">
-                        {{ form.cpf.label_tag }}
-                        {{ form.cpf }}
-                        {% if form.cpf.errors %}<span class="error-text">{{ form.cpf.errors.0 }}</span>{% endif %}
-                    </div>
-                    <div class="input-group">
-                        {{ form.data_nascimento.label_tag }}
-                        {{ form.data_nascimento }}
-                        {% if form.data_nascimento.errors %}<span class="error-text">{{ form.data_nascimento.errors.0 }}</span>{% endif %}
-                    </div>
+                <div class="field-wrapper">
+                    {{ form.endereco.label_tag }}
+                    {{ form.endereco }}
                 </div>
+                <div class="field-wrapper">
+                    {{ form.numero.label_tag }}
+                    {{ form.numero }}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.bairro.label_tag }}
+                    {{ form.bairro }}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.cidade.label_tag }}
+                    {{ form.cidade }}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.estado.label_tag }}
+                    {{ form.estado }}
+                </div>
+                <div class="input-group full-width">
+                    {{ form.complemento.label_tag }}
+                    {{ form.complemento }}
+                </div>
+            </div>
 
-                <div class="section-divider">
-                    <h6 class="title-neon"><i class="bi bi-telephone me-2"></i>CONTATO</h6>
-                    <hr>
+            <div class="section-divider">
+                <h6 class="title-neon"><i class="fas fa-briefcase me-2"></i>PERFIL PROFISSIONAL</h6>
+                <hr>
+            </div>
+            <div class="form-grid">
+                <div class="field-wrapper">
+                    {{ form.area_atuacao.label_tag }}
+                    {{ form.area_atuacao }}
                 </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        {{ form.telefone.label_tag }}
-                        {{ form.telefone }}
-                        {% if form.telefone.errors %}<span class="error-text">{{ form.telefone.errors.0 }}</span>{% endif %}
-                    </div>
-                    <div class="input-group">
-                        {{ form.telefone_alternativo.label_tag }}
-                        {{ form.telefone_alternativo }}
-                    </div>
+                <div class="field-wrapper">
+                    {{ form.especialidade.label_tag }}
+                    {{ form.especialidade }}
                 </div>
+                <div class="input-group full-width">
+                    {{ form.biografia.label_tag }}
+                    {{ form.biografia }}
+                    <small class="text-muted d-block mt-1">Sua biografia ajuda a passar credibilidade para seus
+                        clientes.</small>
+                </div>
+            </div>
 
-                <div class="section-divider">
-                    <h6 class="title-neon"><i class="bi bi-geo-alt me-2"></i>LOCALIZAÇÃO</h6>
-                    <hr>
+            {% if form.banco %}
+            <div class="section-divider">
+                <h6 class="title-neon"><i class="fas fa-university me-2"></i>DADOS BANCÁRIOS</h6>
+                <hr>
+            </div>
+            <div class="form-grid">
+                <div class="field-wrapper">
+                    {{ form.banco.label_tag }}
+                    {{ form.banco }}
                 </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        {{ form.cep.label_tag }}
-                        {{ form.cep }}
-                        {% if form.cep.errors %}<span class="error-text">{{ form.cep.errors.0 }}</span>{% endif %}
-                    </div>
-                    <div class="input-group">
-                        {{ form.endereco.label_tag }}
-                        {{ form.endereco }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.numero.label_tag }}
-                        {{ form.numero }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.bairro.label_tag }}
-                        {{ form.bairro }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.cidade.label_tag }}
-                        {{ form.cidade }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.estado.label_tag }}
-                        {{ form.estado }}
-                    </div>
-                    <div class="input-group full-width"> {{ form.complemento.label_tag }}
-                        {{ form.complemento }}
-                    </div>
+                <div class="field-wrapper">
+                    {{ form.agencia.label_tag }}
+                    {{ form.agencia }}
                 </div>
+                <div class="field-wrapper">
+                    {{ form.conta.label_tag }}
+                    {{ form.conta }}
+                </div>
+                <div class="field-wrapper">
+                    {{ form.tipo_conta.label_tag }}
+                    {{ form.tipo_conta }}
+                </div>
+            </div>
+            {% endif %}
 
-                <div class="section-divider">
-                    <h6 class="title-neon"><i class="bi bi-briefcase me-2"></i>PERFIL PROFISSIONAL</h6>
-                    <hr>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        {{ form.area_atuacao.label_tag }}
-                        {{ form.area_atuacao }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.especialidade.label_tag }}
-                        {{ form.especialidade }}
-                    </div>
-                    <div class="input-group full-width">
-                        {{ form.biografia.label_tag }}
-                        {{ form.biografia }}
-                        <small class="text-muted d-block mt-1">Sua biografia ajuda a passar credibilidade para seus clientes.</small>
-                    </div>
-                </div>
-
-                {% if form.banco %}
-                <div class="section-divider">
-                    <h6 class="title-neon"><i class="bi bi-bank me-2"></i>DADOS BANCÁRIOS</h6>
-                    <hr>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        {{ form.banco.label_tag }}
-                        {{ form.banco }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.agencia.label_tag }}
-                        {{ form.agencia }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.conta.label_tag }}
-                        {{ form.conta }}
-                    </div>
-                    <div class="input-group">
-                        {{ form.tipo_conta.label_tag }}
-                        {{ form.tipo_conta }}
-                    </div>
-                </div>
-                {% endif %}
-
-                <div class="action-area">
-                    <button type="submit" class="btn-submit w-100">
-                        <i class="bi bi-shield-check me-2"></i> SALVAR ALTERAÇÕES E FINALIZAR
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="action-area">
+                <button type="submit" class="btn-submit w-100">
+                    <i class="fas fa-check-circle me-2"></i> SALVAR ALTERAÇÕES E FINALIZAR
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

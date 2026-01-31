@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Painel ACJOGOS-RJ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -254,166 +254,166 @@
         </div>
 
         <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="{% url 'core_dashboard:dashboard' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-                        <i data-lucide="layout-dashboard"></i>
-                        Dashboard
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:dashboard' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i data-lucide="layout-dashboard"></i>
+                    Dashboard
+                </a>
+            </li>
 
-                {% if perfil.tipo_usuario == 'AFILIADO' %}
-                <li class="nav-item">
-                    <a href="{% url 'afiliados:meu_perfil' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'meu_perfil' %}active{% endif %}">
-                        <i data-lucide="user"></i>
-                        Meu Perfil
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'afiliados:contratos' %}" class="nav-link">
-                        <i data-lucide="file-text"></i>
-                        Contratos
-                    </a>
-                </li>
-                {% endif %}
+            {% if perfil.tipo_usuario == 'AFILIADO' %}
+            <li class="nav-item">
+                <a href="{% url 'afiliados:meu_perfil' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'meu_perfil' %}active{% endif %}">
+                    <i data-lucide="user"></i>
+                    Meu Perfil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'afiliados:contratos' %}" class="nav-link">
+                    <i data-lucide="file-text"></i>
+                    Contratos
+                </a>
+            </li>
+            {% endif %}
 
-                {% if perfil.tipo_usuario == 'ASSOCIADO' %}
-                <li class="nav-item">
-                    <a href="{% url 'minha_empresa' %}" class="nav-link">
-                        <i data-lucide="briefcase"></i>
-                        Minha Empresa
-                    </a>
-                </li>
-                {% endif %}
+            {% if perfil.tipo_usuario == 'ASSOCIADO' %}
+            <li class="nav-item">
+                <a href="{% url 'minha_empresa' %}" class="nav-link">
+                    <i data-lucide="briefcase"></i>
+                    Minha Empresa
+                </a>
+            </li>
+            {% endif %}
 
-                {% if perfil.tipo_usuario == 'COLETIVO' %}
-                <li class="nav-item">
-                    <a href="{% url 'coletivos:editar' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'editar' %}active{% endif %}">
-                        <i data-lucide="settings-2"></i>
-                        Editar Coletivo
-                    </a>
-                </li>
-                {% endif %}
+            {% if perfil.tipo_usuario == 'COLETIVO' %}
+            <li class="nav-item">
+                <a href="{% url 'coletivos:editar' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'editar' %}active{% endif %}">
+                    <i data-lucide="settings-2"></i>
+                    Editar Coletivo
+                </a>
+            </li>
+            {% endif %}
 
-                {% if perfil.tipo_usuario == 'DIRETOR' %}
-                <li class="nav-item">
-                    <a href="/admin/" class="nav-link text-warning">
-                        <i data-lucide="shield-check"></i>
-                        Django Admin
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i data-lucide="users-2"></i>
-                        Gestão de Membros
-                    </a>
-                </li>
-                {% endif %}
+            {% if perfil.tipo_usuario == 'DIRETOR' %}
+            <li class="nav-item">
+                <a href="/admin/" class="nav-link text-warning">
+                    <i data-lucide="shield-check"></i>
+                    Django Admin
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i data-lucide="users-2"></i>
+                    Gestão de Membros
+                </a>
+            </li>
+            {% endif %}
 
-                <li class="nav-item">
-                    <a href="{% url 'core_dashboard:notificacoes' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}">
-                        <i data-lucide="bell"></i>
-                        Notificações
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:notificacoes' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'notificacoes' %}active{% endif %}">
+                    <i data-lucide="bell"></i>
+                    Notificações
+                </a>
+            </li>
 
-                <li class="nav-item">
-                    <a href="{% url 'core_dashboard:atividades' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'atividades' %}active{% endif %}">
-                        <i data-lucide="history"></i>
-                        Atividades
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:atividades' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'atividades' %}active{% endif %}">
+                    <i data-lucide="history"></i>
+                    Atividades
+                </a>
+            </li>
 
-                <li class="nav-item">
-                    <a href="{% url 'core_dashboard:configuracoes' %}"
-                        class="nav-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
-                        <i data-lucide="settings"></i>
-                        Configurações
-                    </a>
-                </li>
-            </ul>
+            <li class="nav-item">
+                <a href="{% url 'core_dashboard:configuracoes' %}"
+                    class="nav-link {% if request.resolver_match.url_name == 'configuracoes' %}active{% endif %}">
+                    <i data-lucide="settings"></i>
+                    Configurações
+                </a>
+            </li>
+        </ul>
 
-            <div class="nav-item" style="margin-top: auto;">
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="nav-link text-danger w-100 text-start"
-                        style="background: none; border: none;">
-                        <i data-lucide="log-out"></i>
-                        Sair do Sistema
-                    </button>
-                </form>
+        <div class="nav-item" style="margin-top: auto;">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="nav-link text-danger w-100 text-start"
+                    style="background: none; border: none;">
+                    <i data-lucide="log-out"></i>
+                    Sair do Sistema
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="d-flex align-items-center">
+                <button class="menu-toggle" id="menuToggle">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div class="page-title">
+                    <h6 class="mb-0 text-muted"
+                        style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                        Painel de Controle</h6>
+                </div>
             </div>
-        </div>
 
-        <!-- Main Content -->
-        <div class="main-wrapper">
-            <header class="topbar">
-                <div class="d-flex align-items-center">
-                    <button class="menu-toggle" id="menuToggle">
-                        <i data-lucide="menu"></i>
-                    </button>
-                    <div class="page-title">
-                        <h6 class="mb-0 text-muted"
-                            style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
-                            Painel de Controle</h6>
-                    </div>
+            <div class="user-profile">
+                <div class="user-info text-end">
+                    <span class="user-name">{{ perfil.user.get_full_name|default:perfil.user.username }}</span>
+                    <span class="user-role">{{ perfil.get_tipo_usuario_display }}</span>
                 </div>
-
-                <div class="user-profile">
-                    <div class="user-info text-end">
-                        <span class="user-name">{{ perfil.user.get_full_name|default:perfil.user.username }}</span>
-                        <span class="user-role">{{ perfil.get_tipo_usuario_display }}</span>
-                    </div>
-                    <div class="user-avatar">
-                        {{ perfil.user.username|make_list|first|upper }}
-                    </div>
+                <div class="user-avatar">
+                    {{ perfil.user.username|make_list|first|upper }}
                 </div>
-            </header>
+            </div>
+        </header>
 
-            <main class="content-area">
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} glass-card mb-4 border-0 py-3"
-                    style="background: rgba(41, 98, 255, 0.1); color: #fff;">
-                    <div class="d-flex align-items: center; gap: 10px;">
-                        <i data-lucide="info" style="width: 18px;"></i>
-                        {{ message }}
-                    </div>
+        <main class="content-area">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} glass-card mb-4 border-0 py-3"
+                style="background: rgba(41, 98, 255, 0.1); color: #fff; margin-top: -15px !important;">
+                <div class="d-flex align-items: center; gap: 10px;">
+                    <i data-lucide="info" style="width: 18px;"></i>
+                    {{ message }}
                 </div>
-                {% endfor %}
-                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
 
-                {% block conteudo %}
-                {% endblock %}
-            </main>
-        </div>
+            {% block conteudo %}
+            {% endblock %}
+        </main>
+    </div>
 
-        <script>
-            lucide.createIcons();
+    <script>
+        lucide.createIcons();
 
-            // Sidebar Toggle Logic
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
+        // Sidebar Toggle Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
 
-            if (menuToggle) {
-                menuToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('active');
-                    overlay.classList.toggle('active');
-                });
-            }
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+        }
 
-            if (overlay) {
-                overlay.addEventListener('click', () => {
-                    sidebar.classList.remove('active');
-                    overlay.classList.remove('active');
-                });
-            }
-        </script>
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        }
+    </script>
 </body>
 
 </html>

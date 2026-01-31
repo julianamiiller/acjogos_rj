@@ -24,28 +24,22 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-pure);
     margin: 0;
-    padding: 40px 20px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
 }
 
 .main-card {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    background-clip: padding-box;
     padding: 40px;
     border-radius: 24px;
     border: 1px solid var(--border-light);
     box-shadow: var(--shadow-deep);
     width: 100%;
-    max-width: 800px;
+    max-width: 650px;
     margin: 0 auto;
     animation: fadeInUp 0.8s ease forwards;
-
-    /* ADICIONE ESTA LINHA: */
     box-sizing: border-box;
 }
 
@@ -96,14 +90,15 @@ body {
     grid-column: span 2;
 }
 
-.input-group {
+.field-wrapper {
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
     position: relative;
+    width: 100%;
 }
 
-.input-group label {
+.field-wrapper label {
     display: block;
     margin-bottom: 8px;
     font-size: 0.75em;
@@ -115,13 +110,18 @@ body {
 
 .form-grid input,
 .form-grid select,
-.form-grid textarea {
-    width: 100%;
+.form-grid textarea,
+.field-wrapper input,
+.field-wrapper select,
+.field-wrapper textarea {
+    width: 100% !important;
+    display: block;
     padding: 14px;
     background: var(--input-bg-deep);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    color: white;
+    color: #ffffff !important;
+    caret-color: #ffffff;
     box-sizing: border-box;
     transition: all 0.3s ease;
     font-size: 0.95rem;
@@ -134,10 +134,14 @@ body {
 
 .form-grid input:focus,
 .form-grid select:focus,
-.form-grid textarea:focus {
+.form-grid textarea:focus,
+.field-wrapper input:focus,
+.field-wrapper select:focus,
+.field-wrapper textarea:focus {
     outline: none;
     border-color: var(--accent-neon);
     background: #0f151f;
+    color: #ffffff !important;
     box-shadow: 0 0 15px rgba(41, 98, 255, 0.2);
 }
 

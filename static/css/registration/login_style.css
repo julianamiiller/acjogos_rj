@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
-    --bg-void: #050507;         
+    --bg-void: #050507;
     --bg-card: rgba(22, 27, 34, 0.95);
-    --input-bg-deep: #0d1117; 
-    --accent-neon: #2962ff;    
+    --input-bg-deep: #0d1117;
+    --accent-neon: #2962ff;
     --accent-gradient: linear-gradient(135deg, #2962ff 0%, #1e40af 100%);
     --text-gradient: linear-gradient(90deg, #ffffff 0%, #a5b4fc 100%);
-    --text-pure: #ffffff;    
-    --text-secondary: #94a3b8;  
-    --error-red: #ff3333;    
+    --text-pure: #ffffff;
+    --text-secondary: #94a3b8;
+    --error-red: #ff3333;
     --glow-blue: 0 0 25px rgba(41, 98, 255, 0.35);
     --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.9);
 }
@@ -114,7 +114,7 @@ body {
 }
 
 .form-group input,
-.login-form input[type="email"], 
+.login-form input[type="email"],
 .login-form input[type="password"],
 .login-form input[type="text"] {
     width: 100% !important;
@@ -286,10 +286,30 @@ body {
     width: 100%;
 }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@media (max-width: 480px) {
+    .login-container {
+        padding: 35px 25px;
+        border-radius: 16px;
+        margin: 15px;
+    }
+
+    .logo-text {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 0.85em;
+        margin-bottom: 25px;
+    }
+
+    .form-group input {
+        padding: 14px 16px !important;
+        font-size: 0.9em;
+    }
+
+    .btn-login {
+        padding: 16px;
+        font-size: 0.9em;
     }
 }
 
@@ -300,6 +320,7 @@ body {
     border-radius: 12px;
     margin-bottom: 25px;
 }
+
 .error-summary ul {
     list-style: none;
     color: #ff6b6b;
